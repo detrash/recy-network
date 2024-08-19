@@ -1,0 +1,21 @@
+{
+  "name": "recy-network-monorepo",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "version": "1.0.0",
+  "author": "Detrash",
+  "license": "MIT",
+  "scripts": {
+    "build": "nx next:build",
+    "lint": "nx eslint:lint",
+    "test": "nx exec -- node ./run-tests.js"
+  },
+  "devDependencies": {
+    "@nrwl/nest": "^19.6.0",
+    "@nrwl/node": "^19.6.0",
+    "@nrwl/react": "^19.6.0",
+    "nx": "19.6.0"
+  }
+}
