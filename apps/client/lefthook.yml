@@ -1,0 +1,28 @@
+pre-commit:
+  paralel: true
+  commands:
+    lint-commit:
+      run: npx commitlint --from HEAD~1 --to HEAD
+    frontend-lint:
+      glob: 'src/**/*.{ts,tsx,js,jsx}'
+      run: npx eslint {staged_files} --fix && git add {staged_files}
+    frontend-format:
+      glob: 'src/**/*.{ts,tsx,js,jsx,css,json}'
+      run: npx prettier --write {staged_files} && git add {staged_files}
+# Todo: run testes and build
+# pre-push:
+#   parallel: true
+#   commands:
+#     stylelint:
+#       tags: frontend style
+#       files: git diff --name-only master
+#       glob: "*.js"
+#       run: yarn stylelint {files}
+#     rubocop:
+#       tags: backend style
+#       files: git diff --name-only master
+#       glob: "*.rb"
+#       run: bundle exec rubocop --force-exclusion {files}
+#   scripts:
+#     "verify":
+#       runner: sh
