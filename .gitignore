@@ -1,0 +1,33 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules
+
+# Nx cache
+.nxcache
+.nx/installation 
+.nx/workspace-data
+
+# Optional eslint cache
+.eslintcache
+
+# dotenv environment variables file
+.env
+
+# IDE
+.idea/*
+*.iml
+*.sublime-*
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+
+# Build files
+/apps/*/build
+/ghost/*/build
+
+# Optional npm cache directory
+.npm

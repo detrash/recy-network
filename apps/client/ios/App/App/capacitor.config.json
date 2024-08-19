@@ -1,0 +1,6 @@
+{
+	"appId": "detrash.io",
+	"appName": "detrash-app",
+	"webDir": "dist",
+	"packageClassList": []
+}
