@@ -1,5 +1,30 @@
 {
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "@nx/eslint:lint": {
+      "cache": true,
+      "inputs": ["default", "{workspaceRoot}/tools/eslint-rules/**/*"]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "extends": "@nx/workspace/presets/npm.json",
+  "useInferencePlugins": false,
   "defaultBase": "main",
-  "nxCloudAccessToken": "N2U1NmZkMzItNjUxYy00YzgyLTg0ZWUtMzgxNGI3NDY1ODM1fHJlYWQtd3JpdGU="
+  "version": "1.0.0"
 }
