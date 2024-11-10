@@ -1,9 +1,12 @@
+# OS Files
+.DS_Store
+
 # Logs
 logs
 *.log
 npm-debug.log*
 
-# Dependency directories
+# Dependency directoriess
 node_modules
 
 # Nx cache
