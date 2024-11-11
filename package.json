@@ -12,7 +12,10 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
-    "lint": "nx run-many  --target=lint --all"
+    "lint": "nx run-many  --target=lint --all",
+    "build:api": "nx build api",
+    "build:web-mobile": "nx build web-mobile",
+    "build:contracts": "nx build contracts"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",

@@ -1,7 +1,8 @@
 {
   "name": "api",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/api/api/src",
+  "sourceRoot": "apps/api",
+  "assets": ["apps/api/assets"],
   "projectType": "application",
   "tags": [],
   "targets": {
