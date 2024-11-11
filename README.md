@@ -4,13 +4,13 @@
 </div>
 
 <div align="center">
-  <a href="https://www.recy.life">recy.life</a>git push
+  <a href="https://www.recy.life">recy.life</a>
 </div>
 <br/>
 
 ## Contributing
 
-Please read through our [contributing guide](.github/CONTRIBUTING.md) before starting any work.
+Please read through our [contributing guide](./CONTRIBUTING.md) before starting any work.
 
 ## Let's talk
 [![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/detrash/shared_invite/zt-2uct9pqn5-hk3w0aL0Aadt9abYqPH8qQ)
