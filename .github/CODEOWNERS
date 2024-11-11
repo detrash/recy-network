@@ -1,0 +1,19 @@
+# Reference: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#codeowners-syntax
+
+# Assign all files to devs team
+* @detrash/recy-devs
+
+# Detrash Recy Infra team ownership
+.github @detrash/recy-infra
+.husky @detrash/recy-infra
+docker @detrash/recy-infra
+**/Dockerfile @detrash/recy-infra
+
+# Detrash Recy API team ownership
+/apps/api @detrash/recy-api
+
+# Detrash Recy Web-Mobile team ownership
+/apps/web-mobile @detrash/recy-web-mobile
+
+# Detrash Recy Web3 team ownership
+/apps/contracts @detrash/recy-web3
