@@ -36,7 +36,6 @@ node_modules
 .nx/cache
 
 # compiled output
-pnpm-lock.yaml
 /dist
 /node_modules/
 /tmp

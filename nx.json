@@ -31,7 +31,8 @@
         "targetName": "test"
       },
       "exclude": [
-        "apps/api/api-e2e/**/*",
+        "apps/api-e2e/**/*",
+        "apps/web-mobile-e2e/**/*",
         "apps/contracts-e2e/**/*"
       ]
     },
@@ -46,12 +47,19 @@
   ],
   "targetDefaults": {
     "e2e-ci--**/*": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "@nx/esbuild:esbuild": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["default", "^default"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "default",
+        "^default"
+      ]
     }
   },
   "generators": {
@@ -70,5 +78,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "nxCloudId": "6732ae926082aa435f8c9608"
 }
