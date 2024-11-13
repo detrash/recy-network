@@ -78,6 +78,7 @@
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",
     "axios": "^1.6.0",
+    "nestjs-i18n": "^10.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.11.2",
