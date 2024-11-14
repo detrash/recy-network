@@ -1,0 +1,37 @@
+{
+  "submit_title": "Envío de formulario de Recy",
+  "submit_description1": "Aquí es donde muestra cómo está manteniendo nuestro mundo limpio y obtiene algunos cRECYS.",
+  "submit_description2": "Recuerde llenar el formulario con cuidado. Somos un sistema basado en la reputación.",
+  "not_connected": "No conectado",
+
+  "type_of_residues": "¿QUÉ TIPO DE RESIDUOS ESTÁN REPORTANDO HOY?",
+  "confirm": "Confirmar",
+
+  "details_title1": "¿Cuantos kilos de",
+  "details_title2": "has recogido hasta ahora?",
+  "type_approximate_amount": "Escriba la cantidad aproximada",
+  "enter_amount": "Ingrese la cantidad",
+  "minimum_of_1": "Mínimo de 1g (0.001kg)",
+
+  "upload_invoice": "SUBE TU FACTURA",
+  "helper_invoice": "Sube a continuación la factura oficial que especifica el tipo y la cantidad de residuos que estás reciclando. Solo PDF o PNG",
+  "only": "Solamente",
+  "supported": "archivos son compatibles.",
+  "maximum": "Máximo de ",
+
+  "drag_drop": "Arrastra y suelta el archivo aquí",
+  "drop_file": "Suelta el archivo aquí",
+  "or": "O",
+  "browse_files": "Búsqueda de archivos",
+
+  "upload_video": "SUBE UN VIDEO QUE REPRESENTE LA CANTIDAD DE RESIDUOS",
+  "helper_video": "Ahora grabe un video del volumen recolectado de manera que podamos ver la pantalla de peso de la báscula. Asegúrese de que el video capte todo el volumen descubierto y no solo una parte. Diga la cantidad correcta mientras filma para que nuestro validador pueda escucharla.",
+
+  "go_back": "Regresa",
+  "advance": "Ventaja",
+  "saving_form": "Guardando el progreso",
+
+  "done_title": "Gracias por llenar este formulario.",
+  "done_message": "En caso de que haya subido un video, pronto validaremos este formulario.",
+  "go_to_dashboard": "Ir al panel de control"
+}

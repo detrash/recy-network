@@ -1,0 +1,37 @@
+{
+  "total_active_users": "Total de usuarios activos",
+  "total_forms_submitted": "Total de Formularios Enviados",
+  "issued_forms": "Formularios Emitidos",
+
+  "issued_by": "Emitido por",
+  "created_at": "Creado en",
+  "form_details": "Detalles del formulario",
+  "see_form_details": "Ver detalles del formulario",
+  "status": "Status",
+
+  "pending": "Pendiente",
+  "conclued": "Concluido",
+  "all": "Todos",
+  "approved": "Aprobado",
+  "approve": "Aprobar",
+  "decline": "Rechazar",
+  "denied": "Denegado",
+
+  "active_users": "Usuarios activos",
+  "user_type": "Tipo de usuario",
+  "phone_number": "Número de teléfono",
+  "last_login": "Último acceso",
+  "forms": "Formularios",
+
+  "user_form_details": "Detalles del formulario de usuario",
+
+  "wallet_address": "Dirección de la billetera",
+  "email_address": "Dirección de correo electrónico",
+  "no_wallet_submitted": "No se ha enviado ningún monedero",
+  "select_residue": "Seleccione el tipo de residuo anterior para descargar Video y Facturas si están disponibles.",
+
+  "generating_nft": "Generando metadatos NFT, por favor espere",
+  "success_nft": "Metadatos NFT generados con éxito",
+
+  "total_residues_reported_user": "Residuos totales reportados por perfil de usuario"
+}
