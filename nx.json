@@ -79,5 +79,15 @@
       }
     }
   },
-  "nxCloudId": "6732ae926082aa435f8c9608"
+  "nxCloudId": "6732ae926082aa435f8c9608",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@vercel/remote-nx",
+      "options": {
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "token": "<token>",
+        "teamId": "<teamId>"
+      }
+    }
+  }
 }
