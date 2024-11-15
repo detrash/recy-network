@@ -288,6 +288,9 @@ importers:
       '@nrwl/react':
         specifier: 19.8.4
         version: 19.8.4(@swc-node/register@1.9.2)(@swc/core@1.5.29)(@types/node@20.17.6)(eslint@8.57.1)(nx@20.0.5)(react-dom@18.3.1)(react@18.3.1)(typescript@5.5.4)(webpack@5.96.1)
+      '@nrwl/web':
+        specifier: ^19.8.4
+        version: 19.8.4(@swc-node/register@1.9.2)(@swc/core@1.5.29)(@types/node@20.17.6)(nx@20.0.5)(typescript@5.5.4)
       '@nx/eslint-plugin':
         specifier: 20.0.5
         version: 20.0.5(@swc-node/register@1.9.2)(@swc/core@1.5.29)(@types/node@20.17.6)(@typescript-eslint/parser@7.18.0)(eslint-config-prettier@9.1.0)(eslint@8.57.1)(nx@20.0.5)(typescript@5.5.4)
@@ -364,8 +367,8 @@ importers:
         specifier: 20.0.5
         version: 20.0.5(@swc-node/register@1.9.2)(@swc/core@1.5.29)
       plugin:
-        specifier: link:@nx/webpack/plugin
-        version: link:@nx/webpack/plugin
+        specifier: link:@nx/playwright/plugin
+        version: link:@nx/playwright/plugin
       ts-jest:
         specifier: ^29.1.0
         version: 29.2.5(@babel/core@7.26.0)(babel-jest@29.7.0)(esbuild@0.19.12)(jest@29.7.0)(typescript@5.5.4)

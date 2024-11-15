@@ -1,19 +1,12 @@
 {
   "name": "web-mobile",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/web-mobile/src",
-  "projectType": "application",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project web-mobile --web",
- "targets": {
+  "targets": {
     "build": {
-      "executor": "@nrwl/web:build",
+      "executor": "@nx/vite:build",
       "options": {
         "outputPath": "dist/apps/web-mobile",
-        "index": "apps/web-mobile/src/index.html",
+        "configFile": "apps/web-mobile/vite.config.ts",
         "main": "apps/web-mobile/src/main.tsx",
-        "polyfills": "apps/web-mobile/src/polyfills.ts",
-        "tsConfig": "apps/web-mobile/tsconfig.app.json",
         "assets": ["apps/web-mobile/src/assets"],
         "styles": ["apps/web-mobile/src/styles.css"],
         "scripts": []
