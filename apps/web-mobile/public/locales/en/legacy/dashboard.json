@@ -1,0 +1,13 @@
+{
+  "welcome_to_app": "Welcome, ",
+  "last_login": "Last login: ",
+  "total_residues_reported": "Total Residues Kgs Reported",
+  "total_forms_submitted": "Total Forms Submitted",
+  "crecy_price": "cRECY Price",
+  "total_crecy_earned": "Total cRECY in wallet",
+  "past_30_days": "past 30 days.",
+
+  "residues_reported": "Residues reported so far",
+
+  "forms_submitted": "Forms submitted"
+}

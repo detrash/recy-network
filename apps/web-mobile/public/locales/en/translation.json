@@ -1,0 +1,70 @@
+{
+  "calculator": {
+    "main": {
+      "hero": "Recy Certificate is the best way for your business to contribute for overcoming waste pollution and support recycling and composting. See how much cRECY savings you can build to earn your Recy Certificate.",
+      "cta": "Acquire Your Recy Certificate",
+      "paragraph": {
+        "one": {
+          "title": "Transforming waste management",
+          "text": "Today's solutions, despite very important, is mostly focused on getting trash out of the oceans and rivers and not preventing waste to get to nature."
+        },
+        "two": {
+          "title": "Lets's Clean Together",
+          "text": "The Recy certificate represents climate compensation through financially supporting actors that conducts recycling, composting and/or other sustainable and circular waste treatment activities in different regions of the world."
+        },
+        "three": {
+          "title": "About DeTrash",
+          "text": "DeTrash is the RECY Network founder and main contributor. DeTrash offers tech based solutions to clean our world. DeTrash's vision is that a world without waste pollution is not only possible but it's the best alternative to a more equitable and free world."
+        }
+      }
+    },
+    "steps": {
+      "button": "Advance",
+      "one": {
+        "title": "Are you seeking the certificate for yourself or for your company?",
+        "select": {
+          "placeholder": "Select",
+          "options": {
+            "individual": "For Myself",
+            "company": "For my company"
+          }
+        }
+      },
+      "two": {
+        "title": "Your business sells a service or a product?",
+        "label": "Company Type",
+        "select": {
+          "placeholder": "Select your company type",
+          "options": {
+            "service": "Service",
+            "product": "Product"
+          }
+        }
+      },
+      "three": {
+        "title": "How many employees does your company have? product?",
+        "label": "Employees Quantity"
+      }
+    },
+    "result": {
+      "title": "We are one step away from advancing the cleaning of the world!",
+      "text": "Please provide us with your business digital wallet public address to receive our digital assets. (Preferably Valora Wallet, Metamask or Trust Wallet)",
+      "label": "Wallet Address",
+      "terms": {
+        "text": "After payment, you have 15 days to provide a wallet public address per email otherwise it will be considered the user wants to donate the locked assets back to sustainable waste treatment projects.",
+        "label": "Accept terms and conditions"
+      },
+      "button": "Clean World",
+      "hero": {
+        "title": "Your waste footprint is approximately {{ wasteFootprint }} kg per month.",
+        "text": "acquired monthly to get your certificate."
+      }
+    },
+    "contact": {
+      "title": "Our team will help you with the next steps.",
+      "button": "I want a personalized support",
+      "label": "Write your preferred email address and our business developer will get in touch with you.",
+      "success": "We will do our best to respond to you as soon as possible."
+    }
+  }
+}

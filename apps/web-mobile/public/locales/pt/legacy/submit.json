@@ -1,0 +1,37 @@
+{
+  "submit_title": "Enviar Formulário Recy",
+  "submit_description1": "Aqui é onde você mostra como está mantendo nosso mundo limpo e obtém alguns cRECYS.",
+  "submit_description2": "Lembre-se de preencher o formulário com cuidado. Somos um sistema baseado em reputação.",
+  "not_connected": "Não Conectado",
+
+  "type_of_residues": "QUAIS TIPOS DE RESÍDUOS VOCÊ ESTÁ REPORTANDO HOJE?",
+  "confirm": "Confirmar",
+
+  "details_title1": "Quantos Kgs de",
+  "details_title2": "você coletou até agora?",
+  "type_approximate_amount": "Digite a quantidade aproximada",
+  "enter_amount": "Digite a quantidade",
+  "minimum_of_1": "mínimo de 1g (0.001kg)",
+
+  "upload_invoice": "Enviar de Notas Fiscais",
+  "helper_invoice": "Envie abaixo a nota fiscal oficial que especifica o tipo e a quantidade de resíduos que você está reciclando. Somente PDF ou PNG",
+  "only": "Somente",
+  "supported": "arquivos são aceitos.",
+  "maximum": "Máximo de ",
+
+  "drag_drop": "Arraste e solte o arquivo aqui",
+  "drop_file": "Arraste o arquivo até aqui",
+  "or": "OU",
+  "browse_files": "Pesquisar Arquivos",
+
+  "upload_video": "ENVIAR UM VÍDEO QUE REPRESENTA A QUANTIDADE DE RESÍDUOS",
+  "helper_video": "Agora grave um vídeo do volume coletado de forma que possamos ver a exibição do peso da balança. Certifique-se de que o vídeo capture todo o volume descoberto e não apenas parte dele. Por favor, diga a quantidade correta durante a filmagem para que nosso validador possa ouvi-la.",
+
+  "go_back": "Voltar",
+  "advance": "Avançar",
+  "saving_form": "Salvando Formulário",
+
+  "done_title": "Obrigado por preencher o formulário.",
+  "done_message": "Caso você tenha enviado um vídeo, validaremos este formulário em breve.",
+  "go_to_dashboard": "Ir para Dashboard"
+}

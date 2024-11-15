@@ -1,0 +1,70 @@
+{
+  "calculator": {
+    "main": {
+      "hero": "Recy Certificate es la mejor manera de contribuir a superar la contaminación por desechos y apoyar el reciclaje y compostaje. Descubri cuantos cRecy podes ahorrar para ganar tu Recy Certificate.",
+      "cta": "Adquiri tu Recy Certificate",
+      "paragraph": {
+        "one": {
+          "title": "Transformando la gestión de residuos",
+          "text": "Las soluciones actuales, a pesar de abordar el problema, se centran principalmente en eliminar la basura de los océanos y ríos en lugar de prevenir que los desechos lleguen al medio ambiente en primer lugar."
+        },
+        "two": {
+          "title": "Limpiemos Juntos",
+          "text": "El Recy certificate representa la compensación climática a través del apoyo financiero a actores que realizan actividades de reciclaje, compostaje y/o otros tratamientos de residuos sostenibles y circulares en diferentes regiones del mundo."
+        },
+        "three": {
+          "title": "Sobre Detrash",
+          "text": "Detrash es el fundador y principal contribuyente a la red Recy. Detrash ofrece soluciones tecnológicas para limpiar nuestro mundo. La visión de Detrash es que un mundo sin contaminación por desechos no solo es posible, sino que es la mejor alternativa para un mundo mas equitativo y libre."
+        }
+      }
+    },
+    "steps": {
+      "button": "Avance",
+      "one": {
+        "title": "¿Estás buscando el certificado para ti o para tu empresa?",
+        "select": {
+          "placeholder": "Seleccionar",
+          "options": {
+            "individual": "Para Mí",
+            "company": "Para mi empresa"
+          }
+        }
+      },
+      "two": {
+        "title": "Tu empresa vende un servicio o un producto?",
+        "label": "Tipo de empresa",
+        "select": {
+          "placeholder": "Seleccione su tipo de empresa",
+          "options": {
+            "service": "Servicio",
+            "product": "Producto"
+          }
+        }
+      },
+      "three": {
+        "title": "Cuántos empleados tiene tu empresa?",
+        "label": "Cantidad de empleados"
+      }
+    },
+    "result": {
+      "title": "Estamos a un paso de avanzar en la limpieza del mundo!",
+      "text": "Por favor, proporciónanos la dirección pública de la billetera digital de tu empresa para recibir nuestros activos digitales. (Preferiblemente Valora Wallet, Metamask o Trust Wallet)",
+      "label": "Dirreción de Billetera",
+      "terms": {
+        "text": "Después del pago, tienes 15 días para proporcionar una dirreción pública de la billetera por correo electrónico, de lo contrario, se considerará que el usuario desea donar los activos bloqueados a proyectos de tratamiento de residuos sostenibles.",
+        "label": "Aceptar términos y condiciones."
+      },
+      "button": "Mundo limpio",
+      "hero": {
+        "title": "Su huella de residuos es de aproximadamente {{ wasteFootprint }} kg por mes.",
+        "text": "adquirido mensualmente para obtener su certificado."
+      }
+    },
+    "contact": {
+      "title": "Nuestro equipo te ayudara con los próximos pasos.",
+      "button": "Quiero un soporte personalizado",
+      "label": "Escribe tu dirreción de correo electronica preferida y nuestro equipo se pondrá en contacto.",
+       "success": "Haremos todo lo posible para responderle lo antes posible."
+    }
+  }
+}

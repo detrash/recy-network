@@ -1,0 +1,45 @@
+{
+  "dashboard": "Dashboard",
+  "submit_form": "Submit Form",
+  "admin_panel": "Administrator Panel",
+  "connect_wallet": "Connect Wallet",
+  "wallet": "Wallet",
+  "your_profile": "Your Profile",
+  "sign_out": "Sign Out",
+
+  "glass": "Glass",
+  "metal": "Metal",
+  "organic": "Organic",
+  "paper": "Paper",
+  "plastic": "Plastic",
+  "textile": "Textile",
+  "landfill_waste": "Landfill Waste",
+
+  "recycler": "Recycler",
+  "hodler": "Hodler",
+  "waste_generator": "Waste Generator",
+
+  "submit_report_title": "Submit your report",
+  "submit_report_description": "Submit a form and earn some cRECYS!",
+  "submit_report_button": "Submit",
+  "not_allowed_submit_form": "You can't submit a form being a Hodler",
+
+  "table_show": "Show",
+  "table_search": "Search...",
+  "table_offset": "of",
+
+  "form": "Form",
+  "invoice": "Invoice",
+  "video": "Video",
+
+  "preffered_name": "Preferred Name",
+  "type_name": "Type your name",
+  "phone_number": "Phone Number",
+  "type_number": "Type your phone number",
+  "im": "I'M",
+
+  "generating_nft": "Generating NFT metadata, please wait...",
+  "success_nft": "NFT metadata generated with success",
+  "error_fetching_recy": "Error while loading cRECY from your wallet, please make sure that you have an account with cRECY and try again.",
+  "total": "Total"
+}

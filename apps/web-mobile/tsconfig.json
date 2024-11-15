@@ -5,7 +5,27 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "baseUrl": "./src",
+    "paths": {
+      "@/assets/*": ["../public/assets/*"],
+      "@/components/*": ["components/*"],
+      "@/config/*": ["config/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/layouts/*": ["layouts/*"],
+      "@/libs/*": ["libs/*"],
+      "@/pages/*": ["pages/*"],
+      "@/services/*": ["services/*"],
+      "@/providers/*": ["providers/*"],
+      "@/styles/*": ["styles/*"],
+      "@/stores/*": ["stores/*"],
+      "@/utils/*": ["utils/*"],
+      "@/scripts/*": ["scripts/*"],
+      "@/entities/*": ["entities/*"],
+      "@/modules/*": ["modules/*"],
+      "@/tests/*": ["../tests/utils/*"],
+      "@/mocks/*": ["../tests/mocks/*"]
+    }
   },
   "files": [],
   "include": [],

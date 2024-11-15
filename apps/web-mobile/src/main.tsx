@@ -1,16 +1,19 @@
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import React from 'react';
 
-import App from './app/app';
+import ReactDOM from 'react-dom/client';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <StrictMode>
-    <BrowserRouter>
+import { Toaster } from '@/components/ui/toaster';
+import { Providers } from '@/providers/index';
+
+import { App } from './app';
+
+import './styles/globals.css';
+
+ReactDOM.createRoot(document.querySelector('#root')!).render(
+  <React.StrictMode>
+    <Providers>
       <App />
-    </BrowserRouter>
-  </StrictMode>
+      <Toaster />
+    </Providers>
+  </React.StrictMode>,
 );

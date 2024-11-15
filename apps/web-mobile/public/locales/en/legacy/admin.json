@@ -1,0 +1,37 @@
+{
+  "total_active_users": "Total Active Users",
+  "total_forms_submitted": "Total Forms Submitted",
+  "issued_forms": "Issued Forms",
+
+  "issued_by": "Issued By",
+  "created_at": "Created At",
+  "form_details": "Form Details",
+  "see_form_details": "See Form Details",
+  "status": "Status",
+
+  "pending": "Pending",
+  "conclued": "Conclued",
+  "all": "All",
+  "approved": "Approved",
+  "approve": "Approve",
+  "decline": "Decline",
+  "denied": "Denied",
+
+  "active_users": "Active Users",
+  "user_type": "User Type",
+  "phone_number": "Phone Number",
+  "last_login": "Last Login",
+  "forms": "Forms",
+
+  "user_form_details": "User Form Details",
+
+  "wallet_address": "Wallet Address",
+  "email_address": "Email Address",
+  "no_wallet_submitted": "No wallet submitted",
+  "select_residue": "Select the residue type above in order to download Video and Invoices if available.",
+
+  "generating_nft": "Generating NFT metadata, please wait",
+  "success_nft": "NFT metadata generated with success",
+
+  "total_residues_reported_user": "Total residues reported by user profile"
+}
