@@ -369,6 +369,9 @@ importers:
       ts-node:
         specifier: 10.9.1
         version: 10.9.1(@swc/core@1.5.29)(@types/node@20.17.6)(typescript@5.5.4)
+      vite-plugin-tsconfig-paths:
+        specifier: ^1.4.1
+        version: 1.4.1(typescript@5.5.4)(vite@5.4.11)
       webpack-cli:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.96.1)
@@ -21131,6 +21134,14 @@ packages:
       - supports-color
     dev: false
 
+  /typescript-paths@1.5.1(typescript@5.5.4):
+    resolution: {integrity: sha512-lYErSLCON2MSplVV5V/LBgD4UNjMgY3guATdFCZY2q1Nr6OZEu4q6zX/rYMsG1TaWqqQSszg6C9EU7AGWMDrIw==}
+    peerDependencies:
+      typescript: ^4.7.2 || ^5
+    dependencies:
+      typescript: 5.5.4
+    dev: true
+
   /typescript@5.4.5:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
     engines: {node: '>=14.17'}
@@ -21554,6 +21565,17 @@ packages:
       - sugarss
       - supports-color
       - terser
+
+  /vite-plugin-tsconfig-paths@1.4.1(typescript@5.5.4)(vite@5.4.11):
+    resolution: {integrity: sha512-pGpvsPGDpiM5z7I9ZhBe7H2WAH0gAC2Lh55rM3pE+84V2q7qojNO28wdUl4i/M4XUfJcilhyucmbc9D7IKqpXA==}
+    peerDependencies:
+      vite: '*'
+    dependencies:
+      typescript-paths: 1.5.1(typescript@5.5.4)
+      vite: 5.4.11(@types/node@20.17.6)(less@4.1.3)(stylus@0.64.0)
+    transitivePeerDependencies:
+      - typescript
+    dev: true
 
   /vite-tsconfig-paths@4.3.2(typescript@5.5.4)(vite@5.4.11):
     resolution: {integrity: sha512-0Vd/a6po6Q+86rPlntHye7F31zA2URZMbH8M3saAZ/xR9QoGN/L21bxEGfXdWmFdNkqPpRdxFT7nmNe12e9/uA==}

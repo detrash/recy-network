@@ -6,6 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "types": ["vite/client"],
+    "baseUrl": "./src",
     "paths": {
       "@/assets/*": ["../public/assets/*"],
       "@/components/*": ["components/*"],
