@@ -1,22 +1,11 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true,
     "jsx": "react-jsx",
-    "allowJs": false,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
     "types": ["vite/client"],
     "baseUrl": "./src",
+    "composite": true,
+    "module": "ESNext",
     "paths": {
       "@/assets/*": ["../public/assets/*"],
       "@/components/*": ["components/*"],
@@ -37,8 +26,8 @@
       "@/mocks/*": ["../tests/mocks/*"]
     }
   },
-  "files": [],
-  "include": [],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"],
   "references": [
     {
       "path": "./tsconfig.app.json"
@@ -46,6 +35,5 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ],
-  "extends": "../../tsconfig.base.json"
+  ]
 }

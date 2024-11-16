@@ -2,12 +2,25 @@
   "compileOnSave": false,
   "compilerOptions": {
     "declaration": true,
-    "moduleResolution": "node",
+    "declarationMap": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "lib": ["es2015", "dom"],
+    "moduleResolution": "node",
+    "target": "es2020",
+    "lib": ["es2015", "dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
     "baseUrl": "."
-  }
+  },
+  "include": ["packages/**/*", "apps/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

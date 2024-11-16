@@ -33,7 +33,7 @@ export function Menu() {
   const { address, isConnected } = useAccount();
 
   return (
-    <NavigationMenu className="flex min-w-full justify-between">
+    <NavigationMenu className="flex justify-between min-w-full">
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link to={ROUTES.PUBLIC.HOME()}>
@@ -121,7 +121,7 @@ export function Menu() {
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Button
-                  className="color-secondary color w-full text-center"
+                  className="w-full text-center color-secondary color"
                   variant="link"
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 >

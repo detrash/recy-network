@@ -1,13 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
-import {
-  Bar, BarChart, ResponsiveContainer, XAxis, YAxis,
-} from 'recharts';
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
-import {
-  Card, CardContent, CardHeader, CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const data = [
   {
@@ -38,21 +34,19 @@ const data = [
 
 export default function DashboardScreen() {
   const { user } = useAuth0();
-
   const { t } = useTranslation();
+
 
   return (
     <section className="container flex flex-col gap-8">
       <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">
-        {t('dashboard:welcome_to_app')}
-        {' '}
-        {user?.name}
+        {t('dashboard:welcome_to_app')} {user?.name}
       </h1>
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader>
-            <CardTitle className="text-md font-medium">Total Residues Kgs Reported</CardTitle>
+            <CardTitle className="font-medium text-md">Total Residues Kgs Reported</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-1">
             <div className="flex justify-between">
@@ -63,7 +57,7 @@ export default function DashboardScreen() {
 
             <div>
               <p className="flex gap-1 text-xs">
-                <span className="text-bold flex gap-1 text-green-500">
+                <span className="flex gap-1 text-green-500 text-bold">
                   <Icon
                     icon="streamline:money-graph-arrow-increase-ascend-growth-up-arrow-stats-graph-right-grow"
                     width="12"
@@ -79,7 +73,7 @@ export default function DashboardScreen() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-md font-medium">Total Residues Kgs Reported</CardTitle>
+            <CardTitle className="font-medium text-md">Total Residues Kgs Reported</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-1">
             <div className="flex justify-between">
@@ -90,7 +84,7 @@ export default function DashboardScreen() {
 
             <div>
               <p className="flex gap-1 text-xs">
-                <span className="text-bold flex gap-1 text-red-500">
+                <span className="flex gap-1 text-red-500 text-bold">
                   <Icon
                     icon="streamline:money-graph-arrow-decrease-down-stats-graph-descend-right-arrow"
                     width="8"
@@ -106,7 +100,7 @@ export default function DashboardScreen() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-md font-medium">cRECY Price</CardTitle>
+            <CardTitle className="font-medium text-md">cRECY Price</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-1">
             <div className="flex justify-between">
@@ -119,7 +113,7 @@ export default function DashboardScreen() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-md font-medium">Total cRECY in wallet</CardTitle>
+            <CardTitle className="font-medium text-md">Total cRECY in wallet</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-1">
             <div className="flex justify-between">
@@ -131,16 +125,14 @@ export default function DashboardScreen() {
         </Card>
       </section>
 
-      <h2 className="text-xl font-bold leading-relaxed tracking-wide sm:text-2xl">
-        Residues reported so far
-      </h2>
+      <h2 className="text-xl font-bold leading-relaxed tracking-wide sm:text-2xl">Residues reported so far</h2>
 
       <section className="grid gap-4 sm:grid-cols-1 lg:grid-cols-2">
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Card>
             <CardHeader>
-              <CardTitle className="text-md w-16 font-medium">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary p-1">
+              <CardTitle className="w-16 font-medium text-md">
+                <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary">
                   <Icon icon="ph:recycle" width="32" height="32" color="white" />
                 </div>
               </CardTitle>
@@ -159,8 +151,8 @@ export default function DashboardScreen() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-md w-16 font-medium">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary p-1">
+              <CardTitle className="w-16 font-medium text-md">
+                <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary">
                   <Icon icon="ph:recycle" width="32" height="32" color="white" />
                 </div>
               </CardTitle>
@@ -179,8 +171,8 @@ export default function DashboardScreen() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-md w-16 font-medium">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary p-1">
+              <CardTitle className="w-16 font-medium text-md">
+                <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary">
                   <Icon icon="ph:recycle" width="32" height="32" color="white" />
                 </div>
               </CardTitle>
@@ -199,8 +191,8 @@ export default function DashboardScreen() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-md w-16 font-medium">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary p-1">
+              <CardTitle className="w-16 font-medium text-md">
+                <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary">
                   <Icon icon="ph:recycle" width="32" height="32" color="white" />
                 </div>
               </CardTitle>
@@ -219,8 +211,8 @@ export default function DashboardScreen() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-md w-16 font-medium">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary p-1">
+              <CardTitle className="w-16 font-medium text-md">
+                <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary">
                   <Icon icon="ph:recycle" width="32" height="32" color="white" />
                 </div>
               </CardTitle>
@@ -239,8 +231,8 @@ export default function DashboardScreen() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-md w-16 font-medium">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary p-1">
+              <CardTitle className="w-16 font-medium text-md">
+                <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary">
                   <Icon icon="ph:recycle" width="32" height="32" color="white" />
                 </div>
               </CardTitle>
@@ -259,8 +251,8 @@ export default function DashboardScreen() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-md w-16 font-medium">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary p-1">
+              <CardTitle className="w-16 font-medium text-md">
+                <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary">
                   <Icon icon="ph:recycle" width="32" height="32" color="white" />
                 </div>
               </CardTitle>
@@ -279,8 +271,8 @@ export default function DashboardScreen() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-md w-16 font-medium">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary p-1">
+              <CardTitle className="w-16 font-medium text-md">
+                <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary">
                   <Icon icon="ph:recycle" width="32" height="32" color="white" />
                 </div>
               </CardTitle>
@@ -301,13 +293,7 @@ export default function DashboardScreen() {
         <section>
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={data}>
-              <XAxis
-                dataKey="name"
-                stroke="#888888"
-                fontSize={12}
-                tickLine={false}
-                axisLine={false}
-              />
+              <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
               <YAxis
                 stroke="#888888"
                 fontSize={12}
@@ -315,12 +301,7 @@ export default function DashboardScreen() {
                 axisLine={false}
                 tickFormatter={(value) => `$${value}`}
               />
-              <Bar
-                dataKey="total"
-                fill="currentColor"
-                radius={[4, 4, 0, 0]}
-                className="fill-primary"
-              />
+              <Bar dataKey="total" fill="currentColor" radius={[4, 4, 0, 0]} className="fill-primary" />
             </BarChart>
           </ResponsiveContainer>
         </section>
