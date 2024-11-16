@@ -8,12 +8,12 @@ export function Welcome({ onGetStarted }: { onGetStarted: () => void }) {
 
   const { user } = useAuth0();
   return (
-    <div className="flex flex-1 flex-col justify-between gap-6">
+    <div className="flex flex-col justify-between flex-1 gap-6">
       <section>
         <h3 className="text-sm font-bold uppercase leading-5 tracking-[0.05em] text-primary">
           {`${t('onboarding:hello')} ${user?.name},`}
         </h3>
-        <h2 className="text-2xl font-bold leading-relaxed text-gray-800 antialiased sm:text-3xl">
+        <h2 className="text-2xl antialiased font-bold leading-relaxed text-gray-800 sm:text-3xl">
           {t('onboarding:welcome_to_recy')}
         </h2>
       </section>
@@ -23,15 +23,15 @@ export function Welcome({ onGetStarted }: { onGetStarted: () => void }) {
           <img src="/assets/brand/recy-logo.png" alt="RECY token logo" />
         </picture>
 
-        <p className="text-center text-base leading-relaxed">
+        <p className="text-base leading-relaxed text-center">
           {t('onboarding:keeping_world_clean')}
         </p>
-        <p className="text-center text-base leading-relaxed">{t('onboarding:together')}</p>
+        <p className="text-base leading-relaxed text-center">{t('onboarding:together')}</p>
       </div>
 
       <div className="flex items-end justify-center pt-5">
         <Button
-          className="btn btn-primary no-animation w-full text-white sm:w-auto"
+          className="w-full text-white btn btn-primary no-animation sm:w-auto"
           onClick={() => onGetStarted()}
         >
           {t('onboarding:get_started')}
