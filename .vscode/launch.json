@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "API",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "start:api"],
+      "runtimeExecutable": "npm",
+      "cwd": "${workspaceFolder}/apps/api",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "WEB-MOBILE",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "start:web-mobile"],
+      "runtimeExecutable": "npm",
+      "cwd": "${workspaceFolder}/apps/web-mobile",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "CONTRACTS",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "start:contracts"],
+      "runtimeExecutable": "npm",
+      "cwd": "${workspaceFolder}/apps/contracts",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "-- RUN ENV - Local",
+      "configurations": ["API", "CONTRACTS", "WEB-MOBILE"]
+    }
+  ]
+}

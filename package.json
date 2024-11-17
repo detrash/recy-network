@@ -19,6 +19,9 @@
     "build:api": "nx build api",
     "build:web-mobile": "nx build web-mobile",
     "build:contracts": "nx build contracts",
+    "start:api": "nx serve api",
+    "start:contracts": "nx serve contracts",
+    "start:web-mobile": "nx serve web-mobile",
     "update": "nx migrate latest"
   },
   "devDependencies": {
@@ -34,6 +37,7 @@
     "@nx/linter": "19.8.4",
     "@nx/playwright": "^20.1.2",
     "@nx/plugin": "20.0.5",
+    "@nx/react": "20.0.12",
     "@nx/vite": "^20.1.1",
     "@nx/webpack": "^20.1.2",
     "@nx/workspace": "20.0.5",
@@ -82,8 +86,8 @@
   },
   "packageManager": "pnpm@8.15.2",
   "engines": {
-    "node": ">=20 <21",
-    "pnpm": "^8.15.2"
+    "node": ">=20",
+    "pnpm": "^9.13.2"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",

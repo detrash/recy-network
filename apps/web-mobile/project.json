@@ -1,15 +1,28 @@
 {
-  "name": "web-mobile",
-  "targets": {
-    "build": {
-      "executor": "@nx/vite:build",
-      "options": {
-        "outputPath": "dist/apps/web-mobile",
-        "configFile": "apps/web-mobile/vite.config.ts",
-        "main": "apps/web-mobile/src/main.tsx",
-        "assets": ["apps/web-mobile/src/assets"],
-        "styles": ["apps/web-mobile/src/styles.css"],
-        "scripts": []
+  "projects": {
+    "web-mobile": {
+      "root": "apps/web-mobile",
+      "sourceRoot": "apps/web-mobile/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nx/vite:build",
+          "options": {
+            "outputPath": "dist/apps/web-mobile",
+            "configFile": "apps/web-mobile/vite.config.ts",
+            "main": "apps/web-mobile/src/main.tsx",
+            "assets": ["apps/web-mobile/src/assets"],
+            "styles": ["apps/web-mobile/src/styles.css"],
+            "scripts": []
+          }
+        },
+        "serve": {
+          "executor": "@nx/vite:dev-server",
+          "options": {
+            "buildTarget": "web-mobile:build",
+            "port": 4200
+          }
+        }
       }
     }
   }

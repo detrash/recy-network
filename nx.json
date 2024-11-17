@@ -30,11 +30,7 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": [
-        "apps/api-e2e/**/*",
-        "apps/web-mobile-e2e/**/*",
-        "apps/contracts-e2e/**/*"
-      ]
+      "exclude": ["apps/api-e2e/**/*", "apps/web-mobile-e2e/**/*", "apps/contracts-e2e/**/*"]
     },
     {
       "plugin": "@nx/webpack/plugin",
@@ -47,19 +43,15 @@
   ],
   "targetDefaults": {
     "e2e-ci--**/*": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "@nx/esbuild:esbuild": {
       "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "default",
-        "^default"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["default", "^default"]
+    },
+    "serve": {
+      "dependsOn": ["^build"]
     }
   },
   "generators": {
