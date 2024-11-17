@@ -37,6 +37,7 @@
     "@nx/linter": "19.8.4",
     "@nx/playwright": "^20.1.2",
     "@nx/plugin": "20.0.5",
+    "@nx/react": "20.0.12",
     "@nx/vite": "^20.1.1",
     "@nx/webpack": "^20.1.2",
     "@nx/workspace": "20.0.5",
