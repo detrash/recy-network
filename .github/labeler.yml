@@ -1,0 +1,16 @@
+'@recy/api':
+  - apps/api/**/*
+'@recy/web-mobile':
+  - apps/web-mobile/**/*
+'@recy/contracts':
+  - apps/contracts/**/*
+'@recy/shared':
+  - packages/shared/**/*
+'@recy/tools':
+  - packages/tools/**/*
+'CI/CD':
+  - .github/**/*
+'docker':
+  - docker/**/*
+'scripts':
+  - scripts/**/*
