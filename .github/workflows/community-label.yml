@@ -1,0 +1,30 @@
+name: Add Community Label
+
+on:
+  pull_request_target:
+    types: [opened]
+    branches:
+      - '!prod'
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Verify
+    runs-on: blacksmith-2vcpu-ubuntu-2204
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: useblacksmith/setup-node@v5
+        with:
+          node-version: 20.8.1
+      - name: Install Octokit
+        run: npm --prefix .github/workflows/scripts install @octokit/action@6
+
+      - name: Check if user is a community contributor
+        id: check
+        run: node .github/workflows/scripts/community-contribution-label.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

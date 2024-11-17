@@ -1,0 +1,32 @@
+name: Assign milestone to PR
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  assign_milestone:
+    if: false
+    name: Add milestone
+    permissions:
+      issues: write
+      pull-requests: write
+    runs-on: blacksmith-2vcpu-ubuntu-2204
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: useblacksmith/setup-node@v5
+        with:
+          node-version: 20.8.1
+      - name: Install Octokit
+        run: npm --prefix .github/workflows/scripts install @octokit/action
+
+      - name: Assign milestones
+        id: check
+        run: node .github/workflows/scripts/milestone-assigner.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
