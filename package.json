@@ -19,6 +19,9 @@
     "build:api": "nx build api",
     "build:web-mobile": "nx build web-mobile",
     "build:contracts": "nx build contracts",
+    "start:api": "nx serve api",
+    "start:contracts": "nx serve contracts",
+    "start:web-mobile": "nx serve web-mobile",
     "update": "nx migrate latest"
   },
   "devDependencies": {
@@ -82,8 +85,8 @@
   },
   "packageManager": "pnpm@8.15.2",
   "engines": {
-    "node": ">=20 <21",
-    "pnpm": "^8.15.2"
+    "node": ">=20",
+    "pnpm": "^9.13.2"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
