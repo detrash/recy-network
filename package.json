@@ -37,6 +37,7 @@
     "@nx/vite": "^20.1.1",
     "@nx/webpack": "^20.1.2",
     "@nx/workspace": "20.0.5",
+    "@octokit/core": "^6.1.2",
     "@playwright/test": "^1.48.2",
     "@swc-node/register": "~1.9.1",
     "@swc/cli": "~0.3.12",
