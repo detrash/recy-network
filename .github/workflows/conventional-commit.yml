@@ -33,7 +33,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          requireScope: false
+          requireScope: true
+          scopes: |
+            api
+            ui
+            web3
+            docs
+            infra
 
       - uses: marocchino/sticky-pull-request-comment@v2
         # When the previous steps fails, the workflow would stop. By adding this
