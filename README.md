@@ -8,6 +8,16 @@
 </div>
 <br/>
 
+<p align="center">
+  <a href="https://github.com/detrash/recy-network/issues/new?assignees=&labels=type%3A+bug&template=bug_report.yml&title=%F0%9F%90%9B+Bug+Report%3A+">Report a bug</a>
+  ·
+  <a href="https://github.com/detrash/recy-network/issues/new?assignees=&labels=feature&template=feature_request.yml&title=%F0%9F%9A%80+Feature%3A+">Request a feature</a>
+  ·
+  <a href="https://x.com/detrashglobal">X</a>
+  ·
+  <a href="https://join.slack.com/t/detrash/shared_invite/zt-2uct9pqn5-hk3w0aL0Aadt9abYqPH8qQ">Contact us</a>
+</p>
+
 ## 📋 Contributing
 
 Please read through our [contributing guide](./CONTRIBUTING.md) before starting any work.
