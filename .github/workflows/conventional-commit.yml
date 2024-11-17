@@ -39,8 +39,7 @@ jobs:
           ^infra$
           ^docs$
           ^web3$
-          ^core$
-          ^JIRA-\d+$
+          ^api$
       - uses: marocchino/sticky-pull-request-comment@v2
         # When the previous steps fails, the workflow would stop. By adding this
         # condition you can continue the execution with the populated error message.
