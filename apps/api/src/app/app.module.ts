@@ -9,14 +9,18 @@ import { AppService } from './app.service';
   imports: [
     I18nModule.forRoot({
       fallbackLanguage: 'en',
+     fallbacks: {
+       'es-*': 'es',
+       'en-*': 'en',
+     },
       parser: I18nJsonParser,
       parserOptions: {
         path: join(__dirname, '../assets/i18n/'),
-        watch: true,
+        watch: process.env.NODE_ENV === 'development',
       },
+     loaderOptions: {
+       path: join(__dirname, '../assets/i18n/'),
+       watch: process.env.NODE_ENV === 'development',
+     },
     }),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
-})
 export class AppModule {}
