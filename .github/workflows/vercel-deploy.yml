@@ -22,17 +22,60 @@ jobs:
       - name: Install dependencies
         env:
           NODE_ENV: production
-        run: npm install
+        run: |
+          npm clean-install
+          npm audit
+
+      - name: Cache build
+        uses: actions/cache@v3
+        with:
+          path: |
+            dist
+            .next
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
 
       - name: Build the project
         env:
           NODE_ENV: production
-        run: npm run build:web-mobile
+        run: |
+          npm run build:web-mobile || {
+            echo "Build failed"
+            exit 1
+          }
 
       - name: Deploy to Vercel
+        id: deploy
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: ./apps/web-mobile
+          alias-domains: |
+            staging.your-domain.com
+            pr-{{PR_NUMBER}}.your-domain.com
+
+      - name: Verify deployment
+        run: |
+          DEPLOY_URL="${{ steps.deploy.outputs.preview-url }}"
+          MAX_RETRIES=5
+          COUNT=0
+          until curl -s -o /dev/null -w "%{http_code}" "$DEPLOY_URL" | grep -q "200\|404"; do
+            if [ $COUNT -eq $MAX_RETRIES ]; then
+              echo "Deployment verification failed after $MAX_RETRIES attempts"
+              exit 1
+            fi
+            COUNT=$((COUNT+1))
+            sleep 10
+          done
+
+      - name: Comment PR
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Deployed to: ${{ steps.deploy.outputs.preview-url }}`
+            })
