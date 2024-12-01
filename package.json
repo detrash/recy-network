@@ -24,7 +24,7 @@
     "start:web-mobile": "nx serve web-mobile",
     "update": "nx migrate latest",
     "deploy:vercel": "vercel --prod",
-    "deploy:aws": "aws s3 sync ./dist/apps/api s3://${{ secrets.AWS_S3_BUCKET_NAME }} && aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'"
+    "deploy:aws": "aws s3 sync ./dist/apps/api s3://${AWS_S3_BUCKET_NAME} && aws cloudfront create-invalidation --distribution-id ${AWS_CLOUDFRONT_DISTRIBUTION_ID} --paths '/*'"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",

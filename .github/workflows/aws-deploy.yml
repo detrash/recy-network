@@ -11,21 +11,26 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
+        env:
+          NODE_ENV: production
         run: npm install
 
       - name: Build the project
+        env:
+          NODE_ENV: production
         run: npm run build:api
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -33,5 +38,11 @@ jobs:
 
       - name: Deploy to AWS
         run: |
-          aws s3 sync ./dist/apps/api s3://${{ secrets.AWS_S3_BUCKET_NAME }}
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+          if ! aws s3 sync ./dist/apps/api s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete; then
+            echo "Failed to sync with S3"
+            exit 1
+          fi
+          if ! aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"; then
+            echo "Failed to invalidate CloudFront distribution"
+            exit 1
+          fi
