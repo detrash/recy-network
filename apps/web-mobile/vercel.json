@@ -4,5 +4,8 @@
       "source": "/(.*)",
       "destination": "/"
     }
-  ]
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/apps/web-mobile",
+  "framework": "vite"
 }
