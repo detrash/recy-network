@@ -1,6 +1,7 @@
 <div align="center">
     <h1 align="center">Recy Network 🌐</h1>
-    <h5>The start of a clean world ♻️</h5>
+    <h4>The start of a clean world ♻️</h5>
+    <p>Recy Network is a recycling app that rewards users for their contributions to building a cleaner, pollution-free world. Users can earn tokens, known as cRECYs, through recycling and composting reports, which can also be purchased to support environmental actions.</p>
 </div>
 
 <div align="center">
