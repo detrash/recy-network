@@ -1,4 +1,5 @@
 {
+  "installCommand": "yum install hostname && npm ci",
   "rewrites": [
     {
       "source": "/(.*)",
