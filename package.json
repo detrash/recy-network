@@ -94,6 +94,7 @@
     "@capacitor/cli": "^6.0.0",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@datadog/browser-rum": "^5.32.0",
     "@eslint/js": "^9.0.0",
     "@hookform/resolvers": "^3.3.4",
     "@iconify/react": "^4.1.1",

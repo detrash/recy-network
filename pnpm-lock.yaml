@@ -20,6 +20,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.2.2
         version: 19.5.0
+      '@datadog/browser-rum':
+        specifier: ^5.32.0
+        version: 5.32.0
       '@eslint/js':
         specifier: ^9.0.0
         version: 9.15.0
@@ -1248,6 +1251,20 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
+
+  '@datadog/browser-core@5.32.0':
+    resolution: {integrity: sha512-+RnQZRda/XwjP2v8TZHIIbZItS1xlRYVs7OmueaA+/MItj0DiL8hZ4uIj7eLsNUXGS0qsiGHXWkaBZE2HfWuvQ==}
+
+  '@datadog/browser-rum-core@5.32.0':
+    resolution: {integrity: sha512-SJb8Qmixc82+m613kR3aO31qOD+EhbVY8eMEJ8hYMs1r0LrWGbmEWFWmA86239W5pD4QyRy9ruvs5O/I0S6c1A==}
+
+  '@datadog/browser-rum@5.32.0':
+    resolution: {integrity: sha512-Okiu/zTV/sgglGsMAtznqcoy+iwXDjGQ3PkHwZw2jAY/clDcoLbaOPGXeIHXh15E/zk8YALHkC/RW58DFv29lg==}
+    peerDependencies:
+      '@datadog/browser-logs': 5.32.0
+    peerDependenciesMeta:
+      '@datadog/browser-logs':
+        optional: true
 
   '@discoveryjs/json-ext@0.5.7':
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
@@ -12886,6 +12903,17 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+
+  '@datadog/browser-core@5.32.0': {}
+
+  '@datadog/browser-rum-core@5.32.0':
+    dependencies:
+      '@datadog/browser-core': 5.32.0
+
+  '@datadog/browser-rum@5.32.0':
+    dependencies:
+      '@datadog/browser-core': 5.32.0
+      '@datadog/browser-rum-core': 5.32.0
 
   '@discoveryjs/json-ext@0.5.7': {}
 

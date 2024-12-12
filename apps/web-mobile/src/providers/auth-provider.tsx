@@ -9,12 +9,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
       clientId="w0B1ZGjTnWjWMKNwQNKPIxx2kDA1s26E"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: "detrash-prod-api",
-        scope: "read:current_user update:current_user_metadata"
+        audience: import.meta.env.VITE_AUTH0_ISSUER_DOMAIN,
+        scope: 'read:current_user update:current_user_metadata',
       }}
     >
       {children}
     </Auth0Provider>
   );
 }
-
