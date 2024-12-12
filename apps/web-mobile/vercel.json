@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install -g nx",
+  "installCommand": "pnpm install",
   "rewrites": [
     {
       "source": "/(.*)",
