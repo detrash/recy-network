@@ -6,11 +6,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
   return (
     <Auth0Provider
       domain={import.meta.env.VITE_AUTH0_ISSUER_DOMAIN}
-      clientId="w0B1ZGjTnWjWMKNwQNKPIxx2kDA1s26E"
+      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
       authorizationParams={{
         redirect_uri: window.location.origin,
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-        scope: 'read:current_user update:current_user_metadata',
+        scope: import.meta.env.VITE_AUTH0_SCOPE,
       }}
     >
       {children}

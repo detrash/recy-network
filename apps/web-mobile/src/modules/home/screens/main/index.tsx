@@ -5,17 +5,24 @@ import { useNavigate } from 'react-router-dom';
 
 import LocaleToggler from '@/components/locale-toggler';
 import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/use-toast';
 
 export default function HomeScreen() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, error } = useAuth0();
 
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/dashboard');
     }
-  }, [isAuthenticated, navigate]);
+
+    if (error) {
+      toast({
+        title: error.message,
+      });
+    }
+  }, [error, isAuthenticated, navigate]);
 
   return (
     <div className="flex justify-between flex-1 h-lvh">
@@ -40,8 +47,7 @@ export default function HomeScreen() {
             <span className="text-6xl font-bold text-primary lg:text-7xl">Recy App</span>
           </div>
           <p className="text-xl text-gray-500">
-            Let&apos;s end waste pollution at its source.
-            Let&apos;s transform how we think about trash and recycling.
+            Let&apos;s end waste pollution at its source. Let&apos;s transform how we think about trash and recycling.
           </p>
           <Button onClick={() => loginWithRedirect()} size="lg" className="w-full">
             {t('home.login')}
