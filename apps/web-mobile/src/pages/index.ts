@@ -4,4 +4,4 @@ export { default as Home } from './home';
 export { default as KYC } from './kyc';
 export { default as Onboarding } from './onboarding';
 export { default as Profile } from './profile';
-export { default as Submit } from './submit';
+export { default as Submit } from './reports';

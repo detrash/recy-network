@@ -9,12 +9,13 @@ const mapParameters = (base: string): Route => {
 export const ROUTES = {
   PRIVATE: {
     ADMIN: mapParameters('admin'),
+    AUDITS: mapParameters('audits'),
     DASHBOARD: mapParameters('dashboard'),
+    DASHBOARD_ADMIN: mapParameters('admin/dashboard'),
     KYC: mapParameters('kyc'),
     ONBOARDING: mapParameters('onboarding'),
     PROFILE: mapParameters('settings/profile'),
-    SUBMIT: mapParameters('submit'),
-    SUBMIT_FORM: mapParameters('submit'),
+    SUBMIT_REPORT: mapParameters('reports'),
   },
   PUBLIC: {
     HOME: mapParameters(''),
