@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import { Definitions } from '@/modules/submit/components/definitions';
-import { Details } from '@/modules/submit/components/details';
-import { Done } from '@/modules/submit/components/done';
+import { Definitions } from '@/modules/reports/components/definitions';
+import { Details } from '@/modules/reports/components/details';
+import { Done } from '@/modules/reports/components/done';
 
-export default function SubmitScreen() {
+export default function ReportsSubmitScreen() {
   const [formStep, setFormStep] = useState('definitions');
 
   return (

@@ -1,4 +1,4 @@
-import SubmitScreen from '@/modules/submit/screens/main';
+import SubmitScreen from '@/modules/reports/screens/submit';
 
 function Submit() {
   return <SubmitScreen />;

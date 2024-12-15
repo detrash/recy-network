@@ -11,9 +11,12 @@ import Home from '@/pages/home';
 import KYC from '@/pages/kyc';
 import Onboarding from '@/pages/onboarding';
 import Profile from '@/pages/profile';
-import Submit from '@/pages/submit';
+import Submit from '@/pages/reports';
 
 import '@/libs/i18next';
+import DashboardAdmin from './pages/dashboard/admin';
+import Reports from '@/pages/reports';
+import Audits from './pages/audits';
 
 const router = createBrowserRouter([
   {
@@ -27,16 +30,24 @@ const router = createBrowserRouter([
         path: '/settings',
       },
       {
+        element: <Reports />,
+        path: '/reports',
+      },
+      {
         element: <Submit />,
-        path: '/submit',
+        path: '/reports/submit',
+      },
+      {
+        element: <Audits />,
+        path: '/audits',
       },
       {
         element: <Onboarding />,
         path: '/onboarding',
       },
       {
-        element: <Dashboard />,
-        path: '/admin',
+        element: <DashboardAdmin />,
+        path: '/admin/dashboard',
       },
       {
         children: [

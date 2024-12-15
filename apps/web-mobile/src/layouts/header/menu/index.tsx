@@ -32,45 +32,37 @@ export function Menu() {
   const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
 
+  console.log('user menu', user);
+
   return (
-    <NavigationMenu className="flex justify-between min-w-full">
+    <NavigationMenu className="flex min-w-full justify-between">
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link to={ROUTES.PUBLIC.HOME()}>
-            <img
-              src="/assets/brand/recy-logo.png"
-              width={64}
-              height={64}
-              alt="Recy Logo"
-              className="mr-4"
-            />
+            <img src="/assets/brand/recy-logo.png" width={64} height={64} alt="Recy Logo" className="mr-4" />
           </Link>
         </NavigationMenuItem>
 
+        {/* if user go to user dashboard if admin dashboard admin */}
         <NavigationMenuItem>
           <Link className={`${navigationMenuTriggerStyle()}`} to={ROUTES.PRIVATE.DASHBOARD()}>
             Dashboard
-            <Icon
-              icon="material-symbols-light:team-dashboard-outline"
-              width="16"
-              height="16"
-              className="ml-1"
-            />
+            <Icon icon="material-symbols-light:team-dashboard-outline" width="16" height="16" className="ml-1" />
           </Link>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link className={navigationMenuTriggerStyle()} to={ROUTES.PRIVATE.SUBMIT_FORM()}>
-            Submit Form
-            {' '}
+          <Link className={navigationMenuTriggerStyle()} to={ROUTES.PRIVATE.SUBMIT_REPORT()}>
+            Reports
             <Icon icon="ph:recycle" width="16" height="16" className="ml-1" />
           </Link>
         </NavigationMenuItem>
 
+        {/* if user auditor or admin can view this link */}
         <NavigationMenuItem>
-          <Link className={navigationMenuTriggerStyle()} to={ROUTES.PRIVATE.ADMIN()}>
-            Admin
-            <Icon icon="ic:sharp-admin-panel-settings" width="16" height="16" className="ml-1" />
+          <Link className={navigationMenuTriggerStyle()} to={ROUTES.PRIVATE.AUDITS()}>
+            Audits
+            <Icon icon="ic:check-circle" width="14" height="14" className="ml-1" />
           </Link>
         </NavigationMenuItem>
 
@@ -110,7 +102,7 @@ export function Menu() {
             <DropdownMenuTrigger className="px-4">
               <Avatar>
                 <AvatarImage src={user?.picture ?? ''} alt="User profile" />
-                <AvatarFallback className="text-xs">{user?.name}</AvatarFallback>
+                {user && !user.picture && <AvatarFallback className="text-xs">{user?.name}</AvatarFallback>}
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -121,7 +113,7 @@ export function Menu() {
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Button
-                  className="w-full text-center color-secondary color"
+                  className="color-secondary color w-full text-center"
                   variant="link"
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 >
