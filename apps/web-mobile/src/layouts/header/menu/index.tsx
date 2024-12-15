@@ -80,14 +80,8 @@ export function Menu() {
             className={cn('hover:cursor-pointer', navigationMenuTriggerStyle())}
             onClick={() => open()}
           >
-            {isConnected && address ? (
-              <p>{`${address.slice(0, 4)}...${address.slice(-4)}`}</p>
-            ) : (
-              <>
-                Connect Wallet
-                <Icon icon="ph:wallet-thin" width="16" height="16" className="ml-1" />
-              </>
-            )}
+            {isConnected && address ? <p>{`${address.slice(0, 4)}...${address.slice(-4)}`}</p> : 'Connect Wallet'}
+            <Icon icon="ph:wallet-thin" width="16" height="16" className="ml-1" />
           </NavigationMenuLink>
         </NavigationMenuItem>
 
@@ -102,7 +96,7 @@ export function Menu() {
             <DropdownMenuTrigger className="px-4">
               <Avatar>
                 <AvatarImage src={user?.picture ?? ''} alt="User profile" />
-                {user && !user.picture && <AvatarFallback className="text-xs">{user?.name}</AvatarFallback>}
+                <AvatarFallback className="text-xs">{user?.name}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>

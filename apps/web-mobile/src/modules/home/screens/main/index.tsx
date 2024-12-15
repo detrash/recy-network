@@ -36,32 +36,30 @@ export default function HomeScreen() {
 
   return (
     <div className="flex h-lvh flex-1 justify-between">
-      <main className="flex h-full flex-1 flex-shrink-0 flex-col justify-center">
-        <div className="w-full p-5">
-          <nav className="flex items-center justify-between">
+      <main className="flex-shrink-1 flex h-full flex-1 flex-col justify-center text-center align-middle">
+        <div className="flex max-w-xl flex-1 flex-col justify-center gap-8 p-5">
+          <nav className="flex items-center justify-center">
             <div>
               <img src="/assets/brand/recy-logo.png" width={64} height={64} alt="Recy Logo" />
             </div>
-
-            <div className="flex justify-center p-5">
-              <Suspense fallback={<div>Loading language options...</div>}>
-                <LocaleToggler />
-              </Suspense>
-            </div>
           </nav>
-        </div>
 
-        <div className="flex max-w-xl flex-1 flex-col justify-center gap-8 p-5">
           <div className="flex flex-col gap-4">
             <h1 className="text-6xl font-bold lg:text-7xl">Welcome to</h1>
             <span className="text-primary text-6xl font-bold lg:text-7xl">Recy App</span>
           </div>
+
           <p className="text-xl text-gray-500">
             Let&apos;s end waste pollution at its source. Let&apos;s transform how we think about trash and recycling.
           </p>
-          <Button onClick={() => loginWithPopup()} size="lg" className="w-full" disabled={isLoading}>
+          <Button onClick={() => loginWithPopup()} size="lg" className="w-full">
             {t('home.login')}
           </Button>
+          <div className="flex justify-center p-5">
+            <Suspense fallback={<div>Loading language options...</div>}>
+              <LocaleToggler />
+            </Suspense>
+          </div>
         </div>
       </main>
       <aside className="relative hidden h-lvh flex-1 flex-shrink basis-1/12 flex-col items-center justify-center xl:flex">
