@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { api } from '@/libs/axios';
+import { useEffect } from 'react';
 
 const data = [
   {
@@ -37,6 +39,20 @@ export default function DashboardScreen() {
   const { t } = useTranslation();
 
   console.log('user dashboard', user);
+
+  useEffect(() => {
+    const validateUser = async () => {
+      try {
+        const response = await api.get('v1/recycling-reports');
+
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    validateUser();
+  }, []);
 
   return (
     <section className="container flex flex-col gap-8">

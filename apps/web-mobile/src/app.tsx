@@ -17,6 +17,9 @@ import '@/libs/i18next';
 import DashboardAdmin from './pages/dashboard/admin';
 import Reports from '@/pages/reports';
 import Audits from './pages/audits';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect } from 'react';
+import { addAccessTokenInterceptor } from './libs';
 
 const router = createBrowserRouter([
   {
@@ -93,6 +96,12 @@ const router = createBrowserRouter([
 ]);
 
 export function App() {
+  const { getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    addAccessTokenInterceptor(getAccessTokenSilently);
+  }, [getAccessTokenSilently]);
+
   return (
     <main>
       <RouterProvider router={router} />

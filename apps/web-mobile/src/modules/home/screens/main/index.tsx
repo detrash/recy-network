@@ -7,15 +7,13 @@ import LocaleToggler from '@/components/locale-toggler';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import { ToastAction } from '@/components/ui/toast';
+import { error } from 'console';
+import { api } from '@/libs/axios';
 
 export default function HomeScreen() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isAuthenticated, loginWithPopup, error, user, isLoading } = useAuth0();
-
-  console.log('isAuthenticated home', isAuthenticated);
-  console.log('isLoading home', isLoading);
-  console.log('user home', user);
+  const { isAuthenticated, loginWithRedirect, error } = useAuth0();
 
   if (isAuthenticated) {
     navigate('/dashboard');
@@ -27,7 +25,7 @@ export default function HomeScreen() {
       title: error.name,
       description: error.message,
       action: (
-        <ToastAction altText="Try again" onClick={() => loginWithPopup}>
+        <ToastAction altText="Try again" onClick={() => loginWithRedirect()}>
           Try again
         </ToastAction>
       ),
@@ -52,7 +50,7 @@ export default function HomeScreen() {
           <p className="text-xl text-gray-500">
             Let&apos;s end waste pollution at its source. Let&apos;s transform how we think about trash and recycling.
           </p>
-          <Button onClick={() => loginWithPopup()} size="lg" className="w-full">
+          <Button onClick={() => loginWithRedirect()} size="lg" className="w-full">
             {t('home.login')}
           </Button>
           <div className="flex justify-center p-5">
