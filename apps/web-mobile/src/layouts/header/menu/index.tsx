@@ -32,8 +32,6 @@ export function Menu() {
   const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
 
-  console.log('user menu', user);
-
   return (
     <NavigationMenu className="flex min-w-full justify-between">
       <NavigationMenuList>
