@@ -1,12 +1,8 @@
 import { type PropsWithChildren } from 'react';
 
-import { AppState, Auth0Provider } from '@auth0/auth0-react';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 export function AuthProvider({ children }: PropsWithChildren) {
-  const onRedirectCallback = async (appState: AppState) => {
-    console.log(appState);
-  };
-
   return (
     <Auth0Provider
       domain={import.meta.env.VITE_AUTH0_ISSUER_DOMAIN}
@@ -18,7 +14,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
         scope: import.meta.env.VITE_AUTH0_SCOPE,
       }}
-      onRedirectCallback={onRedirectCallback}
     >
       {children}
     </Auth0Provider>

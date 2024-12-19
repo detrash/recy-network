@@ -1,6 +1,6 @@
 import type { WithAuth0Props } from '@auth0/auth0-react';
 
-import { api } from '@/libs/axios';
+import { apiV1 } from '@/libs/axios';
 
 export interface GetSDKAccessTokenParameters {
   levelName?: string;
@@ -22,7 +22,7 @@ export async function getSDKAccessToken({
   };
   const {
     data: { token },
-  } = await api.post<{ token: string }>('/sumsub/get-access-token', newParameters, {
+  } = await apiV1.post<{ token: string }>('/sumsub/get-access-token', newParameters, {
     fetchOptions: { auth0 },
   });
 
