@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import LocaleToggler from '@/components/locale-toggler';
 import { Button } from '@/components/ui/button';
-import Captcha from '@/components/captcha';
 
 export default function HomeScreen() {
   const { t } = useTranslation();
@@ -46,7 +45,6 @@ export default function HomeScreen() {
           <Button onClick={() => loginWithRedirect()} size="lg" className="w-full">
             {t('home.login')}
           </Button>
-          <Captcha />
         </div>
       </main>
       <aside className="relative hidden h-lvh flex-1 flex-shrink basis-1/12 flex-col items-center justify-center xl:flex">
