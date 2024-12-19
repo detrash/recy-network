@@ -11,48 +11,68 @@ import Home from '@/pages/home';
 import KYC from '@/pages/kyc';
 import Onboarding from '@/pages/onboarding';
 import Profile from '@/pages/profile';
-import Submit from '@/pages/submit';
+import Submit from '@/pages/reports';
 
 import '@/libs/i18next';
+import DashboardAdmin from './pages/dashboard/admin';
+import Reports from '@/pages/reports';
+import Audits from './pages/audits';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect } from 'react';
+import { addAccessTokenInterceptor } from './libs';
+import ProtectedRoutes from './components/protected-router';
 
 const router = createBrowserRouter([
   {
+    element: <ProtectedRoutes />,
     children: [
-      {
-        element: <Dashboard />,
-        path: '/dashboard',
-      },
-      {
-        element: <Dashboard />,
-        path: '/settings',
-      },
-      {
-        element: <Submit />,
-        path: '/submit',
-      },
-      {
-        element: <Onboarding />,
-        path: '/onboarding',
-      },
-      {
-        element: <Dashboard />,
-        path: '/admin',
-      },
       {
         children: [
           {
-            element: <Profile />,
-            path: '/settings/profile',
+            element: <Dashboard />,
+            path: '/dashboard',
+          },
+          {
+            element: <Dashboard />,
+            path: '/settings',
+          },
+          {
+            element: <Reports />,
+            path: '/reports',
+          },
+          {
+            element: <Submit />,
+            path: '/reports/submit',
+          },
+          {
+            element: <Audits />,
+            path: '/audits',
+          },
+          {
+            element: <Onboarding />,
+            path: '/onboarding',
+          },
+          {
+            element: <DashboardAdmin />,
+            path: '/admin/dashboard',
+          },
+          {
+            children: [
+              {
+                element: <Profile />,
+                path: '/settings/profile',
+              },
+            ],
+            path: '/settings',
+          },
+          {
+            element: <KYC />,
+            path: '/kyc',
           },
         ],
-        path: '/settings',
-      },
-      {
-        element: <KYC />,
-        path: '/kyc',
+        element: <Header />,
       },
     ],
-    element: <Header />,
   },
   {
     children: [
@@ -82,9 +102,15 @@ const router = createBrowserRouter([
 ]);
 
 export function App() {
+  const { getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    addAccessTokenInterceptor(getAccessTokenSilently);
+  }, [getAccessTokenSilently]);
+
   return (
     <main>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} fallbackElement={<p>Initial Load...</p>} />
     </main>
   );
 }

@@ -29,9 +29,6 @@ const config = defaultWagmiConfig({
   projectId,
 });
 
-// Setup queryClient
-const queryClient = new QueryClient();
-
 if (!projectId) throw new Error('Project ID is not defined');
 
 // Create modal
@@ -43,16 +40,10 @@ createWeb3Modal({
   wagmiConfig: config,
 });
 
-export function Web3ModalProvider({
-  children,
-  initialState,
-}: {
-  children: ReactNode;
-  initialState?: State;
-}) {
+export function Web3ModalProvider({ children, initialState }: { children: ReactNode; initialState?: State }) {
   return (
     <WagmiProvider config={config} initialState={initialState}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      {children}
     </WagmiProvider>
   );
 }
