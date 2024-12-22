@@ -14,7 +14,6 @@ import Profile from '@/pages/profile';
 import Submit from '@/pages/reports';
 
 import '@/libs/i18next';
-import DashboardAdmin from './pages/dashboard/admin';
 import Reports from '@/pages/reports';
 import Audits from './pages/audits';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -51,10 +50,6 @@ const router = createBrowserRouter([
           {
             element: <Onboarding />,
             path: '/onboarding',
-          },
-          {
-            element: <DashboardAdmin />,
-            path: '/admin/dashboard',
           },
           {
             children: [
