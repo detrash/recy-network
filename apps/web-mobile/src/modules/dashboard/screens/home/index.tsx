@@ -4,67 +4,21 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer } from '@/components/ui/chart';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PieChart, Pie, Tooltip, Cell, Line, LineChart, ResponsiveContainer } from 'recharts';
-import { Payment, columns } from '@/modules/dashboard/componentes/table/columns';
+import { ReportTable, columns } from '@/modules/dashboard/componentes/table/columns';
 import { DataTable } from '@/modules/dashboard/componentes/table';
 import { useUserStats } from '@/services/users';
 import { useCrecy } from '@/hooks/crecy';
 import { toast } from '@/components/ui/use-toast';
-
-const formDataMocked: Payment[] = [
-  {
-    id: '728ed52f',
-    amount: 100,
-    status: 'pending',
-    email: 'm@example.com',
-  },
-  {
-    id: '728ed72f',
-    amount: 100,
-    status: 'pending',
-    email: 'm@example.com',
-  },
-  {
-    id: '728e652f',
-    amount: 100,
-    status: 'pending',
-    email: 'm@example.com',
-  },
-  {
-    id: '728ed52f',
-    amount: 100,
-    status: 'pending',
-    email: 'm@example.com',
-  },
-  {
-    id: '728ed56f',
-    amount: 100,
-    status: 'pending',
-    email: 'm@example.com',
-  },
-];
-
-type ChartData = {
-  residue: string;
-  total: number;
-};
-
-const chartData: ChartData[] = [
-  { residue: 'Glass', total: 25.0 },
-  { residue: 'Textile', total: 35.8 },
-  { residue: 'Plastic', total: 42.5 },
-  { residue: 'Paper', total: 18.75 },
-  { residue: 'Metal', total: 12.3 },
-  { residue: 'Landfill Waste', total: 28.95 },
-];
+import { Material } from '@/services/users/types';
 
 const colors = {
-  Glass: '#0036D6',
-  Textile: '#026C00',
-  Organic: '#3286FF',
-  Plastic: '#0036D6',
-  Paper: '#026C00',
-  Metal: '#52BC29',
-  'Landfill Waste': '#3286FF',
+  GLASS: '#0034D4',
+  TEXTILE: '#40AA17',
+  ORGANIC: '#000CAC',
+  PLASTIC: '#4CA0FF',
+  PAPER: '#1E8800',
+  METAL: '#68D23F',
+  'LANDFILL WASTE': '#0049E9',
 };
 
 type ChartConfigType = {
@@ -75,33 +29,33 @@ type ChartConfigType = {
 };
 
 const chartConfig: ChartConfigType = {
-  Glass: {
+  GLASS: {
     label: 'Glass',
-    color: colors.Glass,
+    color: colors.GLASS,
   },
-  Organic: {
+  ORGANIC: {
     label: 'Organic',
-    color: colors.Organic,
+    color: colors.ORGANIC,
   },
-  Textile: {
+  TEXTILE: {
     label: 'Textile',
-    color: colors.Textile,
+    color: colors.TEXTILE,
   },
-  Plastic: {
+  PLASTIC: {
     label: 'Plastic',
-    color: colors.Plastic,
+    color: colors.PLASTIC,
   },
-  Paper: {
+  PAPER: {
     label: 'Paper',
-    color: colors.Paper,
+    color: colors.PAPER,
   },
-  Metal: {
+  METAL: {
     label: 'Metal',
-    color: colors.Metal,
+    color: colors.METAL,
   },
-  'Landfill Waste': {
+  'LANDFILL WASTE': {
     label: 'Landfill Waste',
-    color: colors['Landfill Waste'],
+    color: colors['LANDFILL WASTE'],
   },
 };
 
@@ -114,13 +68,29 @@ const data = [
   { time: '05:00', value: 95 },
   { time: '06:00', value: 100 },
   { time: '07:00', value: 105 },
-  // Adicione mais dados conforme necessário
 ];
 
 export default function DashboardScreen() {
   const { user } = useAuth0();
   const { data: userStats, isFetching: isFetchingUserStats } = useUserStats('0779f19c-34a8-40c2-a482-54a353a507c0');
   const { data: cRecyBalanceData, error: cRecyBalaceError } = useCrecy();
+
+  const pieChartData =
+    userStats?.residueMaterialWeights &&
+    Object.entries(userStats.residueMaterialWeights)
+      .map((item) => ({
+        residue: item[0],
+        total: item[1],
+      }))
+      .filter((item) => item.total > 0);
+
+  const reportsDataFormated: ReportTable[] = userStats?.lastsReports?.map((item) => ({
+    id: `${item.id.slice(0, 6)}...${item.id.slice(-6)}`,
+    date: new Date(item.reportDate).toLocaleString(),
+    audited: item.audited ? 'yes' : 'no',
+    evidence: item.residueEvidence,
+    total: `${item.materials?.reduce((sum: number, material: Material) => sum + material.weightKg, 0)} Kg`,
+  }));
 
   if (cRecyBalaceError) {
     toast({
@@ -129,8 +99,6 @@ export default function DashboardScreen() {
       description: cRecyBalaceError.message,
     });
   }
-
-  console.log(cRecyBalanceData);
 
   return (
     <section className="container mt-4 flex flex-col gap-6">
@@ -142,10 +110,10 @@ export default function DashboardScreen() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {isFetchingUserStats && (
           <>
-            <Skeleton className="h-[150px] w-[350px] rounded-sm" />
-            <Skeleton className="h-[150px] w-[350px] rounded-sm" />
-            <Skeleton className="h-[150px] w-[350px] rounded-sm" />
-            <Skeleton className="h-[150px] w-[350px] rounded-sm" />
+            <Skeleton className="h-[150px] w-full rounded-sm" />
+            <Skeleton className="h-[150px] w-full rounded-sm" />
+            <Skeleton className="h-[150px] w-full rounded-sm" />
+            <Skeleton className="h-[150px] w-full rounded-sm" />
           </>
         )}
 
@@ -214,7 +182,7 @@ export default function DashboardScreen() {
               </CardHeader>
               <CardContent className="flex items-center justify-between">
                 <div>
-                  <div className="text-primary text-2xl font-bold">$928</div>
+                  <div className="text-primary text-2xl font-bold">$0,879</div>
                   <span className="text-xs font-extralight text-gray-400">cRECY / USD</span>
                 </div>
                 <ResponsiveContainer width={150} height={50}>
@@ -239,40 +207,51 @@ export default function DashboardScreen() {
                 <Icon icon="mdi:coin" className="text-muted-foreground h-4 w-4" />
               </CardHeader>
               <CardContent>
-                <div className="text-primary text-2xl font-bold">{String(cRecyBalanceData.formatted)}</div>
+                <div className="text-primary text-2xl font-bold">
+                  {cRecyBalanceData?.formatted ? String(cRecyBalanceData?.formatted) : '-'}
+                </div>
               </CardContent>
             </Card>
           </>
         )}
       </div>
 
-      <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
+      <div className="grid min-h-[400px] gap-4 lg:grid-cols-1 xl:grid-cols-2">
         {isFetchingUserStats && <Skeleton className="h-full w-full rounded-sm" />}
-        {!isFetchingUserStats && <DataTable columns={columns} data={formDataMocked} />}
 
-        <Card>
-          <CardHeader>
-            <h2 className="text-lg font-bold">Residues reported so far</h2>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={chartConfig} className="vh-80">
-              <PieChart>
-                <Pie
-                  data={chartData}
-                  dataKey="total"
-                  nameKey="residue"
-                  fill="#020817"
-                  label={({ residue, total }) => `${residue}: ${total.toFixed(2)} kg`}
-                >
-                  {chartData.map((entry) => (
-                    <Cell key={entry.residue} fill={chartConfig[entry.residue as keyof ChartConfigType].color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
+        {!isFetchingUserStats && (
+          <div className="grid grid-cols-1">
+            <DataTable columns={columns} data={reportsDataFormated} />
+          </div>
+        )}
+
+        {isFetchingUserStats && <Skeleton className="h-full w-full rounded-sm" />}
+
+        {!isFetchingUserStats && (
+          <Card className="h-full">
+            <CardHeader>
+              <h2 className="text-lg font-bold">Residues reported so far</h2>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer config={chartConfig} className="vh-80">
+                <PieChart>
+                  <Pie
+                    data={pieChartData}
+                    dataKey="total"
+                    nameKey="residue"
+                    fill="#020817"
+                    label={({ residue, total }) => `${residue}: ${total.toFixed(2)} kg`}
+                  >
+                    {pieChartData?.map((entry) => (
+                      <Cell key={entry.residue} fill={chartConfig[entry.residue as keyof ChartConfigType]?.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </section>
   );

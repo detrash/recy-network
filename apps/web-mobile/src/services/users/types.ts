@@ -12,7 +12,7 @@ export interface ValidateUserBody {
   authId: string;
   authProvider: string;
 }
-interface Report {
+export interface Report {
   id: string;
   reportDate: string;
   materials: Material[];
@@ -21,12 +21,12 @@ interface Report {
   metadata: Record<string, unknown>;
 }
 
-interface Material {
+export interface Material {
   weightKg: number;
   materialType: 'PLASTIC' | 'METAL' | 'GLASS' | 'ORGANIC' | 'PAPER' | 'TEXTILE' | 'LANDFILL_WASTE';
 }
 
-interface ResidueMaterialWeights {
+export interface ResidueMaterialWeights {
   GLASS: number;
   METAL: number;
   ORGANIC: number;
