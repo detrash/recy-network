@@ -2,34 +2,41 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from '@/components/ui/use-toast';
 import { useCrecy } from '@/hooks/crecy';
+import { useGetTokenPrice } from '@/services/token';
 import { UserStatsResponse } from '@/services/users/types';
 import { Icon } from '@iconify/react';
-import { Line, LineChart, ResponsiveContainer } from 'recharts';
-
-const lineChartData = [
-  { time: '00:00', value: 100 },
-  { time: '01:00', value: 102 },
-  { time: '02:00', value: 98 },
-  { time: '03:00', value: 105 },
-  { time: '04:00', value: 110 },
-  { time: '05:00', value: 95 },
-  { time: '06:00', value: 100 },
-  { time: '07:00', value: 105 },
-];
-
 interface DashboardCardsProps {
   data: UserStatsResponse;
   isFetching: boolean;
 }
 
+const tokenAddress = '0x34c11a932853ae24e845ad4b633e3cef91afe583';
+
 export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
   const { data: cRecyBalanceData, error: cRecyBalaceError } = useCrecy();
+  const { data: tokenPriceData, error: errorFetchingTokenPrice } = useGetTokenPrice();
+
+  const tokenPrice = tokenPriceData?.attributes?.token_prices[tokenAddress];
+  const formattedTokenPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(tokenPrice));
 
   if (cRecyBalaceError) {
     toast({
       variant: 'destructive',
       title: cRecyBalaceError.name,
       description: cRecyBalaceError.message,
+    });
+  }
+
+  if (errorFetchingTokenPrice) {
+    toast({
+      variant: 'destructive',
+      title: errorFetchingTokenPrice.name,
+      description: errorFetchingTokenPrice.message,
     });
   }
 
@@ -109,10 +116,11 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
             </CardHeader>
             <CardContent className="flex items-center justify-between">
               <div>
-                <div className="text-primary text-2xl font-bold">$0,879</div>
+                <div className="text-primary text-2xl font-bold">{formattedTokenPrice}</div>
                 <span className="text-xs font-extralight text-gray-400">cRECY / USD</span>
               </div>
-              <ResponsiveContainer width={150} height={50}>
+              {/* TODO: We will contine work here when our backend return more information about or toke price */}
+              {/* <ResponsiveContainer width={150} height={50}>
                 <LineChart data={lineChartData}>
                   <Line
                     type="monotone"
@@ -124,7 +132,7 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
                     animationDuration={1500}
                   />
                 </LineChart>
-              </ResponsiveContainer>
+              </ResponsiveContainer> */}
             </CardContent>
           </Card>
 

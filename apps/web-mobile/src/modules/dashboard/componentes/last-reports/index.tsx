@@ -4,6 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Material, UserStatsResponse } from '@/services/users/types';
 import { DataTable } from '../table';
 import { columns, ReportTable } from '../table/columns';
+import { useNavigate } from 'react-router-dom';
 
 interface DashboardLastReportsProps {
   data: UserStatsResponse;
@@ -11,6 +12,7 @@ interface DashboardLastReportsProps {
 }
 
 export const DashboardLastReports = ({ data, isFetching }: DashboardLastReportsProps) => {
+  const navigate = useNavigate();
   const reportsDataFormated: ReportTable[] = data?.lastsReports?.map((item) => ({
     id: `${item.id.slice(0, 6)}...${item.id.slice(-6)}`,
     date: new Date(item.reportDate).toLocaleString(),
@@ -31,7 +33,7 @@ export const DashboardLastReports = ({ data, isFetching }: DashboardLastReportsP
             </CardHeader>
             <CardContent>
               <DataTable columns={columns} data={reportsDataFormated} />
-              <Button variant="secondary" size="sm" className="my-4">
+              <Button variant="secondary" size="sm" className="my-4" onClick={() => navigate('/reports')}>
                 View all
               </Button>
             </CardContent>
