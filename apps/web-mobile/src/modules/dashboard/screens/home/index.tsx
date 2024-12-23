@@ -1,14 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Icon } from '@iconify/react';
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
 import { ChartContainer } from '@/components/ui/chart';
-import { ResponsiveContainer, PieChart, Pie, Tooltip, Cell } from 'recharts';
-
+import { Skeleton } from '@/components/ui/skeleton';
+import { PieChart, Pie, Tooltip, Cell, Line, LineChart, ResponsiveContainer } from 'recharts';
 import { Payment, columns } from '@/modules/dashboard/componentes/table/columns';
 import { DataTable } from '@/modules/dashboard/componentes/table';
 import { useUserStats } from '@/services/users';
+import { useCrecy } from '@/hooks/crecy';
+import { toast } from '@/components/ui/use-toast';
 
 const formDataMocked: Payment[] = [
   {
@@ -58,12 +58,13 @@ const chartData: ChartData[] = [
 ];
 
 const colors = {
-  Glass: 'hsl(190, 70%, 50%)',
-  Textile: 'hsl(340, 70%, 50%)',
-  Plastic: 'hsl(50, 70%, 50%)',
-  Paper: 'hsl(120, 70%, 50%)',
-  Metal: 'hsl(220, 70%, 50%)',
-  'Landfill Waste': 'hsl(0, 70%, 50%)',
+  Glass: '#0036D6',
+  Textile: '#026C00',
+  Organic: '#3286FF',
+  Plastic: '#0036D6',
+  Paper: '#026C00',
+  Metal: '#52BC29',
+  'Landfill Waste': '#3286FF',
 };
 
 type ChartConfigType = {
@@ -77,6 +78,10 @@ const chartConfig: ChartConfigType = {
   Glass: {
     label: 'Glass',
     color: colors.Glass,
+  },
+  Organic: {
+    label: 'Organic',
+    color: colors.Organic,
   },
   Textile: {
     label: 'Textile',
@@ -100,38 +105,32 @@ const chartConfig: ChartConfigType = {
   },
 };
 
+const data = [
+  { time: '00:00', value: 100 },
+  { time: '01:00', value: 102 },
+  { time: '02:00', value: 98 },
+  { time: '03:00', value: 105 },
+  { time: '04:00', value: 110 },
+  { time: '05:00', value: 95 },
+  { time: '06:00', value: 100 },
+  { time: '07:00', value: 105 },
+  // Adicione mais dados conforme necessário
+];
+
 export default function DashboardScreen() {
   const { user } = useAuth0();
-  const { data: userStats } = useUserStats('57b5d73d-cdb2-450a-9dc7-11ddf60c8724');
+  const { data: userStats, isFetching: isFetchingUserStats } = useUserStats('0779f19c-34a8-40c2-a482-54a353a507c0');
+  const { data: cRecyBalanceData, error: cRecyBalaceError } = useCrecy();
 
-  console.log(userStats);
+  if (cRecyBalaceError) {
+    toast({
+      variant: 'destructive',
+      title: cRecyBalaceError.name,
+      description: cRecyBalaceError.message,
+    });
+  }
 
-  const statusData = [
-    {
-      title: 'Total Residues Kgs Reported',
-      value: String(userStats?.totalResidueKg),
-      icon: 'mdi:scale-balance',
-      status: 'success',
-    },
-    {
-      title: 'Total Forms Submitted',
-      value: String(userStats?.totalReports),
-      icon: 'mdi:clipboard-text',
-      status: 'warning',
-    },
-    {
-      title: 'cRECY Price',
-      value: String(userStats?.token.data.price.usd),
-      icon: 'mdi:cash',
-      status: 'info',
-    },
-    {
-      title: 'Total cRECY in wallet',
-      value: String(userStats?.token.wallet.balance.crecy),
-      icon: 'mdi:coin',
-      status: 'success',
-    },
-  ];
+  console.log(cRecyBalanceData);
 
   return (
     <section className="container mt-4 flex flex-col gap-6">
@@ -141,36 +140,115 @@ export default function DashboardScreen() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {statusData.map((item, index) => (
-          <Card key={index}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{item.title}</CardTitle>
-              <Icon icon={item.icon} className="text-muted-foreground h-4 w-4" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{item.value}</div>
-              <p
-                className={`mt-1 text-xs ${
-                  item.status === 'success'
-                    ? 'text-green-500'
-                    : item.status === 'warning'
-                      ? 'text-yellow-500'
-                      : 'text-blue-500'
-                }`}
-              >
-                {item.status === 'success'
-                  ? '↗︎ 12% increase'
-                  : item.status === 'warning'
-                    ? '→ No change'
-                    : '↘︎ 5% decrease'}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
+        {isFetchingUserStats && (
+          <>
+            <Skeleton className="h-[150px] w-[350px] rounded-sm" />
+            <Skeleton className="h-[150px] w-[350px] rounded-sm" />
+            <Skeleton className="h-[150px] w-[350px] rounded-sm" />
+            <Skeleton className="h-[150px] w-[350px] rounded-sm" />
+          </>
+        )}
+
+        {!isFetchingUserStats && (
+          <>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Residues Kgs Reported</CardTitle>
+                <Icon icon="mdi:scale-balance" className="text-muted-foreground h-4 w-4" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-primary text-2xl font-bold">
+                  {userStats?.totalResidueKg ? String(userStats?.totalResidueKg) : '-'}
+                </div>
+                <p
+                  className={`mt-1 flex w-full justify-between gap-2 text-xs ${
+                    userStats?.monthlyChanges.residueKgs.changeType === 'increase'
+                      ? 'text-green-500'
+                      : userStats?.monthlyChanges.residueKgs.changeType === 'decrease'
+                        ? 'text-blue-500'
+                        : 'text-yellow-500'
+                  }`}
+                >
+                  {userStats?.monthlyChanges.residueKgs.changeType === 'increase'
+                    ? `↗︎ ${userStats?.monthlyChanges.residueKgs.percentageChange}% increase`
+                    : userStats?.monthlyChanges.residueKgs.changeType === 'decrease'
+                      ? `↘︎ ${userStats?.monthlyChanges.residueKgs.percentageChange}% decrease`
+                      : '→ No change'}
+                  <span className="text-xs font-extralight text-gray-400">from last month</span>
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Reports Submitted</CardTitle>
+                <Icon icon="mdi:clipboard-text" className="text-muted-foreground h-4 w-4" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-primary text-2xl font-bold">
+                  {userStats?.totalReports ? String(userStats?.totalReports) : '-'}
+                </div>
+                <p
+                  className={`mt-1 flex w-full justify-between gap-2 text-xs ${
+                    userStats?.monthlyChanges.reports.changeType === 'increase'
+                      ? 'text-green-500'
+                      : userStats?.monthlyChanges.reports.changeType === 'decrease'
+                        ? 'text-blue-500'
+                        : 'text-yellow-500'
+                  }`}
+                >
+                  {userStats?.monthlyChanges.reports.changeType === 'increase'
+                    ? `↗︎ ${userStats?.monthlyChanges.reports.percentageChange}% increase`
+                    : userStats?.monthlyChanges.reports.changeType === 'decrease'
+                      ? `↘︎ ${userStats?.monthlyChanges.reports.percentageChange}% decrease`
+                      : '→ No change'}
+                  <span className="text-xs font-extralight text-gray-400">from last month</span>
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Recy Network - cRECY</CardTitle>
+                <Icon icon="mdi:cash" className="text-muted-foreground h-4 w-4" />
+              </CardHeader>
+              <CardContent className="flex items-center justify-between">
+                <div>
+                  <div className="text-primary text-2xl font-bold">$928</div>
+                  <span className="text-xs font-extralight text-gray-400">cRECY / USD</span>
+                </div>
+                <ResponsiveContainer width={150} height={50}>
+                  <LineChart data={data}>
+                    <Line
+                      type="monotone"
+                      dataKey="value"
+                      stroke="#2463EB"
+                      activeDot={{ r: 8 }}
+                      strokeWidth={2}
+                      dot={false}
+                      animationDuration={1500}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total cRECY in wallet</CardTitle>
+                <Icon icon="mdi:coin" className="text-muted-foreground h-4 w-4" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-primary text-2xl font-bold">{String(cRecyBalanceData.formatted)}</div>
+              </CardContent>
+            </Card>
+          </>
+        )}
       </div>
 
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
-        <DataTable columns={columns} data={formDataMocked} />
+        {isFetchingUserStats && <Skeleton className="h-full w-full rounded-sm" />}
+        {!isFetchingUserStats && <DataTable columns={columns} data={formDataMocked} />}
 
         <Card>
           <CardHeader>
@@ -178,22 +256,20 @@ export default function DashboardScreen() {
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="vh-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={chartData}
-                    dataKey="total"
-                    nameKey="residue"
-                    fill="#8884d8"
-                    label={({ residue, total }) => `${residue}: ${total.toFixed(2)} kg`}
-                  >
-                    {chartData.map((entry) => (
-                      <Cell key={entry.residue} fill={chartConfig[entry.residue as keyof ChartConfigType].color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  dataKey="total"
+                  nameKey="residue"
+                  fill="#020817"
+                  label={({ residue, total }) => `${residue}: ${total.toFixed(2)} kg`}
+                >
+                  {chartData.map((entry) => (
+                    <Cell key={entry.residue} fill={chartConfig[entry.residue as keyof ChartConfigType].color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
             </ChartContainer>
           </CardContent>
         </Card>

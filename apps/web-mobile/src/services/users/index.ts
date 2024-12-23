@@ -3,7 +3,7 @@ import { toast } from '@/components/ui/use-toast';
 import { apiV1 } from '@/libs/axios';
 import parseData from '@/utils/parseData';
 
-import type { ResidueReportResponse, ValidateUserBody, ValidateUserResponse } from './types';
+import type { UserStatsResponse, ValidateUserBody, ValidateUserResponse } from './types';
 import type { ApiError } from '@/entities/response';
 import { User } from '@/entities/user';
 import { userKey, userStatsKey } from './keys';
@@ -41,11 +41,11 @@ export const useUser = (id: string, options?: UseQueryOptions<User, ApiError>) =
   });
 };
 
-export const useUserStats = (id: string, options?: UseQueryOptions<ResidueReportResponse, ApiError>) => {
+export const useUserStats = (id: string, options?: UseQueryOptions<UserStatsResponse, ApiError>) => {
   return useQuery({
     queryKey: userStatsKey(id),
     queryFn: async () => {
-      const response = await apiV1.get<ResidueReportResponse>(`users/${id}/stats`);
+      const response = await apiV1.get<UserStatsResponse>(`users/${id}/stats`);
       return parseData(response);
     },
     ...options,
