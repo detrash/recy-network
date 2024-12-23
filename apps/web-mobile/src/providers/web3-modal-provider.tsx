@@ -1,49 +1,56 @@
-import type { ReactNode } from 'react';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
-import type { State } from 'wagmi';
-import { WagmiProvider } from 'wagmi';
-import { mainnet, sepolia } from 'wagmi/chains';
 
-// Get projectId at https://cloud.walletconnect.com
+import { WagmiProvider } from 'wagmi';
+import { mainnet, Chain } from 'wagmi/chains';
+import React from 'react';
+
+const celoChain: Chain = {
+  id: 42220,
+  name: 'Celo',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Celo',
+    symbol: 'CELO',
+  },
+  rpcUrls: {
+    default: { http: ['https://forno.celo.org/'] },
+  },
+  blockExplorers: {
+    default: { name: 'Celo Explorer', url: 'https://explorer.celo.org/' },
+  },
+  testnet: false,
+};
+
+// 1. Get projectId from https://cloud.walletconnect.com
 export const projectId = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID;
 
 if (!projectId) throw new Error('WalletConnect Project ID is not defined');
 
+// 2. Create wagmiConfig
 const metadata = {
   name: 'Recy Network',
   description:
     'Recy Network is a solution of recycling and composting for humanity to live in a world free of waste in nature!',
-  url: 'https://v2.app.recy.life',
+  url: 'https://app.recy.life', // origin must match your domain & subdomain
   icons: ['https://raw.githubusercontent.com/detrash/recy-app-legacy/main/public/recy-logo.png'],
 };
 
-// Create wagmiConfig
-const chains = [mainnet, sepolia] as const;
-
+const chains = [mainnet, celoChain] as const;
 const config = defaultWagmiConfig({
   chains,
+  projectId,
   metadata,
-  projectId,
 });
 
-if (!projectId) throw new Error('Project ID is not defined');
-
-// Create modal
+// 3. Create modal
 createWeb3Modal({
-  enableAnalytics: true,
-  // Optional - defaults to your Cloud configuration
-  enableOnramp: true,
-  projectId,
+  metadata,
   wagmiConfig: config,
+  projectId,
+  enableAnalytics: true, // Optional - defaults to your Cloud configuration
 });
 
-export function Web3ModalProvider({ children, initialState }: { children: ReactNode; initialState?: State }) {
-  return (
-    <WagmiProvider config={config} initialState={initialState}>
-      {children}
-    </WagmiProvider>
-  );
+export function Web3ModalProvider({ children }: React.PropsWithChildren) {
+  return <WagmiProvider config={config}>{children}</WagmiProvider>;
 }

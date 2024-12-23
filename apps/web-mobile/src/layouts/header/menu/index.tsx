@@ -79,7 +79,7 @@ export function Menu() {
             onClick={() => open()}
           >
             {isConnected && address ? <p>{`${address.slice(0, 4)}...${address.slice(-4)}`}</p> : 'Connect Wallet'}
-            <Icon icon="ph:wallet-thin" width="16" height="16" className="ml-1" />
+            <Icon icon="ph:wallet-thin" width="16" height="16" className="ml-1 text-green-800" />
           </NavigationMenuLink>
         </NavigationMenuItem>
 

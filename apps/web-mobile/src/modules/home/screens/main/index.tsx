@@ -2,10 +2,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/use-toast';
 import { ToastAction } from '@/components/ui/toast';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import LocaleToggler from '@/components/locale-toggler';
 import { Button } from '@/components/ui/button';
+
+import { Loader2 } from 'lucide-react';
+import { validateAuthProvider } from '@/utils/auth';
 import { useUsersValidate } from '@/services/users';
 
 export default function HomeScreen() {
@@ -17,11 +20,12 @@ export default function HomeScreen() {
     getIdTokenClaims,
     getAccessTokenWithPopup,
   } = useAuth0();
-  const { mutate: validateUser, isError: isUsersValidateError, isSuccess: isUsersValidateSuccess } = useUsersValidate();
+
+  const { mutate: validateUser, isError: isUsersValidateError, isPending: isValidateUserPending } = useUsersValidate();
   const navigate = useNavigate();
 
   const hasAuthOrValidateError = isAuthError && isUsersValidateError;
-  const canRedirected = isAuthenticated && isUsersValidateSuccess && !hasAuthOrValidateError;
+  const canRedirected = isAuthenticated && !hasAuthOrValidateError;
 
   if (canRedirected) navigate('/dashboard');
 
@@ -42,14 +46,24 @@ export default function HomeScreen() {
     await getAccessTokenWithPopup();
     const tokenClaims = await getIdTokenClaims();
 
-    const [authProvider] = tokenClaims.sub.split('|'); // Ex: google-oauth2
+    const authProviderValidated = validateAuthProvider(tokenClaims.sub);
+
+    if (!validateAuthProvider(authProviderValidated)) {
+      toast({
+        variant: 'destructive',
+        title: 'Auth Provider Invalid',
+        description: isAuthError.message,
+      });
+
+      return;
+    }
 
     const payload = {
       email: tokenClaims.email,
       name: tokenClaims.name,
       picture: tokenClaims.picture,
       authId: tokenClaims.sub,
-      authProvider,
+      authProvider: authProviderValidated,
     };
 
     validateUser(payload);
@@ -70,7 +84,9 @@ export default function HomeScreen() {
             <p className="text-xl text-gray-500">
               Let&apos;s end waste pollution at its source. Let&apos;s transform how we think about trash and recycling.
             </p>
-            <Button onClick={handleLogin} size="lg" className="w-full">
+            <Button onClick={handleLogin} size="lg" className="flex w-full gap-2" disabled={isValidateUserPending}>
+              {isValidateUserPending && <Loader2 className="animate-spin" />}
+
               {t('home.login')}
             </Button>
             <div className="flex justify-center p-5">
