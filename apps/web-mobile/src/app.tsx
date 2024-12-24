@@ -14,6 +14,8 @@ import Profile from '@/pages/profile';
 import Submit from '@/pages/submit';
 
 import '@/libs/i18next';
+import NotFoundPage from './pages/not-found';
+import ErrorPage from './pages/error';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,7 @@ const router = createBrowserRouter([
       },
     ],
     element: <Header />,
+    errorElement: <ErrorPage />,
   },
   {
     children: [
@@ -74,10 +77,16 @@ const router = createBrowserRouter([
       },
     ],
     element: <HeaderSimple />,
+    errorElement: <ErrorPage />,
   },
   {
     element: <Home />,
     path: '/',
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ]);
 
