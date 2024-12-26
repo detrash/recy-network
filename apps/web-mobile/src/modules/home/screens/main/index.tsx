@@ -1,55 +1,121 @@
-import { Suspense, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-
+import { toast } from '@/components/ui/use-toast';
+import { ToastAction } from '@/components/ui/toast';
+import { Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import LocaleToggler from '@/components/locale-toggler';
 import { Button } from '@/components/ui/button';
 
+import { Loader2 } from 'lucide-react';
+import { validateAuthProvider } from '@/utils/auth';
+import { useUsersValidate } from '@/services/users';
+
 export default function HomeScreen() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const {
+    loginWithRedirect,
+    error: isAuthError,
+    isAuthenticated,
+    getIdTokenClaims,
+    getAccessTokenWithPopup,
+    isLoading,
+  } = useAuth0();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/dashboard');
+  const {
+    mutate: validateUser,
+    isError: isUsersValidateError,
+    isPending: isValidateUserPending,
+    // isSuccess: isUsersValidateSuccess,
+  } = useUsersValidate();
+  const navigate = useNavigate();
+
+  const hasAuthOrValidateError = isAuthError || isUsersValidateError;
+  const canRedirected = isAuthenticated && !hasAuthOrValidateError;
+
+  if (canRedirected) navigate('/dashboard');
+
+  if (isAuthError) {
+    toast({
+      variant: 'destructive',
+      title: isAuthError.name,
+      description: isAuthError.message,
+      action: (
+        <ToastAction altText="Try again" onClick={() => loginWithRedirect()}>
+          Try again
+        </ToastAction>
+      ),
+    });
+  }
+
+  const handleLogin = async () => {
+    await getAccessTokenWithPopup();
+    const tokenClaims = await getIdTokenClaims();
+
+    const authProviderValidated = validateAuthProvider(tokenClaims.sub);
+
+    if (!validateAuthProvider(authProviderValidated)) {
+      toast({
+        variant: 'destructive',
+        title: 'Auth Provider Invalid',
+        description: isAuthError.message,
+      });
+
+      return;
     }
-  }, [isAuthenticated, navigate]);
+
+    const payload = {
+      email: tokenClaims.email,
+      name: tokenClaims.name,
+      picture: tokenClaims.picture,
+      authId: tokenClaims.sub,
+      authProvider: authProviderValidated,
+    };
+
+    validateUser(payload);
+  };
 
   return (
-    <div className="flex h-lvh flex-1 justify-between">
-      <main className="flex h-full flex-1 flex-shrink-0 flex-col justify-center">
-        <div className="w-full p-5">
-          <nav className="flex items-center justify-between">
-            <div>
-              <img src="/assets/brand/recy-logo.png" width={64} height={64} alt="Recy Logo" />
-            </div>
+    <div className="grid min-h-svh lg:grid-cols-2">
+      <div className="flex flex-col gap-4 p-6 md:p-10">
+        <div className="flex justify-center gap-2 md:justify-start">
+          <img src="/assets/brand/recy-logo.png" width={64} height={64} alt="Recy Logo" />
+        </div>
+        <div className="flex flex-1 items-center justify-center">
+          <div className="flex w-full max-w-xl flex-col gap-4 text-center">
+            <div className="flex flex-col gap-4">
+              <h1 className="text-6xl font-bold lg:text-7xl">Welcome to</h1>
+              <span className="text-primary text-6xl font-bold lg:text-7xl">Recy App</span>
 
+            </div>
+            <p className="text-xl text-gray-500">
+              Let&apos;s end waste pollution at its source. Let&apos;s transform how we think about trash and recycling.
+            </p>
+            <Button
+              onClick={handleLogin}
+              size="lg"
+              className="flex w-full gap-2"
+              disabled={isValidateUserPending || isLoading}
+            >
+              {(isValidateUserPending || isLoading) && <Loader2 className="animate-spin" />}
+
+              {t('home.login')}
+            </Button>
             <div className="flex justify-center p-5">
               <Suspense fallback={<div>Loading language options...</div>}>
                 <LocaleToggler />
               </Suspense>
             </div>
-          </nav>
-        </div>
-
-        <div className="flex max-w-xl flex-1 flex-col justify-center gap-8 p-5">
-          <div className="flex flex-col gap-4">
-            <h1 className="text-6xl font-bold lg:text-7xl">Welcome to</h1>
-            <span className="text-primary text-6xl font-bold lg:text-7xl">Recy App</span>
           </div>
-          <p className="text-xl text-gray-500">
-            Let&apos;s end waste pollution at its source. Let&apos;s transform how we think about trash and recycling.
-          </p>
-          <Button onClick={() => loginWithRedirect()} size="lg" className="w-full">
-            {t('home.login')}
-          </Button>
         </div>
-      </main>
-      <aside className="relative hidden h-lvh flex-1 flex-shrink basis-1/12 flex-col items-center justify-center xl:flex">
-        <img className="w-full object-cover" src="/assets/bg/ocean.jpg" alt="Ocean" />
-      </aside>
+      </div>
+      <div className="bg-muted relative hidden lg:block">
+        <img
+          src="/assets/bg/ocean.jpg"
+          alt="Man cleaning the beach"
+          className="absolute inset-0 h-full w-full object-cover dark:brightness-[1.2]"
+        />
+      </div>
     </div>
   );
 }
