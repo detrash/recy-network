@@ -14,6 +14,8 @@ import Profile from '@/pages/profile';
 import ReportsSubmit from '@/pages/reports/submit';
 
 import '@/libs/i18next';
+import NotFoundPage from './pages/not-found';
+import ErrorPage from './pages/error';
 import Reports from '@/pages/reports';
 import Audits from './pages/audits';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -68,6 +70,8 @@ const router = createBrowserRouter([
         element: <Header />,
       },
     ],
+    element: <Header />,
+    errorElement: <ErrorPage />,
   },
   {
     children: [
@@ -89,10 +93,16 @@ const router = createBrowserRouter([
       },
     ],
     element: <HeaderSimple />,
+    errorElement: <ErrorPage />,
   },
   {
     element: <Home />,
     path: '/',
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ]);
 
