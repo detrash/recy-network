@@ -1,3 +1,5 @@
+import { RecyclingReport } from '@/entities/report';
+
 export type User = {
   phone: string | null;
   walletAddress: string | null;
@@ -9,4 +11,5 @@ export type User = {
   picture: string | null;
   createdAt: Date;
   updatedAt: Date;
+  recyclingReports: RecyclingReport[];
 };

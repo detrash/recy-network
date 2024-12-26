@@ -36,10 +36,10 @@ export function Menu() {
 
   const menuItems = [
     { label: 'Dashboard', icon: 'material-symbols-light:team-dashboard-outline', route: ROUTES.PRIVATE.DASHBOARD() },
-    { label: 'Reports', icon: 'ph:recycle', route: ROUTES.PRIVATE.SUBMIT_REPORT() },
-    { label: 'KYC', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.KYC() },
-    { label: 'Audits', icon: 'ic:check-circle', route: ROUTES.PRIVATE.AUDITS() },
-    { label: 'Admin', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.AUDITS() },
+    { label: 'Reports', icon: 'ph:recycle', route: ROUTES.PRIVATE.REPORTS() },
+    // { label: 'KYC', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.KYC() },
+    // { label: 'Audits', icon: 'ic:check-circle', route: ROUTES.PRIVATE.AUDITS() },
+    // { label: 'Admin', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.AUDITS() },
   ];
 
   const renderMenuItems = (mobile = false) => (
@@ -62,7 +62,7 @@ export function Menu() {
   const renderProfileMenu = (mobile = false) => (
     <DropdownMenu>
       <div className="flex">
-        <DropdownMenuTrigger className={cn('px-4', mobile && 'w-full justify-start')}>
+        <DropdownMenuTrigger className={cn('pl-4', mobile && 'w-full justify-start')}>
           <Avatar>
             <AvatarImage src={user?.picture ?? ''} alt="User profile" />
             <AvatarFallback className="text-xs">{user?.name}</AvatarFallback>
@@ -70,7 +70,7 @@ export function Menu() {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem>
-            <Button asChild variant="link">
+            <Button asChild variant="link" onClick={() => mobile && setIsMobileMenuOpen(false)}>
               <Link to={ROUTES.PRIVATE.PROFILE()}>Your Profile</Link>
             </Button>
           </DropdownMenuItem>
@@ -162,7 +162,7 @@ export function Menu() {
                     setIsMobileMenuOpen(false);
                   }}
                 >
-                  <Icon icon="ph:wallet-thin" width="20" height="20" className="mr-3 text-green-800" />
+                  <Icon icon="ph:wallet-thin" width="20" height="20" className="mr-3" />
                   {isConnected && address ? `${address.slice(0, 4)}...${address.slice(-4)}` : 'Connect Wallet'}
                 </Button>
                 <div className="flex items-center justify-between">

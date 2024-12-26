@@ -1,7 +1,7 @@
-import SubmitScreen from '@/modules/reports/screens/submit';
+import ReportsSubmitScreen from '@/modules/reports/screens/submit';
 
-function Submit() {
-  return <SubmitScreen />;
+function ReportsSubmit() {
+  return <ReportsSubmitScreen />;
 }
 
-export default Submit;
+export default ReportsSubmit;

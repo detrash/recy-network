@@ -15,7 +15,8 @@ export const ROUTES = {
     KYC: mapParameters('kyc'),
     ONBOARDING: mapParameters('onboarding'),
     PROFILE: mapParameters('settings/profile'),
-    SUBMIT_REPORT: mapParameters('reports'),
+    REPORTS: mapParameters('reports'),
+    SUBMIT_REPORT: mapParameters('reports/submit'),
   },
   PUBLIC: {
     HOME: mapParameters(''),
