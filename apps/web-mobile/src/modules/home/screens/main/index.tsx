@@ -19,12 +19,18 @@ export default function HomeScreen() {
     isAuthenticated,
     getIdTokenClaims,
     getAccessTokenWithPopup,
+    isLoading,
   } = useAuth0();
 
-  const { mutate: validateUser, isError: isUsersValidateError, isPending: isValidateUserPending } = useUsersValidate();
+  const {
+    mutate: validateUser,
+    isError: isUsersValidateError,
+    isPending: isValidateUserPending,
+    // isSuccess: isUsersValidateSuccess,
+  } = useUsersValidate();
   const navigate = useNavigate();
 
-  const hasAuthOrValidateError = isAuthError && isUsersValidateError;
+  const hasAuthOrValidateError = isAuthError || isUsersValidateError;
   const canRedirected = isAuthenticated && !hasAuthOrValidateError;
 
   if (canRedirected) navigate('/dashboard');
@@ -84,8 +90,13 @@ export default function HomeScreen() {
             <p className="text-xl text-gray-500">
               Let&apos;s end waste pollution at its source. Let&apos;s transform how we think about trash and recycling.
             </p>
-            <Button onClick={handleLogin} size="lg" className="flex w-full gap-2" disabled={isValidateUserPending}>
-              {isValidateUserPending && <Loader2 className="animate-spin" />}
+            <Button
+              onClick={handleLogin}
+              size="lg"
+              className="flex w-full gap-2"
+              disabled={isValidateUserPending || isLoading}
+            >
+              {(isValidateUserPending || isLoading) && <Loader2 className="animate-spin" />}
 
               {t('home.login')}
             </Button>

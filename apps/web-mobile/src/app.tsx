@@ -11,7 +11,7 @@ import Home from '@/pages/home';
 import KYC from '@/pages/kyc';
 import Onboarding from '@/pages/onboarding';
 import Profile from '@/pages/profile';
-import Submit from '@/pages/reports';
+import ReportsSubmit from '@/pages/reports/submit';
 
 import '@/libs/i18next';
 import Reports from '@/pages/reports';
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             path: '/reports',
           },
           {
-            element: <Submit />,
+            element: <ReportsSubmit />,
             path: '/reports/submit',
           },
           {

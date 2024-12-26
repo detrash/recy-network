@@ -2,7 +2,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from '@/components/ui/use-toast';
 import { useCrecy } from '@/hooks/crecy';
-import { useGetTokenPrice } from '@/services/token';
+import { useGetTokenPrice } from '@/services/crecy';
 import { UserStatsResponse } from '@/services/users/types';
 import { Icon } from '@iconify/react';
 interface DashboardCardsProps {
@@ -111,7 +111,7 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Recy Network - cRECY</CardTitle>
+              <CardTitle className="text-sm font-medium">cRECY</CardTitle>
               <Icon icon="mdi:cash" className="text-muted-foreground h-4 w-4" />
             </CardHeader>
             <CardContent className="flex items-center justify-between">
@@ -143,7 +143,9 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
             </CardHeader>
             <CardContent>
               <div className="text-primary text-2xl font-bold">
-                {cRecyBalanceData?.formatted ? String(cRecyBalanceData?.formatted) : '-'}
+                {cRecyBalanceData?.formatted && !isNaN(Number(cRecyBalanceData.formatted))
+                  ? String(cRecyBalanceData.formatted)
+                  : '-'}
               </div>
             </CardContent>
           </Card>
