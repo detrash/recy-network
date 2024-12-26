@@ -54,12 +54,12 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
       {!isFetching && (
         <>
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">Total Residues Kgs Reported</CardTitle>
-              <Icon icon="mdi:scale-balance" className="text-muted-foreground h-4 w-4" />
+              <Icon icon="mdi:scale-balance" className="w-4 h-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-primary text-2xl font-bold">
+              <div className="text-2xl font-bold text-primary">
                 {data?.totalResidueKg ? String(data?.totalResidueKg) : '-'}
               </div>
               <p
@@ -76,18 +76,18 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
                   : data?.monthlyChanges.residueKgs.changeType === 'decrease'
                     ? `↘︎ ${data?.monthlyChanges.residueKgs.percentageChange}% decrease`
                     : '→ No change'}
-                <span className="text-xs font-extralight text-gray-400">from last month</span>
+                <span className="text-xs text-gray-400 font-extralight">from last month</span>
               </p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">Total Reports Submitted</CardTitle>
-              <Icon icon="mdi:clipboard-text" className="text-muted-foreground h-4 w-4" />
+              <Icon icon="mdi:clipboard-text" className="w-4 h-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-primary text-2xl font-bold">
+              <div className="text-2xl font-bold text-primary">
                 {data?.totalReports ? String(data?.totalReports) : '-'}
               </div>
               <p
@@ -104,20 +104,20 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
                   : data?.monthlyChanges.reports.changeType === 'decrease'
                     ? `↘︎ ${data?.monthlyChanges.reports.percentageChange}% decrease`
                     : '→ No change'}
-                <span className="text-xs font-extralight text-gray-400">from last month</span>
+                <span className="text-xs text-gray-400 font-extralight">from last month</span>
               </p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">cRECY</CardTitle>
-              <Icon icon="mdi:cash" className="text-muted-foreground h-4 w-4" />
+              <Icon icon="mdi:cash" className="w-4 h-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="flex items-center justify-between">
               <div>
-                <div className="text-primary text-2xl font-bold">{formattedTokenPrice}</div>
-                <span className="text-xs font-extralight text-gray-400">cRECY / USD</span>
+                <div className="text-2xl font-bold text-primary">{formattedTokenPrice}</div>
+                <span className="text-xs text-gray-400 font-extralight">cRECY / USD</span>
               </div>
               {/* TODO: We will contine work here when our backend return more information about or toke price */}
               {/* <ResponsiveContainer width={150} height={50}>
@@ -137,13 +137,13 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">Total cRECY in wallet</CardTitle>
-              <Icon icon="mdi:coin" className="text-muted-foreground h-4 w-4" />
+              <Icon icon="mdi:coin" className="w-4 h-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-primary text-2xl font-bold">
-                {cRecyBalanceData?.formatted && !isNaN(Number(cRecyBalanceData.formatted))
+              <div className="text-2xl font-bold text-primary">
+                {typeof cRecyBalanceData?.formatted === 'number' && !isNaN(cRecyBalanceData.formatted)
                   ? String(cRecyBalanceData.formatted)
                   : '-'}
               </div>
