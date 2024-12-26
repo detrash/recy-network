@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import LocaleToggler from '@/components/locale-toggler';
 import { Button } from '@/components/ui/button';
+import Captcha from '@/components/captcha';
 
 import { Loader2 } from 'lucide-react';
 import { validateAuthProvider } from '@/utils/auth';
