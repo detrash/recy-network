@@ -7,14 +7,7 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useCalculatorStore } from '@/modules/calculator/stores/use-calculator';
 
@@ -42,9 +35,10 @@ export default function CalculatorResultScreen() {
   // Employees number x 1.5kgs x 30 = waste footprint in kgs
   const wasteFootprint = inputs.employees_quantity && inputs.employees_quantity * 1.5 * 30;
 
-  const needPersonalizedSupport = inputs.company_type === 'product'
-    || (inputs.employees_quantity && inputs.employees_quantity >= 100)
-    || (wasteFootprint && wasteFootprint >= BIG_WASTE_FOOTPRINT);
+  const needPersonalizedSupport =
+    inputs.company_type === 'product' ||
+    (inputs.employees_quantity && inputs.employees_quantity >= 100) ||
+    (wasteFootprint && wasteFootprint >= BIG_WASTE_FOOTPRINT);
 
   const handleCalculateCrecys = () => {
     if (!wasteFootprint) {
@@ -86,14 +80,13 @@ export default function CalculatorResultScreen() {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <h2 className="text-bold text-bold text-xl">
+              <h2 className="text-bold text-xl">
                 {t('calculator.result.hero.title', {
                   wasteFootprint,
                 })}
               </h2>
-              <h1 className="text-bold text-bold text-6xl">
+              <h1 className="text-bold text-6xl">
                 <span className="text-blue-400">{Math.ceil(handleCalculateCrecys())}</span>
-                {' '}
                 cRECYs
               </h1>
               <span className="text-base">{t('calculator.result.hero.text')}</span>
