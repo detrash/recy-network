@@ -5,19 +5,14 @@ import { z } from 'zod';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { useState } from 'react';
 
 const profileFormSchema = z.object({
   email: z
@@ -44,6 +39,8 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export default function ProfileForm() {
   const { user } = useAuth0();
+  const [turnstileToken, setTurnstileToken] = useState<string>();
+
   const form = useForm<ProfileFormValues>({
     // defaultValues,
     mode: 'onChange',
@@ -145,6 +142,7 @@ export default function ProfileForm() {
           </div>
         </RadioGroup>
 
+        <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} />
         <Button type="submit">Save Changes</Button>
       </form>
     </Form>
