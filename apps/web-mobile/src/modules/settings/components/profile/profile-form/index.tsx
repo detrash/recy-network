@@ -60,9 +60,9 @@ export default function ProfileForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex flex-col gap-2">
-          <h2 className="text-base">Basic Info</h2>
+          <h2 className="text-base font-bold uppercase">Basic Info:</h2>
           <Separator />
         </div>
 
@@ -73,7 +73,10 @@ export default function ProfileForm() {
               name="preferred_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Preferred Name</FormLabel>
+                  <FormLabel>
+                    Preferred Name
+                    <span className="text-base font-extrabold text-red-600"> *</span>
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -87,7 +90,10 @@ export default function ProfileForm() {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone number</FormLabel>
+                  <FormLabel>
+                    Phone number
+                    <span className="text-base font-extrabold text-red-600"> *</span>
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -101,7 +107,7 @@ export default function ProfileForm() {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="">
+              <FormItem className="max-w-xs">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -114,7 +120,7 @@ export default function ProfileForm() {
           <Label>Foto</Label>
           <Avatar>
             <AvatarImage
-              className="ring-neutral h-12 w-12 rounded-full ring-[1px]"
+              className="ring-neutral w-12 rounded-full border-2 border-black ring-[1px]"
               src={user?.picture ?? ''}
               alt="User profile"
             />
@@ -123,7 +129,7 @@ export default function ProfileForm() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h2 className="text-base">Profile Type</h2>
+          <h2 className="text-base font-bold uppercase">Profile Type:</h2>
           <Separator />
         </div>
 
