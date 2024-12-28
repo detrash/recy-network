@@ -37,8 +37,8 @@ export function Menu() {
   const menuItems = [
     { label: 'Dashboard', icon: 'material-symbols-light:team-dashboard-outline', route: ROUTES.PRIVATE.DASHBOARD() },
     { label: 'Reports', icon: 'ph:recycle', route: ROUTES.PRIVATE.REPORTS() },
+    { label: 'Audits', icon: 'ic:check-circle', route: ROUTES.PRIVATE.AUDITS() },
     // { label: 'KYC', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.KYC() },
-    // { label: 'Audits', icon: 'ic:check-circle', route: ROUTES.PRIVATE.AUDITS() },
     // { label: 'Admin', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.AUDITS() },
   ];
 
@@ -76,7 +76,7 @@ export function Menu() {
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Button
-              className="color-secondary color w-full text-center"
+              className="w-full text-center color-secondary color"
               variant="link"
               onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
             >
@@ -89,7 +89,7 @@ export function Menu() {
   );
 
   return (
-    <NavigationMenu className="flex min-w-full justify-between">
+    <NavigationMenu className="flex justify-between min-w-full">
       <NavigationMenuList className="hidden md:flex">
         <NavigationMenuItem>
           <Link to={ROUTES.PUBLIC.HOME()}>
@@ -120,29 +120,29 @@ export function Menu() {
       </NavigationMenuList>
 
       {/* Mobile Menu */}
-      <div className="flex w-full items-center justify-between md:hidden">
+      <div className="flex items-center justify-between w-full md:hidden">
         <Link to={ROUTES.PUBLIC.HOME()}>
           <img src="/assets/brand/recy-logo.png" width={48} height={48} alt="Recy Logo" />
         </Link>
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="p-0">
-              <Icon icon="mdi:menu" className="h-6 w-6" />
+              <Icon icon="mdi:menu" className="w-6 h-6" />
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-[300px] p-0 sm:w-[400px]">
-            <div className="flex h-full flex-col">
-              <div className="border-b p-4">
+            <div className="flex flex-col h-full">
+              <div className="p-4 border-b">
                 <Link to={ROUTES.PUBLIC.HOME()} onClick={() => setIsMobileMenuOpen(false)}>
                   <img src="/assets/brand/recy-logo.png" width={64} height={64} alt="Recy Logo" className="mx-auto" />
                 </Link>
               </div>
               <nav className="flex-grow overflow-y-auto">
-                <ul className="space-y-2 px-2 py-4">
+                <ul className="px-2 py-4 space-y-2">
                   {menuItems.map((item, index) => (
                     <li key={index}>
                       <Link
-                        className="hover:bg-accent flex items-center rounded-md p-2"
+                        className="flex items-center p-2 rounded-md hover:bg-accent"
                         to={item.route}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -153,9 +153,9 @@ export function Menu() {
                   ))}
                 </ul>
               </nav>
-              <footer className="space-y-4 border-t p-4">
+              <footer className="p-4 space-y-4 border-t">
                 <Button
-                  className="w-full justify-start"
+                  className="justify-start w-full"
                   variant="outline"
                   onClick={() => {
                     open();

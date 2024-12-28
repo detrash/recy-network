@@ -1,3 +1,4 @@
+import { Material, Materials } from '@/entities/report';
 import { User } from '@/entities/user';
 
 export interface ValidateUserResponse {
@@ -15,25 +16,10 @@ export interface ValidateUserBody {
 export interface Report {
   id: string;
   reportDate: string;
-  materials: Material[];
+  materials: Materials;
   audited: boolean;
   residueEvidence: string;
   metadata: Record<string, unknown>;
-}
-
-export interface Material {
-  weightKg: number;
-  materialType: 'PLASTIC' | 'METAL' | 'GLASS' | 'ORGANIC' | 'PAPER' | 'TEXTILE' | 'LANDFILL_WASTE';
-}
-
-export interface ResidueMaterialWeights {
-  GLASS: number;
-  METAL: number;
-  ORGANIC: number;
-  PAPER: number;
-  PLASTIC: number;
-  TEXTILE: number;
-  LANDFILL_WASTE: number;
 }
 
 interface MonthlyChanges {
@@ -51,6 +37,6 @@ export interface UserStatsResponse {
   totalReports: number;
   lastsReports: Report[];
   totalResidueKg: number;
-  residueMaterialWeights: ResidueMaterialWeights;
+  materials: Material;
   monthlyChanges: MonthlyChanges;
 }

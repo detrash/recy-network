@@ -4,15 +4,15 @@ import parseData from '@/utils/parseData';
 import { toast } from '@/components/ui/use-toast';
 
 import type { ApiError } from '@/entities/response';
-import { recyclingReportsKey, recyclingReportKey } from './keys';
-import { CreateRecyclingReport, UpdateRecyclingReport } from './types';
+import { recyclingReportsKey, recyclingReportKey, recyclingReportByUserKey } from './keys';
+import { UpdateRecyclingReport } from './types';
 import { RecyclingReport } from '@/entities/report';
 
 export const useRecyclingReports = (options?: UseQueryOptions<RecyclingReport[], ApiError>) => {
   return useQuery({
     queryKey: recyclingReportsKey(),
     queryFn: async () => {
-      const response = await apiV1.get<RecyclingReport[]>('/v1/recycling-reports');
+      const response = await apiV1.get<RecyclingReport[]>('/recycling-reports');
       return parseData(response);
     },
     staleTime: 1000 * 60 * 5, // Cache for 5 minutes
@@ -20,11 +20,23 @@ export const useRecyclingReports = (options?: UseQueryOptions<RecyclingReport[],
   });
 };
 
-export const useRecyclingReportById = (id: string, options?: UseQueryOptions<RecyclingReport, ApiError>) => {
+export const useRecyclingReportsByUser = (userId: string, options?: UseQueryOptions<RecyclingReport[], ApiError>) => {
+  return useQuery({
+    queryKey: recyclingReportByUserKey(userId),
+    queryFn: async () => {
+      const response = await apiV1.get<RecyclingReport[]>(`/recycling-reports/user/${userId}`);
+      return parseData(response);
+    },
+    enabled: !!userId,
+    ...options,
+  });
+};
+
+export const useRecyclingReportById = (id?: string, options?: UseQueryOptions<RecyclingReport, ApiError>) => {
   return useQuery({
     queryKey: recyclingReportKey(id),
     queryFn: async () => {
-      const response = await apiV1.get<RecyclingReport>(`/v1/recycling-reports/${id}`);
+      const response = await apiV1.get<RecyclingReport>(`/recycling-reports/${id}`);
       return parseData(response);
     },
     enabled: !!id,
@@ -47,7 +59,7 @@ export const useCreateRecyclingReport = () => {
     onSuccess: () => {
       toast({ variant: 'default', title: 'Success', description: 'Recycling report created successfully.' });
       queryClient.invalidateQueries({
-        queryKey: recyclingReportsKey(),
+        queryKey: [recyclingReportsKey()],
       });
     },
     onError: (error: ApiError) => {
@@ -61,7 +73,7 @@ export const useUpdateRecyclingReport = () => {
 
   return useMutation<RecyclingReport, ApiError, UpdateRecyclingReport>({
     mutationFn: async ({ id, ...payload }: UpdateRecyclingReport) =>
-      apiV1.put(`/v1/recycling-reports/${id}`, payload).then(parseData),
+      apiV1.put(`/recycling-reports/${id}`, payload).then(parseData),
     onSuccess: () => {
       toast({ title: 'Success', description: 'Recycling report updated successfully.' });
       queryClient.invalidateQueries({
@@ -78,7 +90,7 @@ export const useDeleteRecyclingReport = () => {
   const queryClient = useQueryClient();
 
   return useMutation<void, ApiError, string>({
-    mutationFn: async (id: string) => apiV1.delete(`/v1/recycling-reports/${id}`).then(parseData),
+    mutationFn: async (id: string) => apiV1.delete(`/recycling-reports/${id}`).then(parseData),
     onSuccess: () => {
       toast({ title: 'Success', description: 'Recycling report deleted successfully.' });
       queryClient.invalidateQueries({
