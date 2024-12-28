@@ -1,7 +1,7 @@
-import AuditsScreen from '@/modules/audits/screens/main';
+import AuditorScreen from '@/modules/audits/screens/main';
 
 function Audits() {
-  return <AuditsScreen />;
+  return <AuditorScreen />;
 }
 
 export default Audits;

@@ -20,7 +20,7 @@ import Reports from '@/pages/reports';
 import Audits from './pages/audits';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
-import { addAccessTokenInterceptor } from './libs';
+import { addAccessTokenInterceptor } from './libs/axios/interceptors';
 import ProtectedRoutes from './components/protected-router';
 
 const router = createBrowserRouter([
@@ -40,10 +40,6 @@ const router = createBrowserRouter([
           {
             element: <Reports />,
             path: '/reports',
-          },
-          {
-            element: <ReportsSubmit />,
-            path: '/reports/submit',
           },
           {
             element: <Audits />,

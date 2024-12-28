@@ -143,9 +143,7 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-primary">
-                {typeof cRecyBalanceData?.formatted === 'number' && !isNaN(cRecyBalanceData.formatted)
-                  ? String(cRecyBalanceData.formatted)
-                  : '-'}
+                {cRecyBalanceData && cRecyBalanceData.formatted ? cRecyBalanceData.formatted : '-'}
               </div>
             </CardContent>
           </Card>

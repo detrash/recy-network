@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
 export default function ErrorScreen() {
@@ -8,7 +9,7 @@ export default function ErrorScreen() {
   };
 
   return (
-    <main className="bg-background flex h-screen w-full flex-col items-center justify-center text-center text-gray-800">
+    <main className="flex flex-col items-center justify-center w-full h-screen text-center text-gray-800 bg-background">
       <div className="max-w-lg">
         <h1 className="mb-4 text-4xl font-bold">Oops, Something went wrong!</h1>
         <p className="mb-8 text-lg">
@@ -16,12 +17,9 @@ export default function ErrorScreen() {
           persists
         </p>
         <div className="flex justify-center">
-          <button
-            onClick={handleGoBack}
-            className="bg-foreground hover:bg-secondary-foreground rounded-lg px-4 py-2 text-white transition duration-200"
-          >
+          <Button variant="default" onClick={handleGoBack}>
             Try Again
-          </button>
+          </Button>
         </div>
       </div>
     </main>

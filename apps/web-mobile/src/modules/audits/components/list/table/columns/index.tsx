@@ -1,26 +1,23 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { Icon } from '@iconify/react';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type ReportTable = {
+export type AuditsTable = {
   id: string;
   date: string;
   status: 'Approved' | 'Rejected' | 'Pending';
-  evidence: string;
-  quantity: string;
+  comments: string;
 };
 
-export const columns: ColumnDef<ReportTable>[] = [
+export const columns: ColumnDef<AuditsTable>[] = [
   {
     accessorKey: 'id',
     header: 'Id',
   },
   {
-    accessorKey: 'quantity',
-    header: 'Quantity',
+    accessorKey: 'comments',
+    header: 'Comments',
   },
   {
     accessorKey: 'status',
@@ -43,17 +40,5 @@ export const columns: ColumnDef<ReportTable>[] = [
   {
     accessorKey: 'date',
     header: 'Date',
-  },
-  {
-    accessorKey: 'evidence',
-    header: 'Evidence',
-    cell: ({ row }) => {
-      const evidenceUrl = row.getValue('evidence');
-      return (
-        <Button size="sm" onClick={() => window.open(String(evidenceUrl), '_blank')}>
-          <Icon icon="mdi:download" className="h-4" />
-        </Button>
-      );
-    },
   },
 ];

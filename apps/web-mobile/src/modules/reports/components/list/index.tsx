@@ -1,20 +1,20 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import { DataTable } from './table';
 import { columns, ReportTable } from './table/columns';
-import { Material, RecyclingReport } from '@/entities/report';
+import { RecyclingReport } from '@/entities/report';
 
-interface DashboardLastReportsProps {
+interface DashboardReportsProps {
   data: RecyclingReport[];
   isFetching: boolean;
 }
 
-export const Reports = ({ data, isFetching }: DashboardLastReportsProps) => {
+export const ReportsList = ({ data, isFetching }: DashboardReportsProps) => {
   const reportsDataFormated: ReportTable[] = data?.map((item) => ({
-    id: `${item.id.slice(0, 6)}...${item.id.slice(-6)}`,
+    id: item.id,
     date: new Date(item.reportDate).toLocaleString(),
-    audited: item.audited ? 'yes' : 'no',
+    status: item.audited ? 'Approved' : 'Rejected',
     evidence: item.residueEvidence,
-    total: `${item.materials?.reduce((sum: number, material: Material) => sum + material.weightKg, 0)} Kg`,
+    quantity: `${Object.values(item.materials).reduce((sum, quantity) => sum + (quantity ?? 0), 0)} Kg`,
   }));
 
   return (
@@ -23,7 +23,8 @@ export const Reports = ({ data, isFetching }: DashboardLastReportsProps) => {
 
       {!isFetching && (
         <div className="grid grid-cols-1">
-          <DataTable columns={columns} data={reportsDataFormated} />
+          {!reportsDataFormated && 'There is no data to display'}
+          {reportsDataFormated && <DataTable columns={columns} data={reportsDataFormated} />}
         </div>
       )}
     </div>
