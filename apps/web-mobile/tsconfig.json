@@ -9,6 +9,7 @@
     "paths": {
       "@/assets/*": ["../public/assets/*"],
       "@/components/*": ["components/*"],
+      "@/constants/*": ["constants/*"],
       "@/config/*": ["config/*"],
       "@/hooks/*": ["hooks/*"],
       "@/layouts/*": ["layouts/*"],

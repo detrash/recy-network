@@ -1,8 +1,8 @@
 import { UserStatsResponse } from '@/services/users/types';
-import { colors } from './constants';
+import { materialColors } from './constants';
 
 export type ChartConfigType = {
-  [key in keyof typeof colors]: {
+  [key in keyof typeof materialColors]: {
     label: string;
     color: string;
   };

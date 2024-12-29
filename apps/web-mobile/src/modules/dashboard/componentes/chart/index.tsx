@@ -16,7 +16,7 @@ export const DashboardChart = ({ data, isFetching }: DashboardChartProps) => {
             <h2 className="text-lg font-bold">Residues reported so far</h2>
           </CardHeader>
           <CardContent>
-            {!data?.materials && 'There is no data to display'}
+            {Object.keys(data?.materials).length === 0 && 'There is no data to display'}
 
             {data?.materials && (
               <ChartContainer config={chartConfig} className="vh-80">

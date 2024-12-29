@@ -1,14 +1,15 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Icon } from '@iconify/react';
+import { StatusBadge } from '@/components/status-badge';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { AuditStatusConstants } from '@/constants/index';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type ReportTable = {
   id: string;
   date: string;
-  status: 'Approved' | 'Rejected' | 'Pending';
+  status: keyof typeof AuditStatusConstants;
   evidence: string;
   quantity: string;
 };
@@ -26,16 +27,11 @@ export const columns: ColumnDef<ReportTable>[] = [
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => {
-      const status = row.getValue('status');
+      const status: keyof typeof AuditStatusConstants = row.getValue('status');
 
       return (
         <div className={`flex items-center space-x-2`}>
-          <Badge
-            variant={status === 'Approved' ? 'default' : status === 'Rejected' ? 'destructive' : 'secondary'}
-            className={status === 'Approved' ? 'bg-green-500 hover:bg-green-600' : ''}
-          >
-            {status as string}
-          </Badge>
+          <StatusBadge status={status} />
         </div>
       );
     },

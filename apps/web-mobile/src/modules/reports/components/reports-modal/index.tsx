@@ -13,6 +13,7 @@ interface ReportsModalProps {
 }
 
 export function ReportsModal({ onClose, isOpen }: ReportsModalProps) {
+  // TODO: invalidate list after creating
   const { mutate: createReport, isPending: isPendingCreateRecycling, isSuccess } = useCreateRecyclingReport();
 
   const { address, isConnected } = useAccount();
@@ -50,7 +51,7 @@ export function ReportsModal({ onClose, isOpen }: ReportsModalProps) {
               </div>
             </ScrollArea>
           </div>
-          <DialogFooter className="px-6 py-4 border-t">
+          <DialogFooter className="flex items-center gap-2 px-6 py-4 border-t">
             {isPendingCreateRecycling && <Loader2 className="animate-spin" />}
             <Button variant="default" disabled={isPendingCreateRecycling} type="submit" form="recy-form">
               Confirmar

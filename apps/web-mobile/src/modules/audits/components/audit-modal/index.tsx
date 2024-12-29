@@ -3,11 +3,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-
 import { RecyclingReport } from '@/entities/report';
 import { Skeleton } from '@/components/ui/skeleton';
+import { materialColors, chartConfig } from '@/modules/dashboard/componentes/chart/constants';
+import { Evidence } from './evidence';
+import { ChartConfigType } from '@/modules/dashboard/componentes/chart/types';
+import { StatusBadge } from '@/components/status-badge';
+import { AuditStatusConstants } from '@/constants/index';
 
 interface AuditModalProps {
   report: RecyclingReport;
@@ -19,14 +22,16 @@ interface AuditModalProps {
 }
 
 export function AuditModal({ report, onClose, onApprove, onReject, isLoading, isOpen }: AuditModalProps) {
-  const [comments, setComments] = useState('');
+  const [comments, setComments] = useState(report?.audits[0]?.comments);
+
+  console.log(report);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl p-0 overflow-hidden">
         <div className="flex h-[80vh] flex-col">
           {isLoading && (
-            <div className="flex flex-col items-center justify-center gap-2 px-12 py-4">
+            <div className="flex flex-col items-center justify-center gap-2 px-6 py-4">
               <Skeleton className="h-[400px] w-[100%] rounded-sm" />
               <Skeleton className="h-[200px] w-[100%] rounded-sm" />
             </div>
@@ -42,7 +47,6 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                   <TabsTrigger value="general">General</TabsTrigger>
                   <TabsTrigger value="materials">Materials</TabsTrigger>
                   <TabsTrigger value="evidence">Evidence</TabsTrigger>
-                  <TabsTrigger value="auditHistory">Audit History</TabsTrigger>
                 </TabsList>
                 <div className="flex-1 overflow-hidden">
                   <ScrollArea className="h-full">
@@ -58,10 +62,7 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                               <strong>Date:</strong> {new Date(report?.reportDate).toLocaleString()}
                             </p>
                             <p>
-                              <strong>Status:</strong>{' '}
-                              <Badge variant={report.audited ? 'default' : 'destructive'}>
-                                {report.audited ? 'Approved' : 'Pending'}
-                              </Badge>
+                              <strong>Status:</strong> <StatusBadge status={report.audits[0].status} />
                             </p>
                           </div>
                           <div>
@@ -78,52 +79,37 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                             <p>
                               <strong>Wallet Address:</strong> {report?.walletAddress || 'N/A'}
                             </p>
+                            <p>
+                              <strong>Created At: </strong>
+                              {new Date(report?.createdAt).toLocaleString()}
+                            </p>
                           </div>
                         </div>
                       </TabsContent>
                       <TabsContent value="materials" className="mt-0">
                         <h3 className="mb-4 text-lg font-semibold">Recycled Materials</h3>
                         <ul className="space-y-2">
-                          {Object.entries(report?.materials).map(([material, amount]) => (
-                            <li key={material} className="flex items-center justify-between p-2 bg-gray-100 rounded">
-                              <span className="font-medium">{material}</span>
-                              <span>{amount} kg</span>
-                            </li>
-                          ))}
+                          {Object.entries(report?.materials).map(([material, amount]) => {
+                            const materialColor =
+                              materialColors[material as keyof typeof materialColors] || 'bg-gray-100';
+                            return (
+                              <li
+                                key={material}
+                                className="flex items-center justify-between p-2 text-white rounded"
+                                style={{ backgroundColor: materialColor }}
+                              >
+                                <span className="font-medium">
+                                  {chartConfig[material as keyof ChartConfigType]?.label || material}
+                                </span>
+                                <span>{amount} kg</span>
+                              </li>
+                            );
+                          })}
                         </ul>
                       </TabsContent>
                       <TabsContent value="evidence" className="mt-0">
                         <h3 className="mb-4 text-lg font-semibold">Residue Evidence</h3>
-                        <img
-                          src={report?.residueEvidence}
-                          alt="Residue Evidence"
-                          className="max-h-[400px] w-full rounded-lg object-contain shadow-md"
-                        />
-                      </TabsContent>
-                      <TabsContent value="auditHistory" className="mt-0">
-                        <h3 className="mb-4 text-lg font-semibold">Audit History</h3>
-                        {report.audits && report.audits.length > 0 ? (
-                          <ul className="space-y-4">
-                            {report?.audits?.map((audit, index) => (
-                              <li key={audit.id} className="p-4 bg-gray-100 rounded">
-                                <p>
-                                  <strong>Audit {index + 1}</strong>
-                                </p>
-                                <p>
-                                  <strong>Date:</strong> {new Date(audit?.createdAt).toLocaleString()}
-                                </p>
-                                <p>
-                                  <strong>Status:</strong> {audit?.audited ? 'Approved' : 'Rejected'}
-                                </p>
-                                <p>
-                                  <strong>Comments:</strong> {audit?.comments || 'No comments'}
-                                </p>
-                              </li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p>No previous audits</p>
-                        )}
+                        <Evidence url={report?.residueEvidence} />
                       </TabsContent>
                     </div>
                   </ScrollArea>
@@ -133,6 +119,7 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                 <div className="flex items-center justify-between w-full">
                   <div className="flex-grow mr-4">
                     <Textarea
+                      defaultValue={report?.audits[0]?.comments}
                       placeholder="Comments"
                       value={comments}
                       onChange={(e) => setComments(e.target.value)}
@@ -143,7 +130,12 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                     <Button variant="outline" onClick={onClose}>
                       Close
                     </Button>
-                    <Button onClick={() => onApprove(comments)} variant="default">
+                    <Button
+                      disabled={report.status === AuditStatusConstants.REJECTED}
+                      onClick={() => onApprove(comments)}
+                      variant="default"
+                      className="bg-green-500 hover:bg-green-600"
+                    >
                       Approve
                     </Button>
                     <Button onClick={() => onReject(comments)} variant="destructive">
