@@ -7,6 +7,7 @@ import { ReportsModal } from '../../components/reports-modal';
 import { useState } from 'react';
 
 export default function ReportsScreen() {
+  // TODO: remove hard coded id
   const { data: reportsData, isFetching: isFetchingReports } = useRecyclingReportsByUser(
     '0779f19c-34a8-40c2-a482-54a353a507c0'
   );

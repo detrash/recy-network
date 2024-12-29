@@ -45,7 +45,7 @@ export const useRecyclingReportById = (id?: string, options?: UseQueryOptions<Re
 };
 
 export const useCreateRecyclingReport = () => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   return useMutation<RecyclingReport, ApiError, FormData>({
     mutationFn: async (formData: FormData) => {
@@ -58,9 +58,10 @@ export const useCreateRecyclingReport = () => {
     },
     onSuccess: () => {
       toast({ variant: 'default', title: 'Success', description: 'Recycling report created successfully.' });
-      queryClient.invalidateQueries({
-        queryKey: [recyclingReportsKey()],
-      });
+      // TODO: need invalidate create report
+      // queryClient.invalidateQueries({
+      //   queryKey: [],
+      // });
     },
     onError: (error: ApiError) => {
       toast({ variant: 'destructive', title: 'Error', description: error.message });

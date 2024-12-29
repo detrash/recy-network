@@ -12,7 +12,7 @@ export const ReportsList = ({ data, isFetching }: DashboardReportsProps) => {
   const reportsDataFormated: ReportTable[] = data?.map((item) => ({
     id: item.id,
     date: new Date(item.reportDate).toLocaleString(),
-    status: item.audited ? 'Approved' : 'Rejected',
+    status: item.audits[0].status,
     evidence: item.residueEvidence,
     quantity: `${Object.values(item.materials).reduce((sum, quantity) => sum + (quantity ?? 0), 0)} Kg`,
   }));

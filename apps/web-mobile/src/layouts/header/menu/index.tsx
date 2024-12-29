@@ -35,9 +35,9 @@ export function Menu() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = [
-    { label: 'Dashboard', icon: 'material-symbols-light:team-dashboard-outline', route: ROUTES.PRIVATE.DASHBOARD() },
-    { label: 'Reports', icon: 'ph:recycle', route: ROUTES.PRIVATE.REPORTS() },
-    { label: 'Audits', icon: 'ic:check-circle', route: ROUTES.PRIVATE.AUDITS() },
+    { label: 'Dashboard', route: ROUTES.PRIVATE.DASHBOARD() },
+    { label: 'Reports', route: ROUTES.PRIVATE.REPORTS() },
+    { label: 'Audits', route: ROUTES.PRIVATE.AUDITS() },
     // { label: 'KYC', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.KYC() },
     // { label: 'Admin', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.AUDITS() },
   ];
@@ -52,7 +52,6 @@ export function Menu() {
             onClick={() => mobile && setIsMobileMenuOpen(false)}
           >
             {item.label}
-            <Icon icon={item.icon} width="16" height="16" className="ml-1" />
           </Link>
         </NavigationMenuItem>
       ))}
@@ -146,7 +145,6 @@ export function Menu() {
                         to={item.route}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <Icon icon={item.icon} width="20" height="20" className="mr-3" />
                         {item.label}
                       </Link>
                     </li>

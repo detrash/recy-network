@@ -1,13 +1,5 @@
-export interface CreateAudit {
-  id: string;
-  audited: boolean;
-  auditorId: string | null;
-  comments: string | null;
-}
+import { Audit } from '@/entities/audit';
 
-export interface UpdateAudit {
-  id: string;
-  audited: boolean;
-  auditorId: string | null;
-  comments: string | null;
-}
+export type CreateAudit = Omit<Audit, 'createdAt' | 'updatedAt' | 'reportId'>;
+
+export type UpdateAudit = Omit<Audit, 'createdAt' | 'updatedAt' | 'reportId'>;

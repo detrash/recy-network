@@ -4,10 +4,10 @@ import { columns, AuditsTable } from './table/columns';
 import { Audit } from '@/entities/audit';
 import { useState } from 'react';
 import { AuditModal } from '../audit-modal';
-
 import { useRecyclingReportById } from '@/services/reports';
 import { useUpdateAudit } from '../../services/audits';
 import { UpdateAudit } from '../../services/audits/types';
+import { AuditStatusConstants } from '@/constants/index';
 
 interface DashboardAuditsProps {
   data: Audit[];
@@ -19,7 +19,7 @@ export const AuditsList = ({ data, isFetching }: DashboardAuditsProps) => {
   const auditsDataFormatted: AuditsTable[] = data?.map((item) => ({
     id: item.id,
     date: new Date(item.createdAt).toLocaleString(),
-    status: item.audited ? 'Approved' : 'Rejected',
+    status: item.status,
     comments: item.comments ? item.comments : 'No comment',
   }));
 
@@ -36,14 +36,14 @@ export const AuditsList = ({ data, isFetching }: DashboardAuditsProps) => {
     setSelectedSubmittedReportId(findedAudit.reportId);
   };
 
-  const handleAudit = (comments: string, auditedStatus: boolean) => {
+  const handleAudit = (comments: string, auditedStatus: keyof typeof AuditStatusConstants) => {
     if (!selectedAudit) return;
 
     const updatedAudit: UpdateAudit = {
       id: selectedAudit.id,
       comments: comments,
       auditorId: '0779f19c-34a8-40c2-a482-54a353a507c0', // TODO: get current user
-      audited: auditedStatus,
+      status: auditedStatus,
     };
 
     updateAudit(updatedAudit);
@@ -74,8 +74,8 @@ export const AuditsList = ({ data, isFetching }: DashboardAuditsProps) => {
             isLoading={isFetchingSelectedReport}
             report={selectedReport}
             onClose={() => setSelectedSubmittedReportId(null)}
-            onApprove={(comments) => handleAudit(comments, true)}
-            onReject={(comments) => handleAudit(comments, false)}
+            onApprove={(comments) => handleAudit(comments, AuditStatusConstants.APPROVED)}
+            onReject={(comments) => handleAudit(comments, AuditStatusConstants.REJECTED)}
           />
         )}
       </div>

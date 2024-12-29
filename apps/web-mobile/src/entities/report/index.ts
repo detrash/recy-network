@@ -1,3 +1,4 @@
+import { AuditStatusConstants } from '@/constants/index';
 import { Audit } from '../audit';
 import { User } from '../user';
 
@@ -37,7 +38,7 @@ export interface RecyclingReport {
   id: string;
   reportDate: string;
   materials: Material;
-  audited: boolean;
+  status: keyof typeof AuditStatusConstants;
   residueEvidence: string;
   metadata: Metadata;
   submittedBy: string;
