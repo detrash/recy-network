@@ -13,6 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { useState } from 'react';
+import { RadioBox } from '@/components/ui/radioBox';
 
 const profileFormSchema = z.object({
   email: z
@@ -37,9 +38,16 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
+const cssmap: any = {
+  'option-hodler-box': 'option-hodler-box',
+  'option-recycler-box': 'option-recycler-box',
+  'option-waste-box': 'option-waste-box',
+};
+
 export default function ProfileForm() {
   const { user } = useAuth0();
   const [turnstileToken, setTurnstileToken] = useState<string>();
+  const [radioActive, setRadioActive] = useState<string>();
 
   const form = useForm<ProfileFormValues>({
     // defaultValues,
@@ -133,22 +141,24 @@ export default function ProfileForm() {
           <Separator />
         </div>
 
-        <RadioGroup defaultValue="option-one">
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-hodler" id="option-hodler" />
-            <Label htmlFor="option-hodler">Hodler</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-recycler" id="option-recycler" />
-            <Label htmlFor="option-recycler">Recycler</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-waste" id="option-waste" />
-            <Label htmlFor="option-waste">Waste Generator</Label>
-          </div>
+        <RadioGroup
+          defaultValue="option-one"
+          className={`grid grid-cols-6 [&[data-active='${cssmap[radioActive]}']>#${cssmap[radioActive]}]:border-blue-500`}
+          data-active={radioActive}
+        >
+          <RadioBox beforeText="I'M" id="option-hodler" name="Partner" activeState={setRadioActive} />
+
+          <RadioBox
+            beforeText="I'M"
+            id="option-recycler"
+            name="Sustainble treatment agent"
+            activeState={setRadioActive}
+          />
+
+          <RadioBox beforeText="I'M" id="option-waste" name="Waste Generator" activeState={setRadioActive} />
         </RadioGroup>
 
-        <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} />
+        {/* <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} /> */}
         <Button type="submit">Save Changes</Button>
       </form>
     </Form>
