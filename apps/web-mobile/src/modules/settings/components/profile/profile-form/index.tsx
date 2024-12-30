@@ -163,7 +163,7 @@ export default function ProfileForm() {
 
         <RadioGroup
           defaultValue="option-one"
-          className={`grid grid-cols-6 [&[data-active='${cssmap[radioActive]}']>#${cssmap[radioActive]}]:border-blue-500 max-md:grid-cols-2`}
+          className={`grid grid-cols-6 [&[data-active='${cssmap[radioActive]}']>#${cssmap[radioActive]}]:border-blue-500 max-md:grid-cols-2 [&[data-active='${cssmap[radioActive]}']>#${cssmap[radioActive]}>.checked-box-symbol]:block`}
           data-active={radioActive}
         >
           <RadioBox beforeText="I'M" id="option-hodler" name="Partner" activeState={setRadioActive} />
