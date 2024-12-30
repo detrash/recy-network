@@ -1,15 +1,16 @@
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useState } from 'react';
-
-import { Register } from '@/modules/onboarding/components/register';
-import { Welcome } from '@/modules/onboarding/components/welcome';
+import OnboardingForm from '../../components/form';
 
 export default function OnboardingScreen() {
-  const [formStep, setFormStep] = useState('welcome');
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(true);
 
   return (
-    <main className="container flex max-h-full flex-1 bg-white p-4 sm:max-w-2xl sm:rounded-xl sm:border-2 sm:p-8 sm:shadow-2xl">
-      {formStep === 'welcome' && <Welcome onGetStarted={() => setFormStep('register')} />}
-      {formStep === 'register' && <Register />}
-    </main>
+    <Dialog open={isOnboardingOpen} onOpenChange={() => setIsOnboardingOpen(false)}>
+      <DialogContent className="max-w-4xl p-0 overflow-hidden">
+        {/* TODO: Remove id hardcoded */}
+        <OnboardingForm userId="0779f19c-34a8-40c2-a482-54a353a507c0" onClose={() => setIsOnboardingOpen(false)} />
+      </DialogContent>
+    </Dialog>
   );
 }
