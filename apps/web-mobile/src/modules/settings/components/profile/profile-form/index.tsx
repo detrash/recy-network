@@ -14,6 +14,7 @@ import { Turnstile } from '@marsidev/react-turnstile';
 import { useState } from 'react';
 import { RadioBox } from '@/components/ui/radioBox';
 import { useAuth } from '@/hooks/auth';
+import { RadioBox } from '@/components/ui/radioBox';
 
 const profileFormSchema = z.object({
   email: z
@@ -178,7 +179,7 @@ export default function ProfileForm() {
           <RadioBox beforeText="I'M" id="option-waste" name="Waste Generator" activeState={setRadioActive} />
         </RadioGroup>
 
-        <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} />
+        {/* <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} /> */}
         <Button type="submit">Save Changes</Button>
       </form>
     </Form>
