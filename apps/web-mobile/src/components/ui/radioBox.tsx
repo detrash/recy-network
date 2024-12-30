@@ -19,7 +19,7 @@ export const RadioBox = ({ beforeText, id, name, activeState }: Props) => {
   return (
     <div
       id={`${id}-box`}
-      className={`flex items-center space-x-2 rounded-lg border-2 px-4 py-6 [&>#${cssmap[id]}]:hidden`}
+      className={`relative flex items-center space-x-2 rounded-lg border-2 px-4 py-6 [&>#${cssmap[id]}]:hidden`}
     >
       <RadioGroupItem value={id} id={id} onClick={() => activeState(`${id}-box`)} />
       <div className="flex flex-col">
@@ -28,6 +28,9 @@ export const RadioBox = ({ beforeText, id, name, activeState }: Props) => {
           {name}
         </Label>
       </div>
+      <span className="checked-box-symbol absolute right-6 top-6 hidden h-5 w-5 rounded-full bg-blue-500 text-center text-sm text-white">
+        &#x2713;
+      </span>
     </div>
   );
 };
