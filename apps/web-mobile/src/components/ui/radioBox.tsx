@@ -1,7 +1,10 @@
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 
-const cssmap: any = {
+type cssmapType = {
+  [id: string]: string;
+};
+const cssmap: cssmapType = {
   'option-hodler': 'option-hodler',
   'option-recycler': 'option-recycler',
   'option-waste': 'option-waste',
