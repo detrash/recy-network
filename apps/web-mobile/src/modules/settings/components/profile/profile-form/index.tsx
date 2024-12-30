@@ -79,7 +79,7 @@ export default function ProfileForm() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-6 gap-3">
+          <div className="grid grid-cols-6 gap-3 max-md:grid-cols-2">
             <FormField
               control={form.control}
               name="preferred_name"
@@ -92,7 +92,10 @@ export default function ProfileForm() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="border valid:border-green-500 invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="empty:border-input border invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0 [&:not(:placeholder-shown)(:invalid)]:valid:border-green-500"
+                      placeholder=""
+                      type="text"
+                      minLength={2}
                     />
                   </FormControl>
                   <FormMessage />
@@ -113,7 +116,8 @@ export default function ProfileForm() {
                     <Input
                       {...field}
                       type="tel"
-                      className="border valid:border-green-500 invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="empty:border-input border invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0 [&:not(:placeholder-shown)(:invalid)]:valid:border-green-500"
+                      placeholder=""
                     />
                   </FormControl>
                   <FormMessage />
@@ -126,13 +130,14 @@ export default function ProfileForm() {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="max-w-xs">
+              <FormItem className="max-w-xs max-md:max-w-full">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     type="email"
-                    className="border valid:border-green-500 invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="border invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0 [&:not(:placeholder-shown)(:invalid)]:valid:border-green-500"
+                    placeholder=""
                   />
                 </FormControl>
                 <FormMessage />
@@ -158,7 +163,7 @@ export default function ProfileForm() {
 
         <RadioGroup
           defaultValue="option-one"
-          className={`grid grid-cols-6 [&[data-active='${cssmap[radioActive]}']>#${cssmap[radioActive]}]:border-blue-500`}
+          className={`grid grid-cols-6 [&[data-active='${cssmap[radioActive]}']>#${cssmap[radioActive]}]:border-blue-500 max-md:grid-cols-2`}
           data-active={radioActive}
         >
           <RadioBox beforeText="I'M" id="option-hodler" name="Partner" activeState={setRadioActive} />
