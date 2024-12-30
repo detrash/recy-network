@@ -38,7 +38,11 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-const cssmap: any = {
+type cssmapType = {
+  [id: string]: string;
+};
+
+const cssmap: cssmapType = {
   'option-hodler-box': 'option-hodler-box',
   'option-recycler-box': 'option-recycler-box',
   'option-waste-box': 'option-waste-box',
@@ -158,7 +162,7 @@ export default function ProfileForm() {
           <RadioBox beforeText="I'M" id="option-waste" name="Waste Generator" activeState={setRadioActive} />
         </RadioGroup>
 
-        {/* <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} /> */}
+        <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} />
         <Button type="submit">Save Changes</Button>
       </form>
     </Form>
