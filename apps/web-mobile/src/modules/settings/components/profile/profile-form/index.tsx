@@ -90,7 +90,10 @@ export default function ProfileForm() {
                     <span className="text-base font-extrabold text-red-600"> *</span>
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      {...field}
+                      className="border valid:border-green-500 invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -107,7 +110,11 @@ export default function ProfileForm() {
                     <span className="text-base font-extrabold text-red-600"> *</span>
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      {...field}
+                      type="tel"
+                      className="border valid:border-green-500 invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -122,7 +129,11 @@ export default function ProfileForm() {
               <FormItem className="max-w-xs">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    {...field}
+                    type="email"
+                    className="border valid:border-green-500 invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
