@@ -5,6 +5,7 @@ import { DashboardChart } from '../../componentes/chart';
 
 export default function DashboardScreen() {
   const { user } = useAuth0();
+  // TODO: remove id hardcoded
   const { data: userStats, isFetching: isFetchingUserStats } = useUserStats('0779f19c-34a8-40c2-a482-54a353a507c0');
 
   return (

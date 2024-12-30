@@ -1,8 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { toast } from '@/components/ui/use-toast';
 import { useCrecy } from '@/hooks/crecy';
-import { useGetTokenPrice } from '@/services/crecy';
 import { UserStatsResponse } from '@/services/users/types';
 import { Icon } from '@iconify/react';
 interface DashboardCardsProps {
@@ -10,35 +8,8 @@ interface DashboardCardsProps {
   isFetching: boolean;
 }
 
-const tokenAddress = '0x34c11a932853ae24e845ad4b633e3cef91afe583';
-
 export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
-  const { data: cRecyBalanceData, error: cRecyBalaceError } = useCrecy();
-  const { data: tokenPriceData, error: errorFetchingTokenPrice } = useGetTokenPrice();
-
-  const tokenPrice = tokenPriceData?.attributes?.token_prices[tokenAddress];
-  const formattedTokenPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(Number(tokenPrice));
-
-  if (cRecyBalaceError) {
-    toast({
-      variant: 'destructive',
-      title: cRecyBalaceError.name,
-      description: cRecyBalaceError.message,
-    });
-  }
-
-  if (errorFetchingTokenPrice) {
-    toast({
-      variant: 'destructive',
-      title: errorFetchingTokenPrice.name,
-      description: errorFetchingTokenPrice.message,
-    });
-  }
+  const { data: cRecyBalanceData, formattedTokenPrice } = useCrecy();
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -119,20 +90,6 @@ export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
                 <div className="text-2xl font-bold text-primary">{formattedTokenPrice}</div>
                 <span className="text-xs text-gray-400 font-extralight">cRECY / USD</span>
               </div>
-              {/* TODO: We will contine work here when our backend return more information about or toke price */}
-              {/* <ResponsiveContainer width={150} height={50}>
-                <LineChart data={lineChartData}>
-                  <Line
-                    type="monotone"
-                    dataKey="value"
-                    stroke="#2463EB"
-                    activeDot={{ r: 8 }}
-                    strokeWidth={2}
-                    dot={false}
-                    animationDuration={1500}
-                  />
-                </LineChart>
-              </ResponsiveContainer> */}
             </CardContent>
           </Card>
 

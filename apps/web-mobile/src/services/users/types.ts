@@ -40,3 +40,18 @@ export interface UserStatsResponse {
   materials: Material;
   monthlyChanges: MonthlyChanges;
 }
+export interface CreateUserBody {
+  name?: string;
+  email?: string;
+  phone?: string;
+  walletAddress?: string;
+  roleIds?: string[];
+}
+
+export interface UpdateUserBody {
+  name?: string;
+  email?: string;
+  phone?: string;
+  walletAddress?: string;
+  roleIds?: string[];
+}

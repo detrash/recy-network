@@ -22,9 +22,9 @@ interface AuditModalProps {
 }
 
 export function AuditModal({ report, onClose, onApprove, onReject, isLoading, isOpen }: AuditModalProps) {
-  const [comments, setComments] = useState(report?.audits[0]?.comments);
-
-  console.log(report);
+  const defaultComments = report?.audits[0]?.comments;
+  const status = report?.audits[0]?.status;
+  const [comments, setComments] = useState(defaultComments);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -119,7 +119,7 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                 <div className="flex items-center justify-between w-full">
                   <div className="flex-grow mr-4">
                     <Textarea
-                      defaultValue={report?.audits[0]?.comments}
+                      defaultValue={defaultComments}
                       placeholder="Comments"
                       value={comments}
                       onChange={(e) => setComments(e.target.value)}
@@ -131,14 +131,18 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                       Close
                     </Button>
                     <Button
-                      disabled={report.status === AuditStatusConstants.REJECTED}
+                      disabled={status === AuditStatusConstants.APPROVED}
                       onClick={() => onApprove(comments)}
                       variant="default"
                       className="bg-green-500 hover:bg-green-600"
                     >
                       Approve
                     </Button>
-                    <Button onClick={() => onReject(comments)} variant="destructive">
+                    <Button
+                      onClick={() => onReject(comments)}
+                      variant="destructive"
+                      disabled={status === AuditStatusConstants.REJECTED}
+                    >
                       Reject
                     </Button>
                   </div>
