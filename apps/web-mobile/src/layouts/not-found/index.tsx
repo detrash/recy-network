@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function NotFoundScreen() {
+export default function NotFound() {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -8,15 +8,15 @@ export default function NotFoundScreen() {
   };
 
   return (
-    <main className="bg-background flex h-screen w-full flex-col items-center justify-center text-center text-gray-800">
+    <main className="flex flex-col items-center justify-center w-full h-screen text-center text-gray-800 bg-background">
       <div className="max-w-md">
-        <h1 className="mb-4 text-9xl font-bold">404</h1>
+        <h1 className="mb-4 font-bold text-9xl">404</h1>
         <h1 className="mb-4 text-2xl font-bold">Page Not Found</h1>
         <p className="mb-8 text-lg">The page you’re looking for doesn’t exist or has been moved.</p>
         <div className="flex justify-center">
           <button
             onClick={handleGoBack}
-            className="bg-primary hover:bg-primary/90 rounded-md px-4 py-2 text-white transition duration-200"
+            className="px-4 py-2 text-white transition duration-200 rounded-md bg-primary hover:bg-primary/90"
           >
             Go Back
           </button>

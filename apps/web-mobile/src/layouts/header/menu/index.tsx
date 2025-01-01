@@ -1,11 +1,7 @@
-'use client';
-
 import { Suspense, useState } from 'react';
-
-import { useAuth0 } from '@auth0/auth0-react';
 import { Icon } from '@iconify/react';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAccount } from 'wagmi';
 
 import LocaleToggler from '@/components/locale-toggler';
@@ -27,19 +23,19 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { ROUTES } from '@/config/routes';
 import { cn } from '@/utils/cn';
+import { useAuth } from '@/hooks/auth';
 
 export function Menu() {
-  const { user, logout } = useAuth0();
+  const { user, logout, isLoading: isAuthLoading } = useAuth();
   const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const menuItems = [
     { label: 'Dashboard', route: ROUTES.PRIVATE.DASHBOARD() },
     { label: 'Reports', route: ROUTES.PRIVATE.REPORTS() },
     { label: 'Audits', route: ROUTES.PRIVATE.AUDITS() },
-    // { label: 'KYC', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.KYC() },
-    // { label: 'Admin', icon: 'ic:sharp-admin-panel-settings', route: ROUTES.PRIVATE.AUDITS() },
   ];
 
   const renderMenuItems = (mobile = false) => (
@@ -47,7 +43,11 @@ export function Menu() {
       {menuItems.map((item, index) => (
         <NavigationMenuItem key={index}>
           <Link
-            className={cn(navigationMenuTriggerStyle(), mobile && 'w-full justify-start')}
+            className={cn(
+              navigationMenuTriggerStyle(),
+              mobile && 'w-full justify-start',
+              location.pathname.toLowerCase() === item.route.toLowerCase() && 'bg-accent'
+            )}
             to={item.route}
             onClick={() => mobile && setIsMobileMenuOpen(false)}
           >
@@ -63,8 +63,8 @@ export function Menu() {
       <div className="flex">
         <DropdownMenuTrigger className={cn('pl-4', mobile && 'w-full justify-start')}>
           <Avatar>
-            <AvatarImage src={user?.picture ?? ''} alt="User profile" />
-            <AvatarFallback className="text-xs">{user?.name}</AvatarFallback>
+            {user?.picture && <AvatarImage src={user?.picture} alt="User profile" key={user?.picture || null} />}
+            <AvatarFallback className="text-xs">{user?.name} </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>

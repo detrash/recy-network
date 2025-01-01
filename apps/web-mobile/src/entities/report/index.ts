@@ -29,7 +29,6 @@ export interface Material {
   [MATERIAL_TYPES.GLASS]?: number;
   [MATERIAL_TYPES.TEXTILE]?: number;
   [MATERIAL_TYPES.LANDFILL_WASTE]?: number;
-  // Add more residue types as needed
 }
 
 export type Materials = Material[];

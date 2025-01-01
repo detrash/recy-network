@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/use-toast';
 import { ToastAction } from '@/components/ui/toast';
@@ -10,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { validateAuthProvider } from '@/utils/auth';
 import { useUsersValidate } from '@/services/users';
+import { useAuth } from '@/hooks/auth';
 
 export default function HomeScreen() {
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ export default function HomeScreen() {
     getIdTokenClaims,
     getAccessTokenWithPopup,
     isLoading,
-  } = useAuth0();
+  } = useAuth();
 
   const {
     mutate: validateUser,
@@ -77,16 +77,15 @@ export default function HomeScreen() {
 
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
-      <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-center gap-2 md:justify-start">
+      <div className="flex flex-col items-center gap-4 p-6 md:p-10">
+        <div className="flex items-center justify-center gap-2 md:justify-start">
           <img src="/assets/brand/recy-logo.png" width={64} height={64} alt="Recy Logo" />
         </div>
-        <div className="flex flex-1 items-center justify-center">
-          <div className="flex w-full max-w-xl flex-col gap-4 text-center">
+        <div className="flex items-center justify-center flex-1">
+          <div className="flex flex-col w-full max-w-xl gap-4 text-center">
             <div className="flex flex-col gap-4">
               <h1 className="text-6xl font-bold lg:text-7xl">Welcome to</h1>
-              <span className="text-primary text-6xl font-bold lg:text-7xl">Recy App</span>
-
+              <span className="text-6xl font-bold text-primary lg:text-7xl">Recy App</span>
             </div>
             <p className="text-xl text-gray-500">
               Let&apos;s end waste pollution at its source. Let&apos;s transform how we think about trash and recycling.
@@ -109,7 +108,7 @@ export default function HomeScreen() {
           </div>
         </div>
       </div>
-      <div className="bg-muted relative hidden lg:block">
+      <div className="relative hidden bg-muted lg:block">
         <img
           src="/assets/bg/ocean.jpg"
           alt="Man cleaning the beach"

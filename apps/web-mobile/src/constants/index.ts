@@ -9,3 +9,12 @@ export const AuditStatusConstants = {
   COMPLETED: 'COMPLETED',
   FAILED: 'FAILED',
 } as const;
+
+export const Roles = {
+  ADMIN: 'admin',
+  AUDITOR: 'auditor',
+  NEW_USER: 'new-user',
+  PARTNER: 'partner',
+  RECYCLER: 'recycler',
+  WASTE_GENERATOR: 'waste-generator',
+} as const;

@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -10,6 +11,7 @@ import { wasteIcons } from '../reports-modal/constants';
 import { Icon } from '@iconify/react';
 import { materialColors } from '@/modules/dashboard/componentes/chart/constants';
 import { EvidenceUploader } from './evidence-uploader';
+import { useAuth } from '@/hooks/auth';
 
 export const formSchema = z.object({
   materials: z
@@ -31,6 +33,8 @@ interface RecyFormSubmissionProps {
 }
 
 export default function RecyFormSubmission({ onCreateReport }: RecyFormSubmissionProps) {
+  const { user } = useAuth();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,11 +51,11 @@ export default function RecyFormSubmission({ onCreateReport }: RecyFormSubmissio
 
   const onSubmit = async (data: FormValues) => {
     const formattedData: CreateRecyclingReport = {
-      submittedBy: '0779f19c-34a8-40c2-a482-54a353a507c0',
+      submittedBy: user.id,
       materials: data.materials as Materials,
-      // TODO: add user values
-      // phone: '+5511999999999',
-      // walletAddress: '0x0ss',
+      // phone: user?.phone,
+      // // TODO: check current logged wallet ? or send only backend wallet address
+      // walletAddress: user?.walletAddress,
       residueEvidenceFile: data.evidence,
     };
 
@@ -61,7 +65,6 @@ export default function RecyFormSubmission({ onCreateReport }: RecyFormSubmissio
 
     formData.append('submittedBy', formattedData.submittedBy);
 
-    // TODO: add user values
     // formData.append('phone', formattedData.phone);
     // formData.append('walletAddress', formattedData.walletAddress);
 
@@ -87,7 +90,7 @@ export default function RecyFormSubmission({ onCreateReport }: RecyFormSubmissio
                         <Checkbox
                           checked={form.watch(`materials.${type}`) !== undefined}
                           onCheckedChange={(checked) => {
-                            form.setValue(`materials.${type}`, checked ? 0.001 : undefined);
+                            form.setValue(`materials.${type}`, checked ? 0 : undefined);
                           }}
                         />
                       </FormControl>
@@ -95,7 +98,7 @@ export default function RecyFormSubmission({ onCreateReport }: RecyFormSubmissio
                         <Icon
                           icon={wasteIcons[type]}
                           className="w-5 h-5 mr-2"
-                          style={{ color: materialColors[type] }} // Apply the color dynamically
+                          style={{ color: materialColors[type] }}
                         />
                         {type}
                       </FormLabel>
@@ -110,7 +113,6 @@ export default function RecyFormSubmission({ onCreateReport }: RecyFormSubmissio
                           const value = e.target.value ? parseFloat(e.target.value) : undefined;
                           form.setValue(`materials.${type}`, value);
                         }}
-                        disabled={form.watch(`materials.${type}`) === undefined}
                         className="w-full"
                       />
                     </FormControl>

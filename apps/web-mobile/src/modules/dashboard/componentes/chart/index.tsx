@@ -1,24 +1,22 @@
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { ChartContainer } from '@/components/ui/chart';
-import { Skeleton } from '@/components/ui/skeleton';
+
 import { Pie, Cell, Tooltip, Legend, PieChart } from 'recharts';
 import { chartConfig } from './constants';
 import { DashboardChartProps, ChartConfigType } from './types';
 
-export const DashboardChart = ({ data, isFetching }: DashboardChartProps) => {
+export const DashboardChart = ({ data }: DashboardChartProps) => {
   return (
     <div>
-      {isFetching && <Skeleton className="h-[500px] w-full rounded-sm" />}
-
-      {!isFetching && (
+      {data && (
         <Card className="h-full">
           <CardHeader>
             <h2 className="text-lg font-bold">Residues reported so far</h2>
           </CardHeader>
           <CardContent>
-            {Object.keys(data?.materials).length === 0 && 'There is no data to display'}
+            {data?.materials && Object.keys(data.materials).length === 0 ? 'There is no data to display' : null}
 
-            {data?.materials && (
+            {data?.materials && Object.keys(data.materials).length > 0 && (
               <ChartContainer config={chartConfig} className="vh-80">
                 <PieChart>
                   <Pie
