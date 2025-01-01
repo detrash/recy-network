@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -14,6 +13,7 @@ import { toast } from '@/components/ui/use-toast';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { useState } from 'react';
 import { RadioBox } from '@/components/ui/radioBox';
+import { useAuth } from '@/hooks/auth';
 
 const profileFormSchema = z.object({
   email: z
@@ -49,7 +49,7 @@ const cssmap: cssmapType = {
 };
 
 export default function ProfileForm() {
-  const { user } = useAuth0();
+  const { user } = useAuth();
   const [turnstileToken, setTurnstileToken] = useState<string>();
   const [radioActive, setRadioActive] = useState<string>();
 

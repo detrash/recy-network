@@ -8,6 +8,7 @@ import { useRecyclingReportById } from '@/services/reports';
 import { useUpdateAudit } from '../../services/audits';
 import { UpdateAudit } from '../../services/audits/types';
 import { AuditStatusConstants } from '@/constants/index';
+import { useAuth } from '@/hooks/auth';
 
 interface DashboardAuditsProps {
   data: Audit[];
@@ -15,6 +16,7 @@ interface DashboardAuditsProps {
 }
 
 export const AuditsList = ({ data, isFetching }: DashboardAuditsProps) => {
+  const { user } = useAuth();
   const { mutate: updateAudit } = useUpdateAudit();
   const auditsDataFormatted: AuditsTable[] = data?.map((item) => ({
     id: item.id,
@@ -42,7 +44,7 @@ export const AuditsList = ({ data, isFetching }: DashboardAuditsProps) => {
     const updatedAudit: UpdateAudit = {
       id: selectedAudit.id,
       comments: comments,
-      auditorId: '0779f19c-34a8-40c2-a482-54a353a507c0', // TODO: get current user
+      auditorId: user?.id,
       status: auditedStatus,
     };
 

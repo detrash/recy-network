@@ -1,28 +1,18 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+
 import { useCrecy } from '@/hooks/crecy';
 import { UserStatsResponse } from '@/services/users/types';
 import { Icon } from '@iconify/react';
 interface DashboardCardsProps {
   data: UserStatsResponse;
-  isFetching: boolean;
 }
 
-export const DashboardCards = ({ data, isFetching }: DashboardCardsProps) => {
+export const DashboardCards = ({ data }: DashboardCardsProps) => {
   const { data: cRecyBalanceData, formattedTokenPrice } = useCrecy();
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      {isFetching && (
-        <>
-          <Skeleton className="h-[150px] w-full rounded-sm" />
-          <Skeleton className="h-[150px] w-full rounded-sm" />
-          <Skeleton className="h-[150px] w-full rounded-sm" />
-          <Skeleton className="h-[150px] w-full rounded-sm" />
-        </>
-      )}
-
-      {!isFetching && (
+      {data && (
         <>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">

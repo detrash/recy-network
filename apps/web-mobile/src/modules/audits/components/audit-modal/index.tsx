@@ -124,6 +124,7 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                       value={comments}
                       onChange={(e) => setComments(e.target.value)}
                       className="w-full"
+                      disabled={status === AuditStatusConstants.APPROVED || status === AuditStatusConstants.REJECTED}
                     />
                   </div>
                   <div className="flex gap-2">
@@ -131,7 +132,7 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                       Close
                     </Button>
                     <Button
-                      disabled={status === AuditStatusConstants.APPROVED}
+                      disabled={status === AuditStatusConstants.APPROVED || status === AuditStatusConstants.REJECTED}
                       onClick={() => onApprove(comments)}
                       variant="default"
                       className="bg-green-500 hover:bg-green-600"
@@ -141,7 +142,7 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                     <Button
                       onClick={() => onReject(comments)}
                       variant="destructive"
-                      disabled={status === AuditStatusConstants.REJECTED}
+                      disabled={status === AuditStatusConstants.REJECTED || status === AuditStatusConstants.APPROVED}
                     >
                       Reject
                     </Button>

@@ -10,5 +10,4 @@ export type ChartConfigType = {
 
 export interface DashboardChartProps {
   data: UserStatsResponse;
-  isFetching: boolean;
 }

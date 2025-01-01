@@ -11,17 +11,16 @@ import Home from '@/pages/home';
 import KYC from '@/pages/kyc';
 import Onboarding from '@/pages/onboarding';
 import Profile from '@/pages/profile';
-import ReportsSubmit from '@/pages/reports/submit';
-
 import '@/libs/i18next';
-import NotFoundPage from './pages/not-found';
-import ErrorPage from './pages/error';
+import NotFoundPage from '@/layouts/not-found';
+import ErrorPage from '@/layouts/error';
 import Reports from '@/pages/reports';
-import Audits from './pages/audits';
-import { useAuth0 } from '@auth0/auth0-react';
+import Audits from '@/pages/audits';
+
 import { useEffect } from 'react';
 import { addAccessTokenInterceptor } from './libs/axios/interceptors';
 import ProtectedRoutes from './components/protected-router';
+import { useAuth } from './hooks/auth';
 
 const router = createBrowserRouter([
   {
@@ -102,7 +101,7 @@ const router = createBrowserRouter([
 ]);
 
 export function App() {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth();
 
   useEffect(() => {
     addAccessTokenInterceptor(getAccessTokenSilently);

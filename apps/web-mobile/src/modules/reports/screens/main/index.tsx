@@ -5,12 +5,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useRecyclingReportsByUser } from '../../../../services/reports';
 import { ReportsModal } from '../../components/reports-modal';
 import { useState } from 'react';
+import { useAuth } from '@/hooks/auth';
 
 export default function ReportsScreen() {
-  // TODO: remove hard coded id
-  const { data: reportsData, isFetching: isFetchingReports } = useRecyclingReportsByUser(
-    '0779f19c-34a8-40c2-a482-54a353a507c0'
-  );
+  const { user } = useAuth();
+  const { data: reportsData, isFetching: isFetchingReports } = useRecyclingReportsByUser(user?.id);
 
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
 

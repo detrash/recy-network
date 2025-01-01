@@ -1,5 +1,17 @@
 import { RecyclingReport } from '@/entities/report';
 
+export interface Role {
+  id: string;
+  name: string;
+}
+
+export interface UserRole {
+  id: string;
+  userId: string;
+  roleId: string;
+  role: Role;
+}
+
 export type User = {
   phone?: string | null;
   walletAddress?: string | null;
@@ -12,4 +24,5 @@ export type User = {
   createdAt: string;
   updatedAt: string;
   recyclingReports?: RecyclingReport[];
+  userRoles?: UserRole[];
 };
