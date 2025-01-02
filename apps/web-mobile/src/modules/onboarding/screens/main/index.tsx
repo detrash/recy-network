@@ -5,9 +5,11 @@ import { useAuth } from '@/hooks/auth';
 export default function OnboardingScreen() {
   const { user, hasNewUserRole, hasAdminPrivileges } = useAuth();
 
-  const [isOnboardingOpen, setIsOnboardingOpen] = useState(hasNewUserRole);
+  const showOnboardingModal = !hasNewUserRole || hasAdminPrivileges;
 
-  if (!hasNewUserRole && hasAdminPrivileges) return null;
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(showOnboardingModal);
+
+  if (showOnboardingModal) return null;
 
   if (!user) return null;
 
