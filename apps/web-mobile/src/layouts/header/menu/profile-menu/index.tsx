@@ -42,7 +42,7 @@ export function ProfileMenu({ user, logout, mobile = false, onMobileMenuClose }:
         <Button variant="ghost" className="relative flex h-8 w-8 items-center rounded-full">
           <Avatar className="h-8 w-8">
             {user?.picture && <AvatarImage src={user.picture} alt={user?.name || 'User avatar'} />}
-            <AvatarFallback>{user?.name?.charAt(0) || 'U'}</AvatarFallback>
+            <AvatarFallback>{user?.name?.charAt(0) || ''}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>

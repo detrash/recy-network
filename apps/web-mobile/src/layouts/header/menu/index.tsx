@@ -39,8 +39,6 @@ export function Menu() {
   const renderMenuItems = (mobile = false) => (
     <>
       {menuItems.map((item) => {
-        if (isLoadingAuth) return <Skeleton className="h-[40px] w-[100px] rounded-sm" />;
-
         const isAuditsRoute = item.route === ROUTES.PRIVATE.AUDITS();
         const isUnauthorized = !hasAuditorRole && !hasAdminPrivileges;
 
@@ -82,7 +80,10 @@ export function Menu() {
             <img src="/assets/brand/recy-logo.png" width={64} height={64} alt="Recy Logo" className="mr-4" />
           </Link>
         </NavigationMenuItem>
-        {renderMenuItems()}
+
+        {isLoadingAuth && <Skeleton className="h-[40px] w-[300px] rounded-sm" />}
+
+        {!isLoadingAuth && renderMenuItems()}
       </NavigationMenuList>
 
       <NavigationMenuList className="hidden items-center justify-between gap-2 md:flex">
