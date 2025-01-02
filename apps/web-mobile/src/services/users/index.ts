@@ -30,8 +30,7 @@ export const useUsersValidate = () => {
   const [_, setValue] = useLocalStorage('@recy-network/user', {});
 
   const mutation = useMutation<ValidateUserResponse, ApiError, ValidateUserBody>({
-    mutationFn: async (payload: ValidateUserBody) =>
-      apiV1.post('/users/validate', payload, { withCredentials: true }).then(parseData),
+    mutationFn: async (payload: ValidateUserBody) => apiV1.post('/users/validate', payload).then(parseData),
     onSuccess: (data) => {
       setValue({ id: data.user.id });
     },
