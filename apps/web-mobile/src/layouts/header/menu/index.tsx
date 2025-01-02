@@ -5,14 +5,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAccount } from 'wagmi';
 
 import LocaleToggler from '@/components/locale-toggler';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -20,11 +14,14 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { ROUTES } from '@/config/routes';
 import { cn } from '@/utils/cn';
 import { useAuth } from '@/hooks/auth';
 import { Skeleton } from '@/components/ui/skeleton';
+
+import { ProfileMenu } from './profile-menu';
 
 export function Menu() {
   const { user, logout, hasAuditorRole, hasAdminPrivileges, isLoading: isLoadingAuth } = useAuth();
@@ -69,32 +66,12 @@ export function Menu() {
   );
 
   const renderProfileMenu = (mobile = false) => (
-    <DropdownMenu>
-      <div className="flex">
-        <DropdownMenuTrigger className={cn('pl-4', mobile && 'w-full justify-start')}>
-          <Avatar>
-            {user?.picture && <AvatarImage src={user?.picture} alt="User profile" key={user?.picture || null} />}
-            <AvatarFallback className="text-xs">{user?.name} </AvatarFallback>
-          </Avatar>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem>
-            <Button asChild variant="link" onClick={() => mobile && setIsMobileMenuOpen(false)}>
-              <Link to={ROUTES.PRIVATE.PROFILE()}>Your Profile</Link>
-            </Button>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Button
-              className="color-secondary color w-full text-center"
-              variant="link"
-              onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-            >
-              Sign out
-            </Button>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </div>
-    </DropdownMenu>
+    <ProfileMenu
+      user={user}
+      logout={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+      mobile={mobile}
+      onMobileMenuClose={() => setIsMobileMenuOpen(false)}
+    />
   );
 
   return (
@@ -108,7 +85,7 @@ export function Menu() {
         {renderMenuItems()}
       </NavigationMenuList>
 
-      <NavigationMenuList className="hidden md:flex">
+      <NavigationMenuList className="hidden items-center justify-between gap-2 md:flex">
         <NavigationMenuItem>
           <NavigationMenuLink
             className={cn('hover:cursor-pointer', navigationMenuTriggerStyle())}
@@ -173,7 +150,7 @@ export function Menu() {
                   <Icon icon="ph:wallet-thin" width="20" height="20" className="mr-3" />
                   {isConnected && address ? `${address.slice(0, 4)}...${address.slice(-4)}` : 'Connect Wallet'}
                 </Button>
-                <div className="flex items-center justify-between">
+                <div className="flex w-full items-center justify-between">
                   <LocaleToggler />
                   {renderProfileMenu(true)}
                 </div>
