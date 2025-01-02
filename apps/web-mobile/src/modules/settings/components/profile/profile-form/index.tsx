@@ -14,7 +14,6 @@ import { Turnstile } from '@marsidev/react-turnstile';
 import { useState } from 'react';
 import { RadioBox } from '@/components/ui/radioBox';
 import { useAuth } from '@/hooks/auth';
-import { RadioBox } from '@/components/ui/radioBox';
 
 const profileFormSchema = z.object({
   email: z
