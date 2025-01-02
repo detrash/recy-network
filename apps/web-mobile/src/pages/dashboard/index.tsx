@@ -1,9 +1,11 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import DashboardScreen from '@/modules/dashboard/screens/home';
+import OnboardingScreen from '@/modules/onboarding/screens/main';
 
-import DashboardScreen from '@/modules/dashboard/screens/main';
-
-function Dashboard() {
-  return <DashboardScreen />;
+export default function Dashboard() {
+  return (
+    <>
+      <OnboardingScreen />
+      <DashboardScreen />;
+    </>
+  );
 }
-
-export default withAuthenticationRequired(Dashboard);

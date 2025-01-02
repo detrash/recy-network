@@ -1,23 +1,18 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { useState } from 'react';
+import { useAuth } from '@/hooks/auth';
 
 const profileFormSchema = z.object({
   email: z
@@ -43,7 +38,9 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export default function ProfileForm() {
-  const { user } = useAuth0();
+  const { user } = useAuth();
+  const [turnstileToken, setTurnstileToken] = useState<string>();
+
   const form = useForm<ProfileFormValues>({
     // defaultValues,
     mode: 'onChange',
@@ -145,6 +142,7 @@ export default function ProfileForm() {
           </div>
         </RadioGroup>
 
+        <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} />
         <Button type="submit">Save Changes</Button>
       </form>
     </Form>

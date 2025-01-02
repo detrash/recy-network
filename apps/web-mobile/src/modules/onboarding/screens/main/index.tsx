@@ -1,15 +1,30 @@
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useState } from 'react';
-
-import { Register } from '@/modules/onboarding/components/register';
-import { Welcome } from '@/modules/onboarding/components/welcome';
-
+import OnboardingForm from '../../components/form';
+import { useAuth } from '@/hooks/auth';
 export default function OnboardingScreen() {
-  const [formStep, setFormStep] = useState('welcome');
+  const { user, hasNewUserRole, hasAdminPrivileges } = useAuth();
+
+  const showOnboardingModal = !hasNewUserRole || hasAdminPrivileges;
+
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(showOnboardingModal);
+
+  if (showOnboardingModal) return null;
+
+  if (!user) return null;
 
   return (
-    <main className="container flex max-h-full flex-1 bg-white p-4 sm:max-w-2xl sm:rounded-xl sm:border-2 sm:p-8 sm:shadow-2xl">
-      {formStep === 'welcome' && <Welcome onGetStarted={() => setFormStep('register')} />}
-      {formStep === 'register' && <Register />}
-    </main>
+    <Dialog open={isOnboardingOpen} onOpenChange={() => setIsOnboardingOpen(false)}>
+      <DialogContent
+        aria-description="Onboarding"
+        className="max-w-4xl overflow-hidden p-0 [&>button]:hidden"
+        onInteractOutside={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <DialogTitle className="sr-only">Onboarding</DialogTitle>
+        {<OnboardingForm userId={user.id} onClose={() => setIsOnboardingOpen(false)} />}
+      </DialogContent>
+    </Dialog>
   );
 }

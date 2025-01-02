@@ -7,17 +7,10 @@ import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import { api } from '@/libs/axios';
+import { apiV1 } from '@/libs/axios';
 
 const contactFormValue = z.object({
   email: z.string().email(),
@@ -42,7 +35,7 @@ export default function CalculatorContactScreen() {
     const ENDPOINT = `${BASE_URL}/${ENVIRONMENT}/user/support`;
 
     try {
-      const response = await api.post(ENDPOINT, { email: data.email });
+      const response = await apiV1.post(ENDPOINT, { email: data.email });
 
       if (response.status === 200) {
         form.reset({ email: '' });
@@ -71,15 +64,11 @@ export default function CalculatorContactScreen() {
     <div className="container mx-auto my-6 flex max-w-2xl flex-col gap-6">
       <Card className="sm:rounded-xl sm:shadow-xl">
         <CardHeader className="flex flex-row items-center gap-4 pb-2">
-          <h2 className="text-lg lg:text-2xl text-center">{t('calculator.contact.title')}</h2>
+          <h2 className="text-center text-lg lg:text-2xl">{t('calculator.contact.title')}</h2>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <Form {...form}>
-            <form
-              className="flex flex-1 flex-col gap-4"
-              onSubmit={form.handleSubmit(onSubmit)}
-              id="calculator-form"
-            >
+            <form className="flex flex-1 flex-col gap-4" onSubmit={form.handleSubmit(onSubmit)} id="calculator-form">
               <FormField
                 control={form.control}
                 name="email"

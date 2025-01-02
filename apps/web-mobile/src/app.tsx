@@ -11,48 +11,62 @@ import Home from '@/pages/home';
 import KYC from '@/pages/kyc';
 import Onboarding from '@/pages/onboarding';
 import Profile from '@/pages/profile';
-import Submit from '@/pages/submit';
-
 import '@/libs/i18next';
+import NotFoundPage from '@/layouts/not-found';
+import ErrorPage from '@/layouts/error';
+import Reports from '@/pages/reports';
+import Audits from '@/pages/audits';
+
+import { useEffect } from 'react';
+import { addAccessTokenInterceptor } from './libs/axios/interceptors';
+import ProtectedRoutes from './components/protected-router';
+import { useAuth } from './hooks/auth';
+import { Loader2 } from 'lucide-react';
 
 const router = createBrowserRouter([
   {
+    element: <ProtectedRoutes />,
     children: [
-      {
-        element: <Dashboard />,
-        path: '/dashboard',
-      },
-      {
-        element: <Dashboard />,
-        path: '/settings',
-      },
-      {
-        element: <Submit />,
-        path: '/submit',
-      },
-      {
-        element: <Onboarding />,
-        path: '/onboarding',
-      },
-      {
-        element: <Dashboard />,
-        path: '/admin',
-      },
       {
         children: [
           {
-            element: <Profile />,
-            path: '/settings/profile',
+            element: <Dashboard />,
+            path: '/dashboard',
+          },
+          {
+            element: <Dashboard />,
+            path: '/settings',
+          },
+          {
+            element: <Reports />,
+            path: '/reports',
+          },
+          {
+            element: <Audits />,
+            path: '/audits',
+          },
+          {
+            element: <Onboarding />,
+            path: '/onboarding',
+          },
+          {
+            children: [
+              {
+                element: <Profile />,
+                path: '/settings/profile',
+              },
+            ],
+            path: '/settings',
+          },
+          {
+            element: <KYC />,
+            path: '/kyc',
           },
         ],
-        path: '/settings',
-      },
-      {
-        element: <KYC />,
-        path: '/kyc',
+        element: <Header />,
       },
     ],
-    element: <Header />,
+    errorElement: <ErrorPage />,
   },
   {
     children: [
@@ -74,17 +88,29 @@ const router = createBrowserRouter([
       },
     ],
     element: <HeaderSimple />,
+    errorElement: <ErrorPage />,
   },
   {
     element: <Home />,
     path: '/',
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ]);
 
 export function App() {
+  const { getAccessTokenSilently } = useAuth();
+
+  useEffect(() => {
+    addAccessTokenInterceptor(getAccessTokenSilently);
+  }, [getAccessTokenSilently]);
+
   return (
     <main>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} fallbackElement={<Loader2 className="animate-spin" />} />
     </main>
   );
 }
