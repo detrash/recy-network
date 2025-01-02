@@ -19,15 +19,13 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   const x = Number(cx) + radius * Math.cos(-midAngle * RADIAN);
   const y = Number(cy) + radius * Math.sin(-midAngle * RADIAN);
 
-  const xPosition = Number(cx);
-
   return (
     <text
-      className="text-xsm font-medium lg:text-lg"
+      className="text-xs sm:text-sm lg:text-lg"
       x={x}
       y={y}
       fill="white"
-      textAnchor={x > xPosition ? 'start' : 'end'}
+      textAnchor="middle"
       dominantBaseline="central"
     >
       {`${(percent * 100).toFixed(0)}%`}
@@ -54,8 +52,8 @@ export const DashboardChart = ({ data }: DashboardChartProps) => {
             {data?.materials && Object.keys(data.materials).length === 0 ? 'There is no data to display' : null}
 
             {data?.materials && Object.keys(data.materials).length > 0 && (
-              <ChartContainer config={chartConfig} className="vh-80">
-                <PieChart>
+              <ChartContainer config={chartConfig} className="vh-80 w-full">
+                <PieChart height={300}>
                   <Pie
                     data={chartData}
                     dataKey="total"
@@ -73,7 +71,7 @@ export const DashboardChart = ({ data }: DashboardChartProps) => {
                     align="right"
                     verticalAlign="middle"
                     iconType="circle"
-                    formatter={(value) => <span className="text-sm font-medium lg:text-lg">{value}</span>}
+                    formatter={(value) => <span className="text-xs font-medium sm:text-sm lg:text-lg">{value}</span>}
                   />
                 </PieChart>
               </ChartContainer>
