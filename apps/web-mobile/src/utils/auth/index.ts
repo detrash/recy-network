@@ -23,6 +23,11 @@ export function isNewUser(roles: UserRole[] | undefined): boolean {
   return roles.some((userRole) => userRole.role.name === Roles.NEW_USER);
 }
 
+export function isAuditor(roles: UserRole[] | undefined): boolean {
+  if (!roles) return false;
+  return roles.some((userRole) => userRole.role.name === Roles.AUDITOR);
+}
+
 export function isRole(roles: UserRole[] | undefined, checkRole: Role): boolean {
   if (!roles) return false;
   return roles.some((userRole) => userRole.role.name === checkRole);

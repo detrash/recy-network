@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/use-toast';
 import { ToastAction } from '@/components/ui/toast';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import LocaleToggler from '@/components/locale-toggler';
 import { Button } from '@/components/ui/button';
@@ -22,18 +22,11 @@ export default function HomeScreen() {
     isLoading,
   } = useAuth();
 
-  const {
-    mutate: validateUser,
-    isError: isUsersValidateError,
-    isPending: isValidateUserPending,
-    // isSuccess: isUsersValidateSuccess,
-  } = useUsersValidate();
+  const { mutate: validateUser, isError: isUsersValidateError, isPending: isValidateUserPending } = useUsersValidate();
   const navigate = useNavigate();
 
   const hasAuthOrValidateError = isAuthError || isUsersValidateError;
   const canRedirected = isAuthenticated && !hasAuthOrValidateError;
-
-  if (canRedirected) navigate('/dashboard');
 
   if (isAuthError) {
     toast({
@@ -75,17 +68,21 @@ export default function HomeScreen() {
     validateUser(payload);
   };
 
+  useEffect(() => {
+    if (canRedirected) navigate('/dashboard');
+  }, [canRedirected, navigate]);
+
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col items-center gap-4 p-6 md:p-10">
         <div className="flex items-center justify-center gap-2 md:justify-start">
           <img src="/assets/brand/recy-logo.png" width={64} height={64} alt="Recy Logo" />
         </div>
-        <div className="flex items-center justify-center flex-1">
-          <div className="flex flex-col w-full max-w-xl gap-4 text-center">
+        <div className="flex flex-1 items-center justify-center">
+          <div className="flex w-full max-w-xl flex-col gap-4 text-center">
             <div className="flex flex-col gap-4">
               <h1 className="text-6xl font-bold lg:text-7xl">Welcome to</h1>
-              <span className="text-6xl font-bold text-primary lg:text-7xl">Recy App</span>
+              <span className="text-primary text-6xl font-bold lg:text-7xl">Recy App</span>
             </div>
             <p className="text-xl text-gray-500">
               Let&apos;s end waste pollution at its source. Let&apos;s transform how we think about trash and recycling.
@@ -108,7 +105,7 @@ export default function HomeScreen() {
           </div>
         </div>
       </div>
-      <div className="relative hidden bg-muted lg:block">
+      <div className="bg-muted relative hidden lg:block">
         <img
           src="/assets/bg/ocean.jpg"
           alt="Man cleaning the beach"

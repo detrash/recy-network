@@ -24,9 +24,10 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { ROUTES } from '@/config/routes';
 import { cn } from '@/utils/cn';
 import { useAuth } from '@/hooks/auth';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export function Menu() {
-  const { user, logout, isLoading: isAuthLoading } = useAuth();
+  const { user, logout, hasAuditorRole, hasAdminPrivileges, isLoading: isLoadingAuth } = useAuth();
   const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,21 +41,30 @@ export function Menu() {
 
   const renderMenuItems = (mobile = false) => (
     <>
-      {menuItems.map((item, index) => (
-        <NavigationMenuItem key={index}>
-          <Link
-            className={cn(
-              navigationMenuTriggerStyle(),
-              mobile && 'w-full justify-start',
-              location.pathname.toLowerCase() === item.route.toLowerCase() && 'bg-accent'
-            )}
-            to={item.route}
-            onClick={() => mobile && setIsMobileMenuOpen(false)}
-          >
-            {item.label}
-          </Link>
-        </NavigationMenuItem>
-      ))}
+      {menuItems.map((item) => {
+        if (isLoadingAuth) return <Skeleton className="h-[40px] w-[100px] rounded-sm" />;
+
+        const isAuditsRoute = item.route === ROUTES.PRIVATE.AUDITS();
+        const isUnauthorized = !hasAuditorRole && !hasAdminPrivileges;
+
+        if (isAuditsRoute && isUnauthorized) return null;
+
+        return (
+          <NavigationMenuItem key={item.route}>
+            <Link
+              className={cn(
+                navigationMenuTriggerStyle(),
+                mobile && 'w-full justify-start',
+                location.pathname.toLowerCase() === item.route.toLowerCase() && 'bg-accent'
+              )}
+              to={item.route}
+              onClick={() => mobile && setIsMobileMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
+          </NavigationMenuItem>
+        );
+      })}
     </>
   );
 
@@ -75,7 +85,7 @@ export function Menu() {
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Button
-              className="w-full text-center color-secondary color"
+              className="color-secondary color w-full text-center"
               variant="link"
               onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
             >
@@ -88,7 +98,7 @@ export function Menu() {
   );
 
   return (
-    <NavigationMenu className="flex justify-between min-w-full">
+    <NavigationMenu className="flex min-w-full justify-between">
       <NavigationMenuList className="hidden md:flex">
         <NavigationMenuItem>
           <Link to={ROUTES.PUBLIC.HOME()}>
@@ -119,29 +129,29 @@ export function Menu() {
       </NavigationMenuList>
 
       {/* Mobile Menu */}
-      <div className="flex items-center justify-between w-full md:hidden">
+      <div className="flex w-full items-center justify-between md:hidden">
         <Link to={ROUTES.PUBLIC.HOME()}>
           <img src="/assets/brand/recy-logo.png" width={48} height={48} alt="Recy Logo" />
         </Link>
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="p-0">
-              <Icon icon="mdi:menu" className="w-6 h-6" />
+              <Icon icon="mdi:menu" className="h-6 w-6" />
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-[300px] p-0 sm:w-[400px]">
-            <div className="flex flex-col h-full">
-              <div className="p-4 border-b">
+            <div className="flex h-full flex-col">
+              <div className="border-b p-4">
                 <Link to={ROUTES.PUBLIC.HOME()} onClick={() => setIsMobileMenuOpen(false)}>
                   <img src="/assets/brand/recy-logo.png" width={64} height={64} alt="Recy Logo" className="mx-auto" />
                 </Link>
               </div>
               <nav className="flex-grow overflow-y-auto">
-                <ul className="px-2 py-4 space-y-2">
-                  {menuItems.map((item, index) => (
-                    <li key={index}>
+                <ul className="space-y-2 px-2 py-4">
+                  {menuItems.map((item) => (
+                    <li key={item.route}>
                       <Link
-                        className="flex items-center p-2 rounded-md hover:bg-accent"
+                        className="hover:bg-accent flex items-center rounded-md p-2"
                         to={item.route}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -151,9 +161,9 @@ export function Menu() {
                   ))}
                 </ul>
               </nav>
-              <footer className="p-4 space-y-4 border-t">
+              <footer className="space-y-4 border-t p-4">
                 <Button
-                  className="justify-start w-full"
+                  className="w-full justify-start"
                   variant="outline"
                   onClick={() => {
                     open();

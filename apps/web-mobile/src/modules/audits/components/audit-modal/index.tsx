@@ -28,8 +28,12 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl p-0 overflow-hidden">
+      <DialogContent className="max-w-4xl overflow-hidden p-0" aria-description="Recycling Report Audit">
         <div className="flex h-[80vh] flex-col">
+          <DialogHeader className="border-b px-6 py-4">
+            <DialogTitle>Recycling Report Audit</DialogTitle>
+          </DialogHeader>
+
           {isLoading && (
             <div className="flex flex-col items-center justify-center gap-2 px-6 py-4">
               <Skeleton className="h-[400px] w-[100%] rounded-sm" />
@@ -39,11 +43,8 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
 
           {!isLoading && (
             <>
-              <DialogHeader className="px-6 py-4 border-b">
-                <DialogTitle>Recycling Report Audit</DialogTitle>
-              </DialogHeader>
-              <Tabs defaultValue="general" className="flex flex-col flex-1 overflow-hidden">
-                <TabsList className="px-6 border-b">
+              <Tabs defaultValue="general" className="flex flex-1 flex-col overflow-hidden">
+                <TabsList className="border-b px-6">
                   <TabsTrigger value="general">General</TabsTrigger>
                   <TabsTrigger value="materials">Materials</TabsTrigger>
                   <TabsTrigger value="evidence">Evidence</TabsTrigger>
@@ -95,7 +96,7 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                             return (
                               <li
                                 key={material}
-                                className="flex items-center justify-between p-2 text-white rounded"
+                                className="flex items-center justify-between rounded p-2 text-white"
                                 style={{ backgroundColor: materialColor }}
                               >
                                 <span className="font-medium">
@@ -115,9 +116,9 @@ export function AuditModal({ report, onClose, onApprove, onReject, isLoading, is
                   </ScrollArea>
                 </div>
               </Tabs>
-              <DialogFooter className="px-6 py-4 border-t">
-                <div className="flex items-center justify-between w-full">
-                  <div className="flex-grow mr-4">
+              <DialogFooter className="border-t px-6 py-4">
+                <div className="flex w-full items-center justify-between">
+                  <div className="mr-4 flex-grow">
                     <Textarea
                       defaultValue={defaultComments}
                       placeholder="Comments"

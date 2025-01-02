@@ -21,6 +21,7 @@ import { useEffect } from 'react';
 import { addAccessTokenInterceptor } from './libs/axios/interceptors';
 import ProtectedRoutes from './components/protected-router';
 import { useAuth } from './hooks/auth';
+import { Loader2 } from 'lucide-react';
 
 const router = createBrowserRouter([
   {
@@ -109,7 +110,7 @@ export function App() {
 
   return (
     <main>
-      <RouterProvider router={router} fallbackElement={<p>Initial Load...</p>} />
+      <RouterProvider router={router} fallbackElement={<Loader2 className="animate-spin" />} />
     </main>
   );
 }

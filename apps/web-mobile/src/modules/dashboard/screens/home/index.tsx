@@ -11,10 +11,13 @@ export default function DashboardScreen() {
   if (isAuthLoading || isFetchingUserStats) {
     return (
       <section className="container flex flex-col gap-6">
-        <div className="flex flex-col w-full gap-2">
-          <Skeleton className="mt-4 h-[32px] w-full rounded-sm" />
+        <div className="flex w-full flex-col gap-2">
+          <Skeleton className="mt-4 h-[40px] w-full rounded-sm" />
           <Skeleton className="h-[24px] w-full rounded-sm" />
         </div>
+
+        <Skeleton className="h-[150px] w-full rounded-sm" />
+
         <Skeleton className="h-[500px] w-full rounded-sm" />
       </section>
     );
@@ -22,7 +25,7 @@ export default function DashboardScreen() {
 
   return (
     <section className="container flex flex-col gap-6">
-      <div className="flex flex-col gap-1 mt-4">
+      <div className="mt-4 flex flex-col gap-1">
         <h1 className="text-xl font-bold">Welcome back, {user?.name} !</h1>
         <p>Track your environmental impact and contributions here.</p>
       </div>

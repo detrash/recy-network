@@ -8,7 +8,7 @@
     "module": "ESNext",
     "paths": {
       "@/assets/*": ["../public/assets/*"],
-      "@types/*": ["@types/*"],
+      "@/types/*": ["@types/*"],
       "@/components/*": ["components/*"],
       "@/constants/*": ["constants/*"],
       "@/config/*": ["config/*"],

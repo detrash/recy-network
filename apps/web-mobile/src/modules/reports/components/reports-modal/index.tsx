@@ -6,6 +6,7 @@ import { useAccount } from 'wagmi';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useCreateRecyclingReport } from '@/services/reports';
 import { Loader2 } from 'lucide-react';
+import { useAuth } from '@/hooks/auth';
 
 interface ReportsModalProps {
   onClose: () => void;
@@ -13,8 +14,8 @@ interface ReportsModalProps {
 }
 
 export function ReportsModal({ onClose, isOpen }: ReportsModalProps) {
-  // TODO: invalidate list after creating
-  const { mutate: createReport, isPending: isPendingCreateRecycling, isSuccess } = useCreateRecyclingReport();
+  const { user } = useAuth();
+  const { mutate: createReport, isPending: isPendingCreateRecycling, isSuccess } = useCreateRecyclingReport(user?.id);
 
   const { address, isConnected } = useAccount();
   const { open } = useWeb3Modal();
@@ -29,15 +30,15 @@ export function ReportsModal({ onClose, isOpen }: ReportsModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl p-0 overflow-hidden">
+      <DialogContent className="max-w-4xl overflow-hidden p-0" aria-description="Recy Form Submission">
         <div className="flex h-[80vh] flex-col">
-          <DialogHeader className="px-6 py-4 border-b">
+          <DialogHeader className="border-b px-6 py-4">
             <DialogTitle>Recy Form Submission</DialogTitle>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-2 text-sm">
               Remember to fill the form with care. We are a reputation-based system.
             </p>
           </DialogHeader>
-          <div className="flex flex-col flex-1 gap-4 overflow-hidden">
+          <div className="flex flex-1 flex-col gap-4 overflow-hidden">
             <ScrollArea className="h-full">
               <div className="flex flex-col gap-4 p-6">
                 <div>
@@ -51,7 +52,7 @@ export function ReportsModal({ onClose, isOpen }: ReportsModalProps) {
               </div>
             </ScrollArea>
           </div>
-          <DialogFooter className="flex items-center gap-2 px-6 py-4 border-t">
+          <DialogFooter className="flex items-center gap-2 border-t px-6 py-4">
             {isPendingCreateRecycling && <Loader2 className="animate-spin" />}
             <Button variant="default" disabled={isPendingCreateRecycling} type="submit" form="recy-form">
               Confirmar

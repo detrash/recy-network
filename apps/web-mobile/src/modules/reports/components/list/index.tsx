@@ -1,14 +1,12 @@
-import { Skeleton } from '@/components/ui/skeleton';
 import { DataTable } from './table';
 import { columns, ReportTable } from './table/columns';
 import { RecyclingReport } from '@/entities/report';
 
 interface DashboardReportsProps {
   data: RecyclingReport[];
-  isFetching: boolean;
 }
 
-export const ReportsList = ({ data, isFetching }: DashboardReportsProps) => {
+export const ReportsList = ({ data }: DashboardReportsProps) => {
   const reportsDataFormated: ReportTable[] = data?.map((item) => ({
     id: item.id,
     date: new Date(item.reportDate).toLocaleString(),
@@ -19,9 +17,7 @@ export const ReportsList = ({ data, isFetching }: DashboardReportsProps) => {
 
   return (
     <div>
-      {isFetching && <Skeleton className="h-[600px] w-full rounded-sm" />}
-
-      {!isFetching && (
+      {data && (
         <div className="grid grid-cols-1">
           {!reportsDataFormated && 'There is no data to display'}
           {reportsDataFormated && <DataTable columns={columns} data={reportsDataFormated} />}

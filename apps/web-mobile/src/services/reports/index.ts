@@ -7,6 +7,7 @@ import type { ApiError } from '@/entities/response';
 import { recyclingReportsKey, recyclingReportKey, recyclingReportByUserKey } from './keys';
 import { UpdateRecyclingReport } from './types';
 import { RecyclingReport } from '@/entities/report';
+import { userStatsKey } from '../users/keys';
 
 export const useRecyclingReports = (options?: UseQueryOptions<RecyclingReport[], ApiError>) => {
   return useQuery({
@@ -32,7 +33,7 @@ export const useRecyclingReportsByUser = (userId: string, options?: UseQueryOpti
   });
 };
 
-export const useRecyclingReportById = (id?: string, options?: UseQueryOptions<RecyclingReport, ApiError>) => {
+export const useRecyclingReportById = (id: string, options?: UseQueryOptions<RecyclingReport, ApiError>) => {
   return useQuery({
     queryKey: recyclingReportKey(id),
     queryFn: async () => {
@@ -44,8 +45,8 @@ export const useRecyclingReportById = (id?: string, options?: UseQueryOptions<Re
   });
 };
 
-export const useCreateRecyclingReport = () => {
-  // const queryClient = useQueryClient();
+export const useCreateRecyclingReport = (id: string) => {
+  const queryClient = useQueryClient();
 
   return useMutation<RecyclingReport, ApiError, FormData>({
     mutationFn: async (formData: FormData) => {
@@ -58,10 +59,13 @@ export const useCreateRecyclingReport = () => {
     },
     onSuccess: () => {
       toast({ variant: 'default', title: 'Success', description: 'Recycling report created successfully.' });
-      // TODO: need invalidate create report
-      // queryClient.invalidateQueries({
-      //   queryKey: [],
-      // });
+
+      // Debug: Verifique as chaves de query
+      console.log([recyclingReportKey(id), userStatsKey(id)]);
+
+      queryClient.invalidateQueries({
+        queryKey: [recyclingReportKey(id), userStatsKey(id)],
+      });
     },
     onError: (error: ApiError) => {
       toast({ variant: 'destructive', title: 'Error', description: error.message });

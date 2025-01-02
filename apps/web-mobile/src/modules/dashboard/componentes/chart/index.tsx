@@ -1,11 +1,48 @@
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { ChartContainer } from '@/components/ui/chart';
 
-import { Pie, Cell, Tooltip, Legend, PieChart } from 'recharts';
+import { Pie, Cell, Legend, PieChart, LabelProps } from 'recharts';
 import { chartConfig } from './constants';
 import { DashboardChartProps, ChartConfigType } from './types';
 
+const RADIAN = Math.PI / 180;
+interface CustomizedLabelProps extends LabelProps {
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  percent: number;
+}
+
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: CustomizedLabelProps) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+
+  const x = Number(cx) + radius * Math.cos(-midAngle * RADIAN);
+  const y = Number(cy) + radius * Math.sin(-midAngle * RADIAN);
+
+  const xPosition = Number(cx);
+
+  return (
+    <text
+      className="text-xsm font-medium lg:text-lg"
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > xPosition ? 'start' : 'end'}
+      dominantBaseline="central"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
+
 export const DashboardChart = ({ data }: DashboardChartProps) => {
+  const chartData =
+    data.materials &&
+    Object.entries(data.materials).map(([residue, total]) => ({
+      residue,
+      total,
+    }));
+
   return (
     <div>
       {data && (
@@ -20,26 +57,23 @@ export const DashboardChart = ({ data }: DashboardChartProps) => {
               <ChartContainer config={chartConfig} className="vh-80">
                 <PieChart>
                   <Pie
-                    data={Object.entries(data.materials).map(([residue, total]) => ({
-                      residue,
-                      total,
-                    }))}
+                    data={chartData}
                     dataKey="total"
                     nameKey="residue"
                     fill="#020817"
-                    label={({ residue, total }) => `${residue}: ${total.toFixed(2)} kg`}
+                    labelLine={false}
+                    label={renderCustomizedLabel}
                   >
                     {Object.entries(data.materials).map(([residue]) => (
                       <Cell key={residue} fill={chartConfig[residue as keyof ChartConfigType]?.color} />
                     ))}
                   </Pie>
-                  <Tooltip />
                   <Legend
                     layout="vertical"
                     align="right"
                     verticalAlign="middle"
                     iconType="circle"
-                    formatter={(value) => <span className="text-sm font-medium">{value}</span>}
+                    formatter={(value) => <span className="text-sm font-medium lg:text-lg">{value}</span>}
                   />
                 </PieChart>
               </ChartContainer>
