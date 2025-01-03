@@ -53,8 +53,8 @@ export function ReportsModal({ onClose, isOpen }: ReportsModalProps) {
             </ScrollArea>
           </div>
           <DialogFooter className="flex items-center gap-2 border-t px-6 py-4">
-            {isPendingCreateRecycling && <Loader2 className="animate-spin" />}
             <Button variant="default" disabled={isPendingCreateRecycling} type="submit" form="recy-form">
+              {isPendingCreateRecycling && <Loader2 className="animate-spin" />}
               Confirmar
             </Button>
           </DialogFooter>
