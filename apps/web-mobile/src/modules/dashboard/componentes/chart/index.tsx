@@ -35,7 +35,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 export const DashboardChart = ({ data }: DashboardChartProps) => {
   const chartData =
-    data.materials &&
+    data?.materials &&
     Object.entries(data.materials).map(([residue, total]) => ({
       residue,
       total,
