@@ -12,6 +12,7 @@ import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { useState } from 'react';
+import { RadioBox } from '@/components/ui/radioBox';
 import { useAuth } from '@/hooks/auth';
 
 const profileFormSchema = z.object({
@@ -37,9 +38,20 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
+type cssmapType = {
+  [id: string]: string;
+};
+
+const cssmap: cssmapType = {
+  'option-hodler-box': 'option-hodler-box',
+  'option-recycler-box': 'option-recycler-box',
+  'option-waste-box': 'option-waste-box',
+};
+
 export default function ProfileForm() {
   const { user } = useAuth();
   const [turnstileToken, setTurnstileToken] = useState<string>();
+  const [radioActive, setRadioActive] = useState<string>();
 
   const form = useForm<ProfileFormValues>({
     // defaultValues,
@@ -60,22 +72,31 @@ export default function ProfileForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex flex-col gap-2">
-          <h2 className="text-base">Basic Info</h2>
+          <h2 className="text-base font-bold uppercase">Basic Info:</h2>
           <Separator />
         </div>
 
         <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-6 gap-3">
+          <div className="grid grid-cols-6 gap-3 max-md:grid-cols-2">
             <FormField
               control={form.control}
               name="preferred_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Preferred Name</FormLabel>
+                  <FormLabel>
+                    Preferred Name
+                    <span className="text-base font-extrabold text-red-600"> *</span>
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      {...field}
+                      className="empty:border-input border invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0 [&:not(:placeholder-shown)(:invalid)]:valid:border-green-500"
+                      placeholder=""
+                      type="text"
+                      minLength={2}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -87,9 +108,17 @@ export default function ProfileForm() {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone number</FormLabel>
+                  <FormLabel>
+                    Phone number
+                    <span className="text-base font-extrabold text-red-600"> *</span>
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      {...field}
+                      type="tel"
+                      className="empty:border-input border invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0 [&:not(:placeholder-shown)(:invalid)]:valid:border-green-500"
+                      placeholder=""
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -101,10 +130,15 @@ export default function ProfileForm() {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="">
+              <FormItem className="max-w-xs max-md:max-w-full">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    {...field}
+                    type="email"
+                    className="border invalid:border-red-500 focus-visible:border-blue-500 focus-visible:ring-0 focus-visible:ring-offset-0 [&:not(:placeholder-shown)(:invalid)]:valid:border-green-500"
+                    placeholder=""
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -114,7 +148,7 @@ export default function ProfileForm() {
           <Label>Foto</Label>
           <Avatar>
             <AvatarImage
-              className="ring-neutral h-12 w-12 rounded-full ring-[1px]"
+              className="ring-neutral w-12 rounded-full border-2 border-black ring-[1px]"
               src={user?.picture ?? ''}
               alt="User profile"
             />
@@ -123,26 +157,28 @@ export default function ProfileForm() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h2 className="text-base">Profile Type</h2>
+          <h2 className="text-base font-bold uppercase">Profile Type:</h2>
           <Separator />
         </div>
 
-        <RadioGroup defaultValue="option-one">
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-hodler" id="option-hodler" />
-            <Label htmlFor="option-hodler">Hodler</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-recycler" id="option-recycler" />
-            <Label htmlFor="option-recycler">Recycler</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-waste" id="option-waste" />
-            <Label htmlFor="option-waste">Waste Generator</Label>
-          </div>
+        <RadioGroup
+          defaultValue="option-one"
+          className={`grid grid-cols-6 [&[data-active='${cssmap[radioActive]}']>#${cssmap[radioActive]}]:border-blue-500 max-md:grid-cols-2 [&[data-active='${cssmap[radioActive]}']>#${cssmap[radioActive]}>.checked-box-symbol]:block`}
+          data-active={radioActive}
+        >
+          <RadioBox beforeText="I'M" id="option-hodler" name="Partner" activeState={setRadioActive} />
+
+          <RadioBox
+            beforeText="I'M"
+            id="option-recycler"
+            name="Sustainble treatment agent"
+            activeState={setRadioActive}
+          />
+
+          <RadioBox beforeText="I'M" id="option-waste" name="Waste Generator" activeState={setRadioActive} />
         </RadioGroup>
 
-        <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} />
+        {/* <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} /> */}
         <Button type="submit">Save Changes</Button>
       </form>
     </Form>
